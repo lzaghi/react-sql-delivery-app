@@ -1,5 +1,4 @@
 module.exports = {
-  // eslint-disable-next-line max-lines-per-function
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('products', {
       id: {
@@ -8,13 +7,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: { type: Sequelize.STRING(100) },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING(100),
+        unique: true,
+      },
       price: {
+        allowNull: false,
         type: Sequelize.DECIMAL(4, 2),
       },
       urlImage: {
+        allowNull: false,
         type: Sequelize.STRING(200),
         field: 'url_image',
+        defaultValue: '',
       },
     });
   },

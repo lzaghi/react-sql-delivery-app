@@ -1,5 +1,4 @@
 module.exports = {
-  // eslint-disable-next-line max-lines-per-function
   async up(queryInterface, _Sequelize) {
     await queryInterface.bulkInsert('users', [
       {
