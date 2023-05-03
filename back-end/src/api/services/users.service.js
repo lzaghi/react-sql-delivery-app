@@ -1,11 +1,9 @@
 const { User } = require('../../database/models');
 
-const getAll = async (_req, res) => {
-  const users = await User.findAll();
-
-  res.status(200).json(users);
-};
+const getByEmail = async (email) => User.findOne({
+    where: { email },
+  });
 
 module.exports = {
-  getAll,
+  getByEmail,
 };

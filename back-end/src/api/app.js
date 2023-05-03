@@ -1,9 +1,10 @@
 const express = require('express');
-const userService = require('./services/users.service');
+const loginRouter = require('./routers/login.router');
 
 const app = express();
+app.use(express.json());
 
 app.get('/', (_req, res) => res.status(200).json({ message: 'ok' }));
-app.get('/users', userService.getAll);
+app.use('/login', loginRouter);
 
 module.exports = app;
