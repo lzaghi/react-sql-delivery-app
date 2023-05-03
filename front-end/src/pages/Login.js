@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { requestLogin } from '../services/login.request';
 
 function Login() {
   const [user, setUser] = useState({
@@ -6,7 +7,7 @@ function Login() {
     password: '',
   });
   const [disabled, setDisabled] = useState(true);
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleChange({ target }) {
     setUser({
@@ -14,6 +15,17 @@ function Login() {
       [target.name]: target.value,
     });
   }
+
+  const login = async () => {
+    console.log('entrou');
+    try {
+      await requestLogin('/login', { email: user.email, password: user.password });
+      console.log('show c:');
+    } catch (e) {
+      console.log(e);
+      setError(true);
+    }
+  };
 
   useEffect(() => {
     const SIX = 6;
@@ -57,6 +69,7 @@ function Login() {
           data-testid="common_login__button-login"
           type="button"
           disabled={ disabled }
+          onClick={ () => login() }
         >
           Login
         </button>
@@ -67,12 +80,12 @@ function Login() {
           Cadastrar
         </button>
       </form>
-      {/* { error && (
+      { error && (
         <p
           data-testid="common_login__element-invalid-email"
         >
-          Email inválido!
-        </p>)} */}
+          Email informado não está cadastrado!
+        </p>)}
     </div>
   );
 }
