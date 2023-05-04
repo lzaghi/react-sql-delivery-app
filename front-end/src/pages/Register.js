@@ -4,7 +4,7 @@ import { requestRegister } from '../services/login.request';
 
 function Register() {
   const history = useHistory();
-  const [user, setUser] = useState({
+  const [newUser, setNewUser] = useState({
     name: '',
     email: '',
     password: '',
@@ -13,22 +13,28 @@ function Register() {
   const [error, setError] = useState('');
 
   function handleChange({ target }) {
-    setUser({
-      ...user,
+    setNewUser({
+      ...newUser,
       [target.name]: target.value,
     });
   }
 
+  const saveLocalStorage = ({ name, email, role }, token) => {
+    localStorage.setItem('user', JSON.stringify({
+      name, email, role, token,
+    }));
+  };
+
   const register = async () => {
     try {
-      const { token, role } = await requestRegister(
+      const { user, token } = await requestRegister(
         '/register',
-        { name: user.name, email: user.email, password: user.password },
+        { name: newUser.name, email: newUser.email, password: newUser.password },
       );
 
-      localStorage.setItem('token', token);
+      saveLocalStorage(user, token);
 
-      if (role === 'customer') history.push('/customer/products');
+      if (user.role === 'customer') history.push('/customer/products');
     } catch (e) {
       setError(e);
     }
@@ -40,16 +46,16 @@ function Register() {
 
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
-    const nameCheck = user.name.length >= TWELVE;
-    const emailCheck = emailRegex.test(user.email);
-    const passCheck = user.password.length >= SIX;
+    const nameCheck = newUser.name.length >= TWELVE;
+    const emailCheck = emailRegex.test(newUser.email);
+    const passCheck = newUser.password.length >= SIX;
 
     if (nameCheck && emailCheck && passCheck) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [user.name, user.email, user.password]);
+  }, [newUser.name, newUser.email, newUser.password]);
 
   return (
     <div>
@@ -60,7 +66,7 @@ function Register() {
             data-testid="common_register__input-name"
             type="name"
             name="name"
-            value={ user.name }
+            value={ newUser.name }
             onChange={ (e) => handleChange(e) }
           />
         </label>
@@ -70,7 +76,7 @@ function Register() {
             data-testid="common_register__input-email"
             type="email"
             name="email"
-            value={ user.email }
+            value={ newUser.email }
             onChange={ (e) => handleChange(e) }
           />
         </label>
@@ -80,7 +86,7 @@ function Register() {
             data-testid="common_register__input-password"
             type="password"
             name="password"
-            value={ user.password }
+            value={ newUser.password }
             onChange={ (e) => handleChange(e) }
           />
         </label>

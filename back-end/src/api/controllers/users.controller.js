@@ -20,8 +20,10 @@ const login = async (req, res) => {
   
   const newHash = crypto.createHash('md5').update(password).digest('hex');
 
+  const { password: _, ...rest } = user.dataValues;
+
   if (newHash === user.password) {
-    return res.status(200).json({ token, role: user.role });
+    return res.status(200).json({ user: rest, token });
   } 
   return res.status(401).json({ message: 'Invalid password!' });
 };
@@ -38,7 +40,9 @@ const register = async (req, res) => {
   const newUser = await userService.createUser(name, email, hashedPassword);
 
   const token = jwt.sign({ userId: newUser.id, userEmail: newUser.email }, secret, jwtConfig);
-  return res.status(201).json({ token, role: newUser.role });
+
+  const { password: _, ...rest } = newUser.dataValues;
+  return res.status(201).json({ user: rest, token });
 };
 
 module.exports = {

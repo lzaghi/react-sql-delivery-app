@@ -4,7 +4,7 @@ import { requestLogin } from '../services/login.request';
 
 function Login() {
   const history = useHistory();
-  const [user, setUser] = useState({
+  const [newUser, setNewUser] = useState({
     email: '',
     password: '',
   });
@@ -12,24 +12,30 @@ function Login() {
   const [error, setError] = useState('');
 
   function handleChange({ target }) {
-    setUser({
-      ...user,
+    setNewUser({
+      ...newUser,
       [target.name]: target.value,
     });
   }
 
+  const saveLocalStorage = ({ name, email, role }, token) => {
+    localStorage.setItem('user', JSON.stringify({
+      name, email, role, token,
+    }));
+  };
+
   const login = async () => {
     try {
-      const { token, role } = await requestLogin(
+      const { user, token } = await requestLogin(
         '/login',
-        { email: user.email, password: user.password },
+        { email: newUser.email, password: newUser.password },
       );
 
-      localStorage.setItem('token', token);
+      saveLocalStorage(user, token);
 
-      if (role === 'customer') history.push('/customer/products');
-      if (role === 'seller') history.push('/seller/orders');
-      if (role === 'administrator') history.push('/admin/manage');
+      if (user.role === 'customer') history.push('/customer/products');
+      if (user.role === 'seller') history.push('/seller/orders');
+      if (user.role === 'administrator') history.push('/admin/manage');
     } catch (e) {
       setError(e);
     }
@@ -40,15 +46,15 @@ function Login() {
 
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
-    const emailCheck = emailRegex.test(user.email);
-    const passCheck = user.password.length >= SIX;
+    const emailCheck = emailRegex.test(newUser.email);
+    const passCheck = newUser.password.length >= SIX;
 
     if (emailCheck && passCheck) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [user.email, user.password]);
+  }, [newUser.email, newUser.password]);
 
   return (
     <div>
@@ -59,7 +65,7 @@ function Login() {
             data-testid="common_login__input-email"
             type="email"
             name="email"
-            value={ user.email }
+            value={ newUser.email }
             onChange={ (e) => handleChange(e) }
           />
         </label>
@@ -69,7 +75,7 @@ function Login() {
             data-testid="common_login__input-password"
             type="password"
             name="password"
-            value={ user.password }
+            value={ newUser.password }
             onChange={ (e) => handleChange(e) }
           />
         </label>
@@ -89,7 +95,7 @@ function Login() {
           Cadastrar
         </button>
       </form>
-      { error && (
+      { error !== '' && (
         <p
           data-testid="common_login__element-invalid-email"
         >
