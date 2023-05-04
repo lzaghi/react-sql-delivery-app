@@ -7,7 +7,7 @@ function Login() {
     password: '',
   });
   const [disabled, setDisabled] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
   function handleChange({ target }) {
     setUser({
@@ -17,13 +17,11 @@ function Login() {
   }
 
   const login = async () => {
-    console.log('entrou');
     try {
       await requestLogin('/login', { email: user.email, password: user.password });
-      console.log('show c:');
+      setError('');
     } catch (e) {
-      console.log(e);
-      setError(true);
+      setError(e);
     }
   };
 
@@ -84,7 +82,7 @@ function Login() {
         <p
           data-testid="common_login__element-invalid-email"
         >
-          Email informado não está cadastrado!
+          {error.response.data.message}
         </p>)}
     </div>
   );
