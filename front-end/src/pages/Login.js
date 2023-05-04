@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { requestLogin } from '../services/login.request';
 
 function Login() {
+  const history = useHistory();
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -18,8 +20,16 @@ function Login() {
 
   const login = async () => {
     try {
-      await requestLogin('/login', { email: user.email, password: user.password });
-      setError('');
+      const { token, role } = await requestLogin(
+        '/login',
+        { email: user.email, password: user.password },
+      );
+
+      localStorage.setItem('token', token);
+
+      if (role === 'customer') history.push('/customer/products');
+      if (role === 'seller') history.push('/seller/orders');
+      if (role === 'administrator') history.push('/admin/manage');
     } catch (e) {
       setError(e);
     }

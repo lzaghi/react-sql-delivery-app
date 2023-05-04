@@ -21,7 +21,7 @@ const login = async (req, res) => {
   const newHash = crypto.createHash('md5').update(password).digest('hex');
 
   if (newHash === user.password) {
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, role: user.role });
   } 
   return res.status(401).json({ message: 'Invalid password' });
 };
