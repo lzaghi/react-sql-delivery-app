@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestLogin } from '../services/login.request';
+import { requestRegister } from '../services/login.request';
 
-function Login() {
+function Register() {
   const history = useHistory();
   const [user, setUser] = useState({
+    name: '',
     email: '',
     password: '',
   });
@@ -18,45 +19,55 @@ function Login() {
     });
   }
 
-  const login = async () => {
+  const register = async () => {
     try {
-      const { token, role } = await requestLogin(
-        '/login',
-        { email: user.email, password: user.password },
+      const { token, role } = await requestRegister(
+        '/register',
+        { name: user.name, email: user.email, password: user.password },
       );
 
       localStorage.setItem('token', token);
 
       if (role === 'customer') history.push('/customer/products');
-      if (role === 'seller') history.push('/seller/orders');
-      if (role === 'administrator') history.push('/admin/manage');
     } catch (e) {
       setError(e);
     }
   };
 
   useEffect(() => {
+    const TWELVE = 12;
     const SIX = 6;
 
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
+    const nameCheck = user.name.length >= TWELVE;
     const emailCheck = emailRegex.test(user.email);
     const passCheck = user.password.length >= SIX;
 
-    if (emailCheck && passCheck) {
+    if (nameCheck && emailCheck && passCheck) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [user.email, user.password]);
+  }, [user.name, user.email, user.password]);
 
   return (
     <div>
       <form>
+        <label htmlFor="name">
+          Nome Completo
+          <input
+            data-testid="common_register__input-name"
+            type="name"
+            name="name"
+            value={ user.name }
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
         <label htmlFor="email">
           Email
           <input
-            data-testid="common_login__input-email"
+            data-testid="common_register__input-email"
             type="email"
             name="email"
             value={ user.email }
@@ -66,7 +77,7 @@ function Login() {
         <label htmlFor="password">
           Senha
           <input
-            data-testid="common_login__input-password"
+            data-testid="common_register__input-password"
             type="password"
             name="password"
             value={ user.password }
@@ -74,24 +85,17 @@ function Login() {
           />
         </label>
         <button
-          data-testid="common_login__button-login"
+          data-testid="common_register__button-register"
           type="button"
           disabled={ disabled }
-          onClick={ () => login() }
-        >
-          Login
-        </button>
-        <button
-          data-testid="common_login__button-register"
-          type="button"
-          onClick={ () => history.push('/register') }
+          onClick={ () => register() }
         >
           Cadastrar
         </button>
       </form>
       { error && (
         <p
-          data-testid="common_login__element-invalid-email"
+          data-testid="common_register__element-invalid_register"
         >
           {error.response.data.message}
         </p>)}
@@ -99,4 +103,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
