@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestRegister } from '../services/login.request';
+import { requestRegister } from '../services/requests';
 
 function Register() {
   const history = useHistory();

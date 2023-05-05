@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestLogin } from '../services/login.request';
+import { requestLogin } from '../services/requests';
 
 function Login() {
   const history = useHistory();
