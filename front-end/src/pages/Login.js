@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { requestLogin } from '../services/requests';
-import { userLogin } from '../redux/actions';
+import { requestLogin, requestProducts } from '../services/requests';
+import { allProducts, userLogin } from '../redux/actions';
 
 function Login() {
   const dispatch = useDispatch();
@@ -37,7 +37,11 @@ function Login() {
       saveLocalStorage(user, token);
       dispatch(userLogin(user, token));
 
-      if (user.role === 'customer') history.push('/customer/products');
+      if (user.role === 'customer') {
+        // const productsList = await requestProducts('/products');
+        // dispatch(allProducts(productsList));
+        history.push('/customer/products');
+      }
       if (user.role === 'seller') history.push('/seller/orders');
       if (user.role === 'administrator') history.push('/admin/manage');
     } catch (e) {
