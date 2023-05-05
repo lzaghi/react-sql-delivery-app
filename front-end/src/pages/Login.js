@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { requestLogin } from '../services/requests';
+import { userLogin } from '../redux/actions';
 
 function Login() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [newUser, setNewUser] = useState({
     email: '',
@@ -32,6 +35,7 @@ function Login() {
       );
 
       saveLocalStorage(user, token);
+      dispatch(userLogin(user, token));
 
       if (user.role === 'customer') history.push('/customer/products');
       if (user.role === 'seller') history.push('/seller/orders');

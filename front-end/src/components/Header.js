@@ -1,7 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function Header() {
+  const userName = useSelector((state) => state.user.name);
   return (
     <div>
       <Link
@@ -19,7 +21,7 @@ function Header() {
       <h3
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        nome do usuário
+        {userName}
       </h3>
       <Link
         data-testid="customer_products__element-navbar-link-logout"
