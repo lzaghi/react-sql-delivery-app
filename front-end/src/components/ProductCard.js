@@ -9,6 +9,7 @@ function ProductCard(product) {
         data-testid={ `customer-products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt="bebida"
+        style={ { width: 80 } }
       />
       <h3 data-testid={ `customer-products__element-card-title-${id}` }>{name}</h3>
       <h3 data-testid={ `customer-products__input-card-quantity-${id}` }>quantidade</h3>

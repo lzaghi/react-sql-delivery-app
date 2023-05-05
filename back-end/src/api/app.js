@@ -8,6 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(express.static('public'));
+
 app.get('/', (_req, res) => res.status(200).json({ message: 'ok' }));
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
