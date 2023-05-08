@@ -12,6 +12,7 @@ function Products() {
   const history = useHistory();
 
   const totalCart = useSelector((state) => state.cart.total);
+  const totalInput = useSelector((state) => state.cart.totalInput);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,7 +22,7 @@ function Products() {
         setProducts(productsList);
       } catch (e) {
         const UNAUTHORIZED = 401;
-        if (e.response.status === UNAUTHORIZED) {
+        if (e?.response?.status === UNAUTHORIZED) {
           localStorage.removeItem('user');
           history.push('/login');
         }
@@ -47,11 +48,18 @@ function Products() {
         ))
       )}
       <button
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
         type="button"
+        onClick={ () => history.push('/customer/checkout') }
+        disabled={ totalCart + totalInput === 0 }
       >
-        {String(totalCart).replace('.', ',')}
+        Carrinho
       </button>
+      <span
+        data-testid="customer_products__checkout-bottom-value"
+      >
+        {(totalCart + totalInput).toFixed(2).replace('.', ',')}
+      </span>
     </div>
   );
 }

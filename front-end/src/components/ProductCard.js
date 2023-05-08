@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProductToCart, setTotal, subProductToCart } from '../redux/actions';
+import { addProductToCart, setTotalInput, subProductToCart } from '../redux/actions';
 
 function ProductCard(product) {
   const { props: { id, name, price, urlImage } } = product;
 
   const [qtty, setQtty] = useState(0);
+  const [localTotal, setLocalTotal] = useState(0);
 
   const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
-    const newQtty = event.target.value;
+    const newQtty = Number(event.target.value);
     if (newQtty >= 0) {
       setQtty(newQtty);
-      dispatch(setTotal(newQtty * price));
+      setLocalTotal(newQtty * price);
+      dispatch(setTotalInput(newQtty * price));
     }
   };
 
@@ -47,10 +49,12 @@ function ProductCard(product) {
       <button
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
-        disabled={ qtty === 0 || qtty === '0' || qtty === '' }
+        disabled={ qtty === 0 || qtty === '' }
         onClick={ () => {
-          setQtty(qtty - 1);
-          dispatch(subProductToCart(price));
+          const newQtty = qtty - 1;
+          setQtty(newQtty);
+          // dispatch(subProductToCart(price));
+          dispatch(setTotalInput(newQtty * price));
         } }
       >
         -
@@ -59,8 +63,10 @@ function ProductCard(product) {
         data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
         onClick={ () => {
-          setQtty(qtty + 1);
-          dispatch(addProductToCart(price));
+          const newQtty = qtty + 1;
+          setQtty(newQtty);
+          // dispatch(addProductToCart(price));
+          dispatch(setTotalInput(newQtty * price));
         } }
       >
         +
