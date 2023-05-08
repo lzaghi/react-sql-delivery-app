@@ -1,29 +1,15 @@
-import { ADD_PRODUCTS, SET_TOTAL, SUB_PRODUCTS } from '../actions';
+import { SET_PRODUCTS_VALUES } from '../actions';
 
 const INITIAL_STATE = {
-  total: 0,
+  productsValues: {},
 };
 
 const cart = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case ADD_PRODUCTS:
+  case SET_PRODUCTS_VALUES:
     return {
       ...state,
-      total: Number((state.total + Number(action.price)).toFixed(2)),
-      // total: 0,
-    };
-  case SUB_PRODUCTS:
-    return {
-      ...state,
-      total: Number((state.total - Number(action.price)).toFixed(2)),
-      // total: 0,
-    };
-  case SET_TOTAL:
-    return {
-      ...state,
-      total: action.price,
-      // total: 0,
-      // totalInput: 0,
+      productsValues: { ...state.productsValues, [action.id]: action.value },
     };
   default: return state;
   }

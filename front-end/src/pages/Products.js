@@ -11,7 +11,8 @@ function Products() {
 
   const history = useHistory();
 
-  const totalCart = useSelector((state) => state.cart.total);
+  const cart = useSelector((state) => state.cart.productsValues);
+  const totalCart = Object.values(cart).reduce((acc, curr) => acc + curr, 0);
 
   useEffect(() => {
     async function fetchData() {
