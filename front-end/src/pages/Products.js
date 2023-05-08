@@ -46,7 +46,12 @@ function Products() {
           />
         ))
       )}
-      <button type="button">{`Ver Carrinho: R$ ${totalCart}`}</button>
+      <button
+        data-testid="customer_products__checkout-bottom-value"
+        type="button"
+      >
+        {String(totalCart).replace('.', ',')}
+      </button>
     </div>
   );
 }

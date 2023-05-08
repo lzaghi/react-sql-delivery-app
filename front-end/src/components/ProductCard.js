@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProductToCart, subProductToCart } from '../redux/actions';
+import { addProductToCart, setTotal, subProductToCart } from '../redux/actions';
 
 function ProductCard(product) {
   const { props: { id, name, price, urlImage } } = product;
@@ -8,6 +8,14 @@ function ProductCard(product) {
   const [qtty, setQtty] = useState(0);
 
   const dispatch = useDispatch();
+
+  const handleInputChange = (event) => {
+    const newQtty = event.target.value;
+    if (newQtty >= 0) {
+      setQtty(newQtty);
+      dispatch(setTotal(newQtty * price));
+    }
+  };
 
   return (
     <div
@@ -32,13 +40,14 @@ function ProductCard(product) {
       <input
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
+        min={ 0 }
         value={ qtty }
-        onChange={ () => setQtty(qtty) }
+        onChange={ (event) => handleInputChange(event) }
       />
       <button
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
-        disabled={ qtty === 0 }
+        disabled={ qtty === 0 || qtty === '0' || qtty === '' }
         onClick={ () => {
           setQtty(qtty - 1);
           dispatch(subProductToCart(price));
