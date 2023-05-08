@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { requestLogin } from '../services/requests';
@@ -27,7 +27,7 @@ function Login() {
     }));
   };
 
-  const login = async () => {
+  const login = useCallback(async () => {
     try {
       const { user, token } = await requestLogin(
         '/login',
@@ -43,7 +43,16 @@ function Login() {
     } catch (e) {
       setError(e);
     }
-  };
+  }, [dispatch, history, newUser]);
+
+  const handleKeyPress = useCallback(
+    (event) => {
+      if (event.key === 'Enter' && !disabled) {
+        login();
+      }
+    },
+    [disabled, login],
+  );
 
   useEffect(() => {
     const SIX = 6;
@@ -58,7 +67,9 @@ function Login() {
     } else {
       setDisabled(true);
     }
-  }, [newUser.email, newUser.password]);
+
+    document.addEventListener('keypress', handleKeyPress);
+  }, [newUser.email, newUser.password, handleKeyPress]);
 
   return (
     <div>
@@ -88,6 +99,7 @@ function Login() {
           type="button"
           disabled={ disabled }
           onClick={ () => login() }
+          id="login"
         >
           Login
         </button>
