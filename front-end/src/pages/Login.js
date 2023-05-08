@@ -37,11 +37,7 @@ function Login() {
       saveLocalStorage(user, token);
       dispatch(userLogin(user, token));
 
-      if (user.role === 'customer') {
-        // const productsList = await requestProducts('/products');
-        // dispatch(allProducts(productsList));
-        history.push('/customer/products');
-      }
+      if (user.role === 'customer') history.push('/customer/products');
       if (user.role === 'seller') history.push('/seller/orders');
       if (user.role === 'administrator') history.push('/admin/manage');
     } catch (e) {

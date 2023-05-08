@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 function ProductCard(product) {
   const { props: { id, name, price, urlImage } } = product;
-  const ROUTE = 'customer-products';
 
   const [qtty, setQtty] = useState(0);
 
@@ -10,31 +9,30 @@ function ProductCard(product) {
     <div
       className="product-card"
     >
-      {console.log(`${ROUTE}__element-card-title-${id}`)}
       <h3
-        data-testid={ `${ROUTE}__element-card-title-${id}` }
+        data-testid={ `customer_products__element-card-title-${id}` }
       >
         {name}
       </h3>
       <h3
-        data-testid={ `customer-products__element-card-price-${id}` }
+        data-testid={ `customer_products__element-card-price-${id}` }
       >
         {price}
       </h3>
       <img
-        data-testid={ `customer-products__img-card-bg-image-${id}` }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt="bebida"
         height={ 80 }
       />
       <input
-        data-testid={ `customer-products__input-card-quantity-${id}` }
+        data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
         value={ qtty }
         onChange={ () => setQtty(qtty) }
       />
       <button
-        data-testid={ `customer-button-card-rm-item-${id}` }
+        data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
         disabled={ qtty === 0 }
         onClick={ () => setQtty(qtty - 1) }
@@ -42,7 +40,7 @@ function ProductCard(product) {
         -
       </button>
       <button
-        data-testid={ `customer-button-card-add-item-${id}` }
+        data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
         onClick={ () => setQtty(qtty + 1) }
       >

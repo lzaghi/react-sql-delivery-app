@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
 import { requestProducts } from '../services/requests';
@@ -20,8 +19,6 @@ function Products() {
     fetchData();
   }, []);
 
-  // const { products } = useSelector((state) => state.products);
-
   if (error) {
     return (
       <h2>Algo deu errado!</h2>
@@ -39,14 +36,6 @@ function Products() {
           />
         ))
       )}
-      {/* { (
-        products.map((product) => (
-          <ProductCard
-            key={ product.id }
-            props={ product }
-          />
-        ))
-      )} */}
       <button type="button">Ver Carrinho: R$ total</button>
     </div>
   );

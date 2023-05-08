@@ -10,10 +10,3 @@ export function userLogin({ name, email, role }, token) {
     token,
   };
 }
-
-export function allProducts(products) {
-  return {
-    type: ALL_PRODUCTS,
-    products,
-  };
-}
