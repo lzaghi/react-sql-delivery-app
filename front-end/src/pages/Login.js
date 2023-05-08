@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { requestLogin, requestProducts } from '../services/requests';
-import { allProducts, userLogin } from '../redux/actions';
+import { requestLogin } from '../services/requests';
+import { userLogin } from '../redux/actions';
 
 function Login() {
   const dispatch = useDispatch();
