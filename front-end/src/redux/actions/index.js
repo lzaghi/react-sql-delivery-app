@@ -1,5 +1,6 @@
 export const USER_LOGIN = 'USER_LOGIN';
-export const ALL_PRODUCTS = 'ALL_PRODUCTS';
+export const ADD_PRODUCTS = 'ADD_PRODUCTS';
+export const SUB_PRODUCTS = 'SUB_PRODUCTS';
 
 export function userLogin({ name, email, role }, token) {
   return {
@@ -8,5 +9,19 @@ export function userLogin({ name, email, role }, token) {
     email,
     role,
     token,
+  };
+}
+
+export function addProductToCart(price) {
+  return {
+    type: ADD_PRODUCTS,
+    price,
+  };
+}
+
+export function subProductToCart(price) {
+  return {
+    type: SUB_PRODUCTS,
+    price,
   };
 }

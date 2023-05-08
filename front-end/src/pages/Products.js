@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
 import { requestProducts } from '../services/requests';
@@ -9,6 +10,8 @@ function Products() {
   const [error, setError] = useState(false);
 
   const history = useHistory();
+
+  const totalCart = useSelector((state) => state.cart.total);
 
   useEffect(() => {
     async function fetchData() {
@@ -43,7 +46,7 @@ function Products() {
           />
         ))
       )}
-      <button type="button">Ver Carrinho: R$ total</button>
+      <button type="button">{`Ver Carrinho: R$ ${totalCart}`}</button>
     </div>
   );
 }

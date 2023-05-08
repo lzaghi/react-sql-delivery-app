@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addProductToCart, subProductToCart } from '../redux/actions';
 
 function ProductCard(product) {
   const { props: { id, name, price, urlImage } } = product;
 
   const [qtty, setQtty] = useState(0);
+
+  const dispatch = useDispatch();
 
   return (
     <div
@@ -35,14 +39,20 @@ function ProductCard(product) {
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
         disabled={ qtty === 0 }
-        onClick={ () => setQtty(qtty - 1) }
+        onClick={ () => {
+          setQtty(qtty - 1);
+          dispatch(subProductToCart(price));
+        } }
       >
         -
       </button>
       <button
         data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
-        onClick={ () => setQtty(qtty + 1) }
+        onClick={ () => {
+          setQtty(qtty + 1);
+          dispatch(addProductToCart(price));
+        } }
       >
         +
       </button>
