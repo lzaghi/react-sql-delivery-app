@@ -1,8 +1,7 @@
-import { ADD_PRODUCTS, SET_TOTAL_INPUT, SUB_PRODUCTS } from '../actions';
+import { ADD_PRODUCTS, SET_TOTAL, SUB_PRODUCTS } from '../actions';
 
 const INITIAL_STATE = {
   total: 0,
-  totalInput: 0,
 };
 
 const cart = (state = INITIAL_STATE, action) => {
@@ -19,10 +18,10 @@ const cart = (state = INITIAL_STATE, action) => {
       total: Number((state.total - Number(action.price)).toFixed(2)),
       // total: 0,
     };
-  case SET_TOTAL_INPUT:
+  case SET_TOTAL:
     return {
       ...state,
-      totalInput: Number((state.total + Number(action.price)).toFixed(2)),
+      total: action.price,
       // total: 0,
       // totalInput: 0,
     };

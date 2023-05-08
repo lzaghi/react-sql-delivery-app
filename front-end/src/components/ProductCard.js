@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProductToCart, setTotalInput, subProductToCart } from '../redux/actions';
+import { addProductToCart, setTotal, subProductToCart } from '../redux/actions';
 
 function ProductCard(product) {
   const { props: { id, name, price, urlImage } } = product;
 
   const [qtty, setQtty] = useState(0);
-  const [localTotal, setLocalTotal] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -14,8 +13,7 @@ function ProductCard(product) {
     const newQtty = Number(event.target.value);
     if (newQtty >= 0) {
       setQtty(newQtty);
-      setLocalTotal(newQtty * price);
-      dispatch(setTotalInput(newQtty * price));
+      dispatch(setTotal(newQtty * price));
     }
   };
 
@@ -53,8 +51,7 @@ function ProductCard(product) {
         onClick={ () => {
           const newQtty = qtty - 1;
           setQtty(newQtty);
-          // dispatch(subProductToCart(price));
-          dispatch(setTotalInput(newQtty * price));
+          dispatch(subProductToCart(price));
         } }
       >
         -
@@ -65,8 +62,7 @@ function ProductCard(product) {
         onClick={ () => {
           const newQtty = qtty + 1;
           setQtty(newQtty);
-          // dispatch(addProductToCart(price));
-          dispatch(setTotalInput(newQtty * price));
+          dispatch(addProductToCart(price));
         } }
       >
         +

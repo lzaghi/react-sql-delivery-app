@@ -12,7 +12,6 @@ function Products() {
   const history = useHistory();
 
   const totalCart = useSelector((state) => state.cart.total);
-  const totalInput = useSelector((state) => state.cart.totalInput);
 
   useEffect(() => {
     async function fetchData() {
@@ -51,14 +50,14 @@ function Products() {
         data-testid="customer_products__button-cart"
         type="button"
         onClick={ () => history.push('/customer/checkout') }
-        disabled={ totalCart + totalInput === 0 }
+        disabled={ totalCart === 0 }
       >
         Carrinho
       </button>
       <span
         data-testid="customer_products__checkout-bottom-value"
       >
-        {(totalCart + totalInput).toFixed(2).replace('.', ',')}
+        {Number(totalCart).toFixed(2).replace('.', ',')}
       </span>
     </div>
   );
