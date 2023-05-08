@@ -6,7 +6,6 @@ const api = axios.create({
 
 export const requestLogin = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
-  console.log(data);
   return data;
 };
 
@@ -15,8 +14,12 @@ export const requestRegister = async (endpoint, body) => {
   return data;
 };
 
-export const requestProducts = async (endpoint) => {
-  const { data } = await api.get(endpoint);
+export const requestProducts = async (endpoint, token) => {
+  const { data } = await api.get(endpoint, {
+    headers: {
+      Authorization: token,
+    },
+  });
   return data;
 };
 

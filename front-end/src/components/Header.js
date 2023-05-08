@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Header() {
   const userName = useSelector((state) => state.user.name);
+  const history = useHistory();
   return (
     <div>
       <Link
@@ -23,12 +24,16 @@ function Header() {
       >
         {userName}
       </h3>
-      <Link
+      <a
         data-testid="customer_products__element-navbar-link-logout"
-        to="/login"
+        href="/login"
+        onClick={ () => {
+          localStorage.removeItem('user');
+          history.push('/login');
+        } }
       >
         Logout
-      </Link>
+      </a>
     </div>
   );
 }

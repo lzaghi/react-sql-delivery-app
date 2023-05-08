@@ -5,7 +5,7 @@ const userService = require('../services/users.service');
 
 const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8');
 const jwtConfig = {
-  expiresIn: '7d',
+  expiresIn: '1m',
   algorithm: 'HS256',
 };
 
