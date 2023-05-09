@@ -1,10 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { resetState } from '../redux/actions';
 
 function Header() {
   const userName = useSelector((state) => state.user.name);
   const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <div>
       <Link
@@ -29,6 +31,7 @@ function Header() {
         href="/login"
         onClick={ () => {
           localStorage.removeItem('user');
+          dispatch(resetState());
           history.push('/login');
         } }
       >

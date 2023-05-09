@@ -38,7 +38,6 @@ function CheckoutForm() {
     const { token } = JSON.parse(localStorage.getItem('user'));
     try {
       const newSale = await requestPostWithToken('/sales', body, token);
-      console.log(newSale);
       history.push(`/customer/orders/${newSale.id}`);
     } catch (e) {
       setError(e);

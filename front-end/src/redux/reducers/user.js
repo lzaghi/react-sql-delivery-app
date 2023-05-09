@@ -1,4 +1,4 @@
-import { USER_LOGIN } from '../actions';
+import { RESET_STATE, USER_LOGIN } from '../actions';
 
 const INITIAL_STATE = {
   id: '',
@@ -19,6 +19,8 @@ const user = (state = INITIAL_STATE, action) => {
       role: action.role,
       token: action.token,
     };
+  case RESET_STATE:
+    return INITIAL_STATE;
   default: return state;
   }
 };

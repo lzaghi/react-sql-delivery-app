@@ -54,7 +54,18 @@ function Login() {
     [disabled, login],
   );
 
+  const handleRedirect = () => {
+    if (localStorage.getItem('user')) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user.role === 'customer') history.push('/customer/products');
+      if (user.role === 'seller') history.push('/seller/orders');
+      if (user.role === 'administrator') history.push('/admin/manage');
+    }
+  };
+
   useEffect(() => {
+    handleRedirect();
+
     const SIX = 6;
 
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;

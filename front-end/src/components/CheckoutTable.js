@@ -17,8 +17,6 @@ function CheckoutTable() {
 
   return (
     <div>
-      { console.log((Object.entries(cart)
-        .filter((product) => product[1].qtty > 0)))}
       <table>
         <thead>
           <tr>
