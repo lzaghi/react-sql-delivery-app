@@ -14,7 +14,12 @@ const createUser = async (name, email, password) => {
   return newUser;
 };
 
+const getByRole = async (role) => User.findAll({
+  where: { role },
+});
+
 module.exports = {
   getByEmail,
   createUser,
+  getByRole,
 };

@@ -37,34 +37,34 @@ function CheckoutTable() {
               .map((product, index) => (
                 <tr key={ index }>
                   <td
-                    data-testid={ `${ROUTE}-item-number-${index + 1}` }
+                    data-testid={ `${ROUTE}-item-number-${index}` }
                   >
                     { index + 1}
                   </td>
                   <td
-                    data-testid={ `${ROUTE}-name-${index + 1}` }
+                    data-testid={ `${ROUTE}-name-${index}` }
                   >
                     { product[1].name }
                   </td>
                   <td
-                    data-testid={ `${ROUTE}-quantity-${index + 1}` }
+                    data-testid={ `${ROUTE}-quantity-${index}` }
                   >
                     { product[1].qtty }
                   </td>
                   <td
-                    data-testid={ `${ROUTE}-unit-price-${index + 1}` }
+                    data-testid={ `${ROUTE}-unit-price-${index}` }
                   >
                     { `R$ ${(product[1].price).replace('.', ',')}` }
                   </td>
                   <td
-                    data-testid={ `${ROUTE}-sub-total-${index + 1}` }
+                    data-testid={ `${ROUTE}-sub-total-${index}` }
                   >
                     { `R$
                       ${(product[1].qtty * product[1].price).toFixed(2).replace('.', ',')}
                       `}
                   </td>
                   <td
-                    data-testid={ `${ROUTE}-remove-${index + 1}` }
+                    data-testid={ `${ROUTE}-remove-${index}` }
                   >
                     <button
                       type="button"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestRegister } from '../services/requests';
+import { requestPost } from '../services/requests';
 
 function Register() {
   const history = useHistory();
@@ -27,7 +27,7 @@ function Register() {
 
   const register = async () => {
     try {
-      const { user, token } = await requestRegister(
+      const { user, token } = await requestPost(
         '/register',
         { name: newUser.name, email: newUser.email, password: newUser.password },
       );

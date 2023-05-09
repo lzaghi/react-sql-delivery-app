@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { requestLogin } from '../services/requests';
+import { requestPost } from '../services/requests';
 import { userLogin } from '../redux/actions';
 
 function Login() {
@@ -29,7 +29,7 @@ function Login() {
 
   const login = useCallback(async () => {
     try {
-      const { user, token } = await requestLogin(
+      const { user, token } = await requestPost(
         '/login',
         { email: newUser.email, password: newUser.password },
       );

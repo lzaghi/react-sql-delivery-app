@@ -45,7 +45,14 @@ const register = async (req, res) => {
   return res.status(201).json({ user: rest, token });
 };
 
+const getByRole = async (req, res) => {
+  const { role } = req.params;
+  const users = await userService.getByRole(role);
+  res.status(200).json(users);
+};
+
 module.exports = {
   login,
   register,
+  getByRole,
 };
