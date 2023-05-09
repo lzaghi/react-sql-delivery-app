@@ -9,7 +9,13 @@ const cart = (state = INITIAL_STATE, action) => {
   case SET_PRODUCTS_VALUES:
     return {
       ...state,
-      productsValues: { ...state.productsValues, [action.id]: action.value },
+      productsValues: {
+        ...state.productsValues,
+        [action.id]: {
+          qtty: action.qtty,
+          price: action.price,
+        },
+      },
     };
   default: return state;
   }

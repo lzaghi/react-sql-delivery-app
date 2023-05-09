@@ -12,7 +12,8 @@ function Products() {
   const history = useHistory();
 
   const cart = useSelector((state) => state.cart.productsValues);
-  const totalCart = Object.values(cart).reduce((acc, curr) => acc + curr, 0);
+  const totalCart = Object.values(cart)
+    .reduce((acc, curr) => acc + (curr.qtty * curr.price), 0);
 
   useEffect(() => {
     async function fetchData() {

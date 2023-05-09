@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { setProductsValues } from '../redux/actions';
 
 function ProductCard(product) {
@@ -8,14 +8,21 @@ function ProductCard(product) {
   const [qtty, setQtty] = useState(0);
 
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.productsValues);
 
   const handleInputChange = (event) => {
     const newQtty = Number(event.target.value);
     if (newQtty >= 0) {
       setQtty(newQtty);
-      dispatch(setProductsValues(id, newQtty * price));
+      dispatch(setProductsValues(id, newQtty, price));
     }
   };
+
+  useEffect(() => {
+    if (cart[id]) {
+      setQtty(cart[id].qtty);
+    }
+  }, [cart, id]);
 
   return (
     <div
@@ -51,7 +58,7 @@ function ProductCard(product) {
         onClick={ () => {
           const newQtty = qtty - 1;
           setQtty(newQtty);
-          dispatch(setProductsValues(id, newQtty * price));
+          dispatch(setProductsValues(id, newQtty, price));
         } }
       >
         -
@@ -62,7 +69,7 @@ function ProductCard(product) {
         onClick={ () => {
           const newQtty = qtty + 1;
           setQtty(newQtty);
-          dispatch(setProductsValues(id, newQtty * price));
+          dispatch(setProductsValues(id, newQtty, price));
         } }
       >
         +

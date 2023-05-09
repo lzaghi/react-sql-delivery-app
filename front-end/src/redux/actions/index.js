@@ -11,10 +11,11 @@ export function userLogin({ name, email, role }, token) {
   };
 }
 
-export function setProductsValues(id, value) {
+export function setProductsValues(id, qtty, price) {
   return {
     type: SET_PRODUCTS_VALUES,
     id,
-    value,
+    qtty,
+    price,
   };
 }
