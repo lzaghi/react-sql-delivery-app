@@ -33,6 +33,7 @@ function CheckoutForm() {
       totalPrice: totalCart,
       deliveryAddress: userInfo.address,
       deliveryNumber: userInfo.number,
+      cart,
     };
     const { token } = JSON.parse(localStorage.getItem('user'));
     try {

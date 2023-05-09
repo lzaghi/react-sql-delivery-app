@@ -13,7 +13,8 @@ const SaleProductModel = (sequelize, DataTypes) => {
     productId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
-    }
+    },
+    quantity: DataTypes.INTEGER,
   },
   {
     tableName: 'sales_products',
