@@ -1,6 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 function CheckoutForm() {
+  const cart = useSelector((state) => state.cart.productsValues);
+  const totalCart = Object.values(cart)
+    .reduce((acc, curr) => acc + (curr.qtty * curr.price), 0);
   return (
     <div>
       <label htmlFor="seller">
@@ -30,6 +34,7 @@ function CheckoutForm() {
       <button
         data-testid="customer_checkout__button-submit-order"
         type="button"
+        disabled={ totalCart === 0 }
       >
         Finalizar compra
       </button>

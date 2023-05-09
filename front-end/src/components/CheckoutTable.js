@@ -1,13 +1,24 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setQttyToZero } from '../redux/actions';
 
 function CheckoutTable() {
   const ROUTE = 'customer_checkout__element-order-table';
+
+  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart.productsValues);
   const totalCart = Object.values(cart)
     .reduce((acc, curr) => acc + (curr.qtty * curr.price), 0);
+
+  const removeFromCart = (id) => {
+    dispatch(setQttyToZero(id));
+  };
+
   return (
     <div>
+      { console.log((Object.entries(cart)
+        .filter((product) => product[1].qtty > 0)))}
       <table>
         <thead>
           <tr>
@@ -55,7 +66,12 @@ function CheckoutTable() {
                   <td
                     data-testid={ `${ROUTE}-remove-${index + 1}` }
                   >
-                    <button type="button">Remover</button>
+                    <button
+                      type="button"
+                      onClick={ () => removeFromCart(product[0]) }
+                    >
+                      Remover
+                    </button>
                   </td>
                 </tr>
               ))
