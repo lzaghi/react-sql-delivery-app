@@ -2,9 +2,10 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const SET_PRODUCTS_VALUES = 'SET_PRODUCTS_VALUES';
 export const QUANTITY_ZERO = 'QUANTITY_ZERO';
 
-export function userLogin({ name, email, role }, token) {
+export function userLogin({ id, name, email, role }, token) {
   return {
     type: USER_LOGIN,
+    id,
     name,
     email,
     role,

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
-import { requestGetToken } from '../services/requests';
+import { requestGetWithToken } from '../services/requests';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -19,7 +19,7 @@ function Products() {
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
-        const productsList = await requestGetToken('/products', token);
+        const productsList = await requestGetWithToken('/products', token);
         setProducts(productsList);
       } catch (e) {
         const UNAUTHORIZED = 401;

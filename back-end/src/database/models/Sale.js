@@ -22,13 +22,15 @@ const SaleModel = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    saleDate: DataTypes.DATE,
+    // saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
   },
   {
     tableName: 'sales',
     underscored: true,
-    timestamps: false,
+    timestamps: true,
+    createdAt: 'sale_date',
+    updatedAt: false,
   });
 
   Sale.associate = (models) => {

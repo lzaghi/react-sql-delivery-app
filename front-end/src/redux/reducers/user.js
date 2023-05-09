@@ -1,6 +1,7 @@
 import { USER_LOGIN } from '../actions';
 
 const INITIAL_STATE = {
+  id: '',
   name: '',
   email: '',
   role: '',
@@ -12,6 +13,7 @@ const user = (state = INITIAL_STATE, action) => {
   case USER_LOGIN:
     return {
       ...state,
+      id: action.id,
       name: action.name,
       email: action.email,
       role: action.role,

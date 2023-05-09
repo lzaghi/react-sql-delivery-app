@@ -21,9 +21,9 @@ function Login() {
     });
   }
 
-  const saveLocalStorage = ({ name, email, role }, token) => {
+  const saveLocalStorage = ({ id, name, email, role }, token) => {
     localStorage.setItem('user', JSON.stringify({
-      name, email, role, token,
+      id, name, email, role, token,
     }));
   };
 
