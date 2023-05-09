@@ -14,7 +14,7 @@ function ProductCard(product) {
     const newQtty = Number(event.target.value);
     if (newQtty >= 0) {
       setQtty(newQtty);
-      dispatch(setProductsValues(id, newQtty, price));
+      dispatch(setProductsValues(id, name, newQtty, price));
     }
   };
 
@@ -58,7 +58,7 @@ function ProductCard(product) {
         onClick={ () => {
           const newQtty = qtty - 1;
           setQtty(newQtty);
-          dispatch(setProductsValues(id, newQtty, price));
+          dispatch(setProductsValues(id, name, newQtty, price));
         } }
       >
         -
@@ -69,7 +69,7 @@ function ProductCard(product) {
         onClick={ () => {
           const newQtty = qtty + 1;
           setQtty(newQtty);
-          dispatch(setProductsValues(id, newQtty, price));
+          dispatch(setProductsValues(id, name, newQtty, price));
         } }
       >
         +

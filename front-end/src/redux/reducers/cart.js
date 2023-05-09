@@ -12,6 +12,7 @@ const cart = (state = INITIAL_STATE, action) => {
       productsValues: {
         ...state.productsValues,
         [action.id]: {
+          name: action.name,
           qtty: action.qtty,
           price: action.price,
         },
