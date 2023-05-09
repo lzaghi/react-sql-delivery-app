@@ -54,14 +54,14 @@ function Login() {
     [disabled, login],
   );
 
-  const handleRedirect = () => {
+  const handleRedirect = useCallback(() => {
     if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user.role === 'customer') history.push('/customer/products');
       if (user.role === 'seller') history.push('/seller/orders');
       if (user.role === 'administrator') history.push('/admin/manage');
     }
-  };
+  }, [history]);
 
   useEffect(() => {
     handleRedirect();
@@ -80,7 +80,7 @@ function Login() {
     }
 
     document.addEventListener('keypress', handleKeyPress);
-  }, [newUser.email, newUser.password, handleKeyPress]);
+  }, [newUser.email, newUser.password, handleKeyPress, handleRedirect]);
 
   return (
     <div>
