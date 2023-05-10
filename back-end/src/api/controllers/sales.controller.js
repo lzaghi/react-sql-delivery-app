@@ -13,11 +13,17 @@ const getAll = async (req, res) => {
   const { authorization } = req.headers;
   const data = jwt.decode(authorization, secret);
   const sales = await salesService.getAll(data.userId);
-  console.log(sales);
   return res.status(200).json(sales);
+};
+
+const getSaleDetails = async (req, res) => {
+  const { id } = req.params;
+  const sale = await salesService.getSaleDetails(id);
+  return res.status(200).json(sale);
 };
 
 module.exports = {
   createSale,
   getAll,
+  getSaleDetails,
 };

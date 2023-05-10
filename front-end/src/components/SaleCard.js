@@ -10,7 +10,6 @@ function SaleCard(sale) {
 
     const day = newDate.getDate();
     let month = newDate.getMonth() + 1; // Months are zero-based, so we add 1
-    console.log(month.length);
     if (String(month).length === 1) month = `0${month}`;
     const year = newDate.getFullYear();
 
