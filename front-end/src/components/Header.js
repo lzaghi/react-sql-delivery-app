@@ -5,21 +5,39 @@ import { resetState } from '../redux/actions';
 
 function Header() {
   const userName = useSelector((state) => state.user.name);
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { location: { pathname } } = history;
+
+  let navBarText = '';
+  let redirectUrl = '';
+
+  if (pathname.includes('/customer')) {
+    navBarText = 'Meus pedidos';
+    redirectUrl = '/customer/orders';
+  } else if (pathname.includes('/seller')) {
+    navBarText = 'Pedidos';
+    redirectUrl = '/seller/orders';
+  } else if (pathname.includes('/admin')) {
+    navBarText = 'Gerenciar usuários';
+    redirectUrl = '/admin/manage';
+  }
+
   return (
     <div>
-      <Link
-        data-testid="customer_products__element-navbar-link-products"
-        to="/customer/products"
-      >
-        Produtos
-      </Link>
+      { pathname.includes('customer') && (
+        <Link
+          data-testid="customer_products__element-navbar-link-products"
+          to="/customer/products"
+        >
+          Produtos
+        </Link>
+      )}
       <Link
         data-testid="customer_products__element-navbar-link-orders"
-        to="/customer/orders"
+        to={ redirectUrl }
       >
-        Meus pedidos
+        { navBarText }
       </Link>
       <h3
         data-testid="customer_products__element-navbar-user-full-name"

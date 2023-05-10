@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function SaleCard(sale) {
-  const { props: { id, status, saleDate, totalPrice } } = sale;
+  const { props:
+    { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } } = sale;
   const [date, setDate] = useState('');
+
+  const history = useHistory();
+  const { location: { pathname } } = history;
 
   const handleDate = (dbDate) => {
     const newDate = new Date(dbDate);
@@ -18,32 +22,52 @@ function SaleCard(sale) {
     setDate(formattedDate);
   };
 
+  let ROUTE = '';
+  let redirectUrl = '';
+
+  if (pathname.includes('customer')) {
+    ROUTE = 'customer_orders__';
+    redirectUrl = `/customer/orders/${id}`;
+  } else if (pathname.includes('seller')) {
+    ROUTE = 'seller_orders__';
+    redirectUrl = `/seller/orders/${id}`;
+  }
+
   useEffect(() => {
     handleDate(saleDate);
   }, [saleDate]);
 
   return (
-    <Link to={ `/customer/orders/${id}` }>
+    <Link to={ redirectUrl }>
       <span
-        data-testid={ `customer_orders__element-order-id-${id}` }
+        data-testid={ `${ROUTE}element-order-id-${id}` }
       >
         { id }
       </span>
       <span
-        data-testid={ `customer_orders__element-delivery-status-${id}` }
+        data-testid={ `${ROUTE}element-delivery-status-${id}` }
       >
         { status }
       </span>
       <span
-        data-testid={ `customer_orders__element-order-date-${id}` }
+        data-testid={ `${ROUTE}element-order-date-${id}` }
       >
         { date }
       </span>
       <span
-        data-testid={ `customer_orders__element-card-price-${id}` }
+        data-testid={ `${ROUTE}element-card-price-${id}` }
       >
         { `R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}` }
       </span>
+      {
+        pathname.includes('seller') && (
+          <span
+            data-testid={ `${ROUTE}element-card-address-${id}` }
+          >
+            {`${deliveryAddress}, ${deliveryNumber}`}
+          </span>
+        )
+      }
     </Link>
   );
 }

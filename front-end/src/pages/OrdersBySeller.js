@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import SaleCard from '../components/SaleCard';
 import { requestGetWithToken } from '../services/requests';
+import SaleCard from '../components/SaleCard';
 
-function Orders() {
+function OrdersBySeller() {
   const history = useHistory();
   const [sales, setSales] = useState([]);
   const [error, setError] = useState(false);
@@ -13,7 +13,7 @@ function Orders() {
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
-        const salesList = await requestGetWithToken('/sales/user', token);
+        const salesList = await requestGetWithToken('/sales/seller', token);
         setSales(salesList);
       } catch (e) {
         const UNAUTHORIZED = 401;
@@ -30,10 +30,10 @@ function Orders() {
   if (error) {
     <h2>{error?.response?.statusText}</h2>;
   }
-
   return (
     <div>
       <Header />
+      {console.log(sales)}
       { sales.length && (
         sales.map((sale) => (
           <SaleCard
@@ -46,4 +46,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default OrdersBySeller;

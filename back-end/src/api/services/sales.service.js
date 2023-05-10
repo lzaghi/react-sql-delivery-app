@@ -16,7 +16,7 @@ const createSale = async (
   return newSale;
 };
 
-const getAll = async (userId) => Sale.findAll({
+const getUserSales = async (userId) => Sale.findAll({
   where: { userId },
 });
 
@@ -28,8 +28,13 @@ const getSaleDetails = async (id) => Sale.findOne({
   ],
 });
 
+const getSellerSales = async (sellerId) => Sale.findAll({
+  where: { sellerId },
+});
+
 module.exports = {
   createSale,
-  getAll,
+  getUserSales,
   getSaleDetails,
+  getSellerSales,
 };
