@@ -5,17 +5,23 @@ import { requestGetWithToken } from '../services/requests';
 import DetailsTable from '../components/DetailsTable';
 
 function Details() {
-  const ROUTE = 'customer_order_details__element-order';
-
   const [sale, setSale] = useState({});
   const [error, setError] = useState(false);
 
   const history = useHistory();
+  const { location: { pathname } } = history;
   const { id } = useParams();
 
   const [date, setDate] = useState('');
 
   const user = JSON.parse(localStorage.getItem('user'));
+
+  let ROUTE = '';
+  if (pathname.includes('user')) {
+    ROUTE = 'customer_order_details__';
+  } else if (pathname.includes('seller')) {
+    ROUTE = 'seller_order_details__';
+  }
 
   const handleDate = (dbDate) => {
     const newDate = new Date(dbDate);
@@ -61,32 +67,49 @@ function Details() {
         Object.keys(sale).length && (
           <div>
             <span
-              data-testid={ `${ROUTE}-details-label-order-id` }
+              data-testid={ `${ROUTE}element-order-details-label-order-id` }
             >
               {sale.id}
             </span>
+            { (pathname.includes('user')) && (
+              <span
+                data-testid={ `${ROUTE}element-order-details-label-seller-name` }
+              >
+                {sale.seller.name}
+              </span>)}
             <span
-              data-testid={ `${ROUTE}-details-label-seller-name` }
-            >
-              {sale.seller.name}
-            </span>
-            <span
-              data-testid={ `${ROUTE}-details-label-order-date` }
+              data-testid={ `${ROUTE}element-order-details-label-order-date` }
             >
               {date}
             </span>
             <span
-              data-testid={ `${ROUTE}-details-label-delivery-status-${id}` }
+              data-testid={ `${ROUTE}element-order-details-label-delivery-status-${id}` }
             >
               {sale.status}
             </span>
-            <button
-              data-testid="customer_order_details__button-delivery-check"
-              type="button"
-              disabled={ user.role === 'customer' }
-            >
-              Marcar como entregue
-            </button>
+            { (pathname.includes('user')) && (
+              <button
+                data-testid={ `${ROUTE}button-delivery-check` }
+                type="button"
+                disabled={ user.role === 'customer' }
+              >
+                Marcar como entregue
+              </button>)}
+            { (pathname.includes('seller')) && (
+              <button
+                data-testid={ `${ROUTE}button-preparing-check` }
+                type="button"
+              >
+                Preparar pedido
+              </button>)}
+            { (pathname.includes('seller')) && (
+              <button
+                data-testid={ `${ROUTE}button-dispatch-check` }
+                type="button"
+                disabled
+              >
+                Saiu para entrega
+              </button>)}
           </div>
         )
       }

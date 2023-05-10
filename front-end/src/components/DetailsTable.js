@@ -1,7 +1,16 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 function DetailsTable(sale) {
-  const ROUTE = 'customer_order_details__element-order';
+  const history = useHistory();
+  const { location: { pathname } } = history;
+
+  let ROUTE = '';
+  if (pathname.includes('user')) {
+    ROUTE = 'customer_order_details__';
+  } else if (pathname.includes('seller')) {
+    ROUTE = 'seller_order_details__';
+  }
   const { props: { products, totalPrice } } = sale;
   return (
     <div>
@@ -20,27 +29,27 @@ function DetailsTable(sale) {
             products?.map((product, index) => (
               <tr key={ index }>
                 <td
-                  data-testid={ `${ROUTE}-table-item-number-${index}` }
+                  data-testid={ `${ROUTE}element-order-table-item-number-${index}` }
                 >
                   { index + 1 }
                 </td>
                 <td
-                  data-testid={ `${ROUTE}-table-name-${index}` }
+                  data-testid={ `${ROUTE}element-order-table-name-${index}` }
                 >
                   { product.name }
                 </td>
                 <td
-                  data-testid={ `${ROUTE}-table-quantity-${index}` }
+                  data-testid={ `${ROUTE}element-order-table-quantity-${index}` }
                 >
                   { product.SaleProduct.quantity }
                 </td>
                 <td
-                  data-testid={ `${ROUTE}-table-unit-price-${index}` }
+                  data-testid={ `${ROUTE}element-order-table-unit-price-${index}` }
                 >
                   { `R$ ${(product.price).replace('.', ',')}` }
                 </td>
                 <td
-                  data-testid={ `${ROUTE}-table-sub-total-${index}` }
+                  data-testid={ `${ROUTE}element-order-table-sub-total-${index}` }
                 >
                   { `R$ ${(product.SaleProduct.quantity * product.price)
                     .toFixed(2).replace('.', ',')} ` }
@@ -51,7 +60,7 @@ function DetailsTable(sale) {
         </tbody>
       </table>
       <p
-        data-testid={ `${ROUTE}-total-price` }
+        data-testid={ `${ROUTE}element-order-total-price` }
       >
         {`Total: R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}`}
       </p>
