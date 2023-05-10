@@ -6,14 +6,23 @@ import { requestGetWithToken } from '../services/requests';
 
 function Orders() {
   const history = useHistory();
+  const { location: { pathname } } = history;
+
   const [sales, setSales] = useState([]);
   const [error, setError] = useState(false);
+
+  let endpoint = '';
+  if (pathname.includes('user')) {
+    endpoint = 'user';
+  } else if (pathname.includes('seller')) {
+    endpoint = 'seller';
+  }
 
   useEffect(() => {
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
-        const salesList = await requestGetWithToken('/sales/user', token);
+        const salesList = await requestGetWithToken(`/sales/${endpoint}`, token);
         setSales(salesList);
       } catch (e) {
         const UNAUTHORIZED = 401;
@@ -25,7 +34,7 @@ function Orders() {
       }
     }
     fetchData();
-  }, [history]);
+  }, [history, endpoint]);
 
   if (error) {
     <h2>{error?.response?.statusText}</h2>;
