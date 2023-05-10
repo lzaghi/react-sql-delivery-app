@@ -16,6 +16,11 @@ const createSale = async (
   return newSale;
 };
 
+const getAll = async (userId) => Sale.findAll({
+  where: { userId },
+});
+
 module.exports = {
   createSale,
+  getAll,
 };

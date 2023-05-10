@@ -29,7 +29,7 @@ const SaleModel = (sequelize, DataTypes) => {
     tableName: 'sales',
     underscored: true,
     timestamps: true,
-    createdAt: 'sale_date',
+    createdAt: 'saleDate',
     updatedAt: false,
   });
 
