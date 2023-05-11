@@ -17,7 +17,7 @@ function Details() {
   const user = JSON.parse(localStorage.getItem('user'));
 
   let ROUTE = '';
-  if (pathname.includes('user')) {
+  if (pathname.includes('customer')) {
     ROUTE = 'customer_order_details__';
   } else if (pathname.includes('seller')) {
     ROUTE = 'seller_order_details__';
@@ -61,7 +61,6 @@ function Details() {
 
   return (
     <div>
-      {console.log(sale)}
       <Header />
       {
         Object.keys(sale).length && (
@@ -71,7 +70,7 @@ function Details() {
             >
               {sale.id}
             </span>
-            { (pathname.includes('user')) && (
+            { (pathname.includes('customer')) && (
               <span
                 data-testid={ `${ROUTE}element-order-details-label-seller-name` }
               >
@@ -87,7 +86,7 @@ function Details() {
             >
               {sale.status}
             </span>
-            { (pathname.includes('user')) && (
+            { (pathname.includes('customer')) && (
               <button
                 data-testid={ `${ROUTE}button-delivery-check` }
                 type="button"

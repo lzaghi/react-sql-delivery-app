@@ -6,7 +6,7 @@ function DetailsTable(sale) {
   const { location: { pathname } } = history;
 
   let ROUTE = '';
-  if (pathname.includes('user')) {
+  if (pathname.includes('customer')) {
     ROUTE = 'customer_order_details__';
   } else if (pathname.includes('seller')) {
     ROUTE = 'seller_order_details__';

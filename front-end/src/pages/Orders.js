@@ -12,7 +12,7 @@ function Orders() {
   const [error, setError] = useState(false);
 
   let endpoint = '';
-  if (pathname.includes('user')) {
+  if (pathname.includes('customer')) {
     endpoint = 'user';
   } else if (pathname.includes('seller')) {
     endpoint = 'seller';
