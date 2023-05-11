@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Header from '../components/Header';
-import { requestGetWithToken } from '../services/requests';
+import { requestGetWithToken, requestPatchWithToken } from '../services/requests';
 import DetailsTable from '../components/DetailsTable';
 
 function Details() {
@@ -13,8 +13,6 @@ function Details() {
   const { id } = useParams();
 
   const [date, setDate] = useState('');
-
-  const user = JSON.parse(localStorage.getItem('user'));
 
   let ROUTE = '';
   if (pathname.includes('customer')) {
@@ -34,6 +32,20 @@ function Details() {
     const formattedDate = `${day}/${month}/${year}`;
 
     setDate(formattedDate);
+  };
+
+  const handleStatusChange = async (newStatus) => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      await requestPatchWithToken(`/sales/${sale.id}`, { newStatus }, token);
+    } catch (e) {
+      const UNAUTHORIZED = 401;
+      if (e?.response?.status === UNAUTHORIZED) {
+        localStorage.removeItem('user');
+        history.push('/login');
+      }
+      setError(e);
+    }
   };
 
   useEffect(() => {
@@ -90,7 +102,8 @@ function Details() {
               <button
                 data-testid={ `${ROUTE}button-delivery-check` }
                 type="button"
-                disabled={ user.role === 'customer' }
+                disabled={ sale.status !== 'Em Trânsito' }
+                onClick={ () => handleStatusChange('Entregue') }
               >
                 Marcar como entregue
               </button>)}
@@ -98,6 +111,8 @@ function Details() {
               <button
                 data-testid={ `${ROUTE}button-preparing-check` }
                 type="button"
+                disabled={ sale.status !== 'Pendente' }
+                onClick={ () => handleStatusChange('Preparando') }
               >
                 Preparar pedido
               </button>)}
@@ -105,7 +120,8 @@ function Details() {
               <button
                 data-testid={ `${ROUTE}button-dispatch-check` }
                 type="button"
-                disabled
+                disabled={ sale.status !== 'Preparando' }
+                onClick={ () => handleStatusChange('Em Trânsito') }
               >
                 Saiu para entrega
               </button>)}

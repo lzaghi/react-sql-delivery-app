@@ -27,4 +27,13 @@ export const requestPostWithToken = async (endpoint, body, token) => {
   return data;
 };
 
+export const requestPatchWithToken = async (endpoint, body, token) => {
+  const { data } = await api.patch(endpoint, body, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return data;
+};
+
 export default api;

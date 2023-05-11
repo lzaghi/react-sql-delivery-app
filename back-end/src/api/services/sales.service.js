@@ -32,9 +32,15 @@ const getSellerSales = async (sellerId) => Sale.findAll({
   where: { sellerId },
 });
 
+const updateStatus = async (id, newStatus) => Sale.update(
+  { status: newStatus },
+  { where: { id } },
+);
+
 module.exports = {
   createSale,
   getUserSales,
   getSaleDetails,
   getSellerSales,
+  updateStatus,
 };
