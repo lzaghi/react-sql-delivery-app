@@ -29,7 +29,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
   const usedEmail = await userService.getByEmail(email);
   if (usedEmail) {
@@ -37,7 +37,7 @@ const register = async (req, res) => {
   }
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
-  const newUser = await userService.createUser(name, email, hashedPassword);
+  const newUser = await userService.createUser(name, email, hashedPassword, role);
 
   const token = jwt.sign({ userId: newUser.id, userEmail: newUser.email }, secret, jwtConfig);
 
