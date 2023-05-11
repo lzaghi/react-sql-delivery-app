@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { requestPost } from '../services/requests';
+import { userLogin } from '../redux/actions';
 
 function Register() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [newUser, setNewUser] = useState({
     name: '',
@@ -33,6 +36,7 @@ function Register() {
       );
 
       saveLocalStorage(user, token);
+      dispatch(userLogin(user, token));
 
       if (user.role === 'customer') history.push('/customer/products');
     } catch (e) {

@@ -7,6 +7,7 @@ import DetailsTable from '../components/DetailsTable';
 function Details() {
   const [sale, setSale] = useState({});
   const [error, setError] = useState(false);
+  const [status, setStatus] = useState('');
 
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -38,6 +39,7 @@ function Details() {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
       await requestPatchWithToken(`/sales/${sale.id}`, { newStatus }, token);
+      setStatus(newStatus);
     } catch (e) {
       const UNAUTHORIZED = 401;
       if (e?.response?.status === UNAUTHORIZED) {
@@ -54,6 +56,7 @@ function Details() {
         const { token } = JSON.parse(localStorage.getItem('user'));
         const saleDetails = await requestGetWithToken(`/sales/details/${id}`, token);
         setSale(saleDetails);
+        setStatus(saleDetails.status);
         handleDate(saleDetails.saleDate);
       } catch (e) {
         const UNAUTHORIZED = 401;
@@ -96,13 +99,13 @@ function Details() {
             <span
               data-testid={ `${ROUTE}element-order-details-label-delivery-status-${id}` }
             >
-              {sale.status}
+              {status}
             </span>
             { (pathname.includes('customer')) && (
               <button
                 data-testid={ `${ROUTE}button-delivery-check` }
                 type="button"
-                disabled={ sale.status !== 'Em Trânsito' }
+                disabled={ status !== 'Em Trânsito' }
                 onClick={ () => handleStatusChange('Entregue') }
               >
                 Marcar como entregue
@@ -111,7 +114,7 @@ function Details() {
               <button
                 data-testid={ `${ROUTE}button-preparing-check` }
                 type="button"
-                disabled={ sale.status !== 'Pendente' }
+                disabled={ status !== 'Pendente' }
                 onClick={ () => handleStatusChange('Preparando') }
               >
                 Preparar pedido
@@ -120,7 +123,7 @@ function Details() {
               <button
                 data-testid={ `${ROUTE}button-dispatch-check` }
                 type="button"
-                disabled={ sale.status !== 'Preparando' }
+                disabled={ status !== 'Preparando' }
                 onClick={ () => handleStatusChange('Em Trânsito') }
               >
                 Saiu para entrega
