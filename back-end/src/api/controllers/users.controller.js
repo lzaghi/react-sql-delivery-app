@@ -48,12 +48,18 @@ const register = async (req, res) => {
 const getByRole = async (req, res) => {
   const { role } = req.params;
   const users = await userService.getByRole(role);
-  res.status(200).json(users);
+  return res.status(200).json(users);
 };
 
 const getUsers = async (_req, res) => {
   const users = await userService.getUsers();
-  res.status(200).json(users);
+  return res.status(200).json(users);
+};
+
+const deleteUser = async (req, res) => {
+  const { body: { id } } = req.body;
+  await userService.deleteUser(id);
+  return res.status(204).end();
 };
 
 module.exports = {
@@ -61,4 +67,5 @@ module.exports = {
   register,
   getByRole,
   getUsers,
+  deleteUser,
 };

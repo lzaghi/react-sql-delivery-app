@@ -9,21 +9,24 @@ import Checkout from './pages/Checkout';
 import Details from './pages/Details';
 import Orders from './pages/Orders';
 import Admin from './pages/Admin';
+import UsersProvider from './context/UsersProvider';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/" component={ Home } />
-      <Route path="/login" component={ Login } />
-      <Route path="/register" component={ Register } />
-      <Route path="/customer/products" component={ Products } />
-      <Route path="/customer/checkout" component={ Checkout } />
-      <Route exact path="/customer/orders" component={ Orders } />
-      <Route path="/customer/orders/:id" component={ Details } />
-      <Route exact path="/seller/orders" component={ Orders } />
-      <Route path="/seller/orders/:id" component={ Details } />
-      <Route path="/admin/manage" component={ Admin } />
-    </Switch>
+    <UsersProvider>
+      <Switch>
+        <Route exact path="/" component={ Home } />
+        <Route path="/login" component={ Login } />
+        <Route path="/register" component={ Register } />
+        <Route path="/customer/products" component={ Products } />
+        <Route path="/customer/checkout" component={ Checkout } />
+        <Route exact path="/customer/orders" component={ Orders } />
+        <Route path="/customer/orders/:id" component={ Details } />
+        <Route exact path="/seller/orders" component={ Orders } />
+        <Route path="/seller/orders/:id" component={ Details } />
+        <Route path="/admin/manage" component={ Admin } />
+      </Switch>
+    </UsersProvider>
   );
 }
 

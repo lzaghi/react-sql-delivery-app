@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { requestPostWithToken } from '../services/requests';
+import React, { useContext, useEffect, useState } from 'react';
+import { requestGetWithToken, requestPostWithToken } from '../services/requests';
+import UsersContext from '../context/UsersContext';
 
 function AdminForm() {
   const [newUser, setNewUser] = useState({
@@ -10,6 +11,8 @@ function AdminForm() {
   });
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState('');
+
+  const { setUsersList } = useContext(UsersContext);
 
   function handleChange({ target }) {
     setNewUser({
@@ -38,6 +41,9 @@ function AdminForm() {
         role: '',
       });
       setError('');
+
+      const users = await requestGetWithToken('/users', token);
+      setUsersList(users);
     } catch (e) {
       setError(e);
     }

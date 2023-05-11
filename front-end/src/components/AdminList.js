@@ -1,20 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestGetWithToken } from '../services/requests';
+import { requestDeleteWithToken, requestGetWithToken } from '../services/requests';
+import UsersContext from '../context/UsersContext';
 
 function AdminList() {
   const ROUTE = 'admin_manage__';
   const history = useHistory();
 
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [error, setError] = useState(false);
+
+  const { usersList, setUsersList } = useContext(UsersContext);
+
+  const handleDelete = async (id) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    try {
+      await requestDeleteWithToken('/users/delete', { id }, token);
+
+      const users = await requestGetWithToken('/users', token);
+      setUsersList(users);
+    } catch (e) {
+      setError(e);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
-        const usersList = await requestGetWithToken('/users', token);
-        setUsers(usersList);
+        const users = await requestGetWithToken('/users', token);
+        setUsersList(users);
       } catch (e) {
         const UNAUTHORIZED = 401;
         if (e?.response?.status === UNAUTHORIZED) {
@@ -25,14 +40,13 @@ function AdminList() {
       }
     }
     fetchData();
-  }, [history]);
+  }, [history, setUsersList]);
 
   if (error) {
     <h2>{error?.response?.statusText}</h2>;
   }
   return (
     <table>
-      {console.log(users)}
       <thead>
         <tr>
           <th>Item</th>
@@ -44,7 +58,7 @@ function AdminList() {
       </thead>
       <tbody>
         {
-          users.length && users.map((user, index) => (
+          usersList.length && usersList.map((user, index) => (
             <tr key={ index }>
               <td data-testid={ `${ROUTE}element-user-table-item-number-${index}` }>
                 { index + 1}
@@ -62,6 +76,7 @@ function AdminList() {
                 <button
                   data-testid={ `${ROUTE}element-user-table-remove-${index}` }
                   type="button"
+                  onClick={ () => handleDelete(user.id) }
                 >
                   Excluir
                 </button>

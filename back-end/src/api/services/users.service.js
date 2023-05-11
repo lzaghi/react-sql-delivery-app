@@ -26,6 +26,13 @@ const getUsers = async () => User.findAll({
   attributes: {
     exclude: ['password'],
   },
+  order: [
+    ['role', 'DESC'], ['name', 'ASC'],
+  ],
+});
+
+const deleteUser = async (id) => User.destroy({
+  where: { id },
 });
 
 module.exports = {
@@ -33,4 +40,5 @@ module.exports = {
   createUser,
   getByRole,
   getUsers,
+  deleteUser,
 };
