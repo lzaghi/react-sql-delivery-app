@@ -1,4 +1,4 @@
-const { User } = require('../../database/models');
+const { User, Sequelize } = require('../../database/models');
 
 const getByEmail = async (email) => User.findOne({
   where: { email },
@@ -18,8 +18,19 @@ const getByRole = async (role) => User.findAll({
   where: { role },
 });
 
+const getUsers = async () => User.findAll({
+  where: { role: {
+    [Sequelize.Op.not]: 'administrator',
+    },
+  },
+  attributes: {
+    exclude: ['password'],
+  },
+});
+
 module.exports = {
   getByEmail,
   createUser,
   getByRole,
+  getUsers,
 };

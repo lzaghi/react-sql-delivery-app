@@ -5,5 +5,6 @@ const { validateAuth } = require('../middlewares/validateAuth.middleware');
 const usersRouter = Router();
 
 usersRouter.get('/:role', validateAuth, userController.getByRole);
+usersRouter.get('/', validateAuth, userController.getUsers);
 
 module.exports = usersRouter;

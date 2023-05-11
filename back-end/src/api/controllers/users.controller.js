@@ -51,8 +51,14 @@ const getByRole = async (req, res) => {
   res.status(200).json(users);
 };
 
+const getUsers = async (_req, res) => {
+  const users = await userService.getUsers();
+  res.status(200).json(users);
+};
+
 module.exports = {
   login,
   register,
   getByRole,
+  getUsers,
 };
