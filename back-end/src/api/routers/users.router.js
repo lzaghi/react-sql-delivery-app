@@ -6,6 +6,6 @@ const usersRouter = Router();
 
 usersRouter.get('/:role', validateAuth, userController.getByRole);
 usersRouter.get('/', validateAuth, userController.getUsers);
-usersRouter.delete('/delete', validateAuth, userController.deleteUser);
+usersRouter.delete('/:id', validateAuth, userController.deleteUser);
 
 module.exports = usersRouter;

@@ -30,7 +30,6 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   const { name, email, password, role } = req.body;
-
   const usedEmail = await userService.getByEmail(email);
   if (usedEmail) {
     return res.status(409).json({ message: 'Email already registered!' });
@@ -38,9 +37,9 @@ const register = async (req, res) => {
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
   const newUser = await userService.createUser(name, email, hashedPassword, role);
-
+  
   const token = jwt.sign({ userId: newUser.id, userEmail: newUser.email }, secret, jwtConfig);
-
+  
   const { password: _, ...rest } = newUser.dataValues;
   return res.status(201).json({ user: rest, token });
 };
@@ -57,7 +56,7 @@ const getUsers = async (_req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const { body: { id } } = req.body;
+  const { id } = req.params;
   await userService.deleteUser(id);
   return res.status(204).end();
 };
