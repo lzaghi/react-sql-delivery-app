@@ -15,7 +15,7 @@ function AdminList() {
   const handleDelete = async (id) => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     try {
-      await requestDeleteWithToken('/users/delete', { id }, token);
+      await requestDeleteWithToken(`/users/${id}`, token);
 
       const users = await requestGetWithToken('/users', token);
       setUsersList(users);
