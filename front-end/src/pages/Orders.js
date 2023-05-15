@@ -43,14 +43,16 @@ function Orders() {
   return (
     <div>
       <Header />
-      { sales.length && (
-        sales.map((sale) => (
-          <SaleCard
-            key={ sale.id }
-            props={ sale }
-          />
-        ))
-      )}
+      { !sales.length
+        ? <p>Ainda não há pedidos!</p>
+        : (
+          sales.map((sale) => (
+            <SaleCard
+              key={ sale.id }
+              props={ sale }
+            />
+          ))
+        )}
     </div>
   );
 }
