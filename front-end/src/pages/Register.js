@@ -38,7 +38,7 @@ function Register() {
       saveLocalStorage(user, token);
       dispatch(userLogin(user, token));
 
-      if (user.role === 'customer') history.push('/customer/products');
+      history.push('/customer/products');
     } catch (e) {
       setError(e);
     }
@@ -118,7 +118,7 @@ function Register() {
         <p
           data-testid="common_register__element-invalid_register"
         >
-          {error.response.data.message}
+          {error.response?.data?.message}
         </p>)}
     </div>
   );
