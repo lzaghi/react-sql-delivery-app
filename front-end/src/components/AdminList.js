@@ -57,7 +57,7 @@ function AdminList() {
         </tr>
       </thead>
       {
-        usersList.length
+        usersList?.length > 0
           && (
             <tbody>
               {

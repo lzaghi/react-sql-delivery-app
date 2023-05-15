@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import CheckoutTable from '../components/CheckoutTable';
 import CheckoutForm from '../components/CheckoutForm';
@@ -11,6 +12,8 @@ function Checkout() {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user.role === 'seller') history.push('/seller/orders');
       if (user.role === 'administrator') history.push('/admin/manage');
+    } else {
+      history.push('/login');
     }
   }, [history]);
 

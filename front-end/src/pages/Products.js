@@ -20,6 +20,8 @@ function Products() {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user.role === 'seller') history.push('/seller/orders');
       if (user.role === 'administrator') history.push('/admin/manage');
+    } else {
+      history.push('/login');
     }
   }, [history]);
 
@@ -53,14 +55,16 @@ function Products() {
   return (
     <div>
       <Header />
-      { products.length && (
-        products.map((product) => (
-          <ProductCard
-            key={ product.id }
-            props={ product }
-          />
-        ))
-      )}
+      { !products?.length
+        ? <p>Carregando...</p>
+        : (
+          products.map((product) => (
+            <ProductCard
+              key={ product.id }
+              props={ product }
+            />
+          ))
+        )}
       <button
         data-testid="customer_products__button-cart"
         type="button"

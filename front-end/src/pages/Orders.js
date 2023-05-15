@@ -22,17 +22,20 @@ function Orders() {
     if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user.role === 'administrator') history.push('/admin/manage');
+    } else {
+      history.push('/login');
     }
   }, [history]);
 
   useEffect(() => {
     handleRedirect();
 
+    let isMounted = true;
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
         const salesList = await requestGetWithToken(`/sales/${endpoint}`, token);
-        setSales(salesList);
+        if (isMounted) setSales(salesList);
       } catch (e) {
         const UNAUTHORIZED = 401;
         if (e?.response?.status === UNAUTHORIZED) {
@@ -43,6 +46,8 @@ function Orders() {
       }
     }
     fetchData();
+
+    return () => { isMounted = false; };
   }, [history, endpoint, handleRedirect]);
 
   if (error) {

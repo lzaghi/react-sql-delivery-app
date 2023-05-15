@@ -49,11 +49,12 @@ function CheckoutForm() {
   };
 
   useEffect(() => {
+    let isMounted = true;
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
         const sellersList = await requestGetWithToken('/users/seller', token);
-        setSellers(sellersList);
+        if (isMounted) setSellers(sellersList);
       } catch (e) {
         const UNAUTHORIZED = 401;
         if (e?.response?.status === UNAUTHORIZED) {
@@ -64,6 +65,8 @@ function CheckoutForm() {
       }
     }
     fetchData();
+
+    return () => { isMounted = false; };
   }, [history]);
 
   if (error) {
