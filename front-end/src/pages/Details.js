@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { requestGetWithToken, requestPatchWithToken } from '../services/requests';
@@ -50,7 +50,16 @@ function Details() {
     }
   };
 
+  const handleRedirect = useCallback(() => {
+    if (localStorage.getItem('user')) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user.role === 'administrator') history.push('/admin/manage');
+    }
+  }, [history]);
+
   useEffect(() => {
+    handleRedirect();
+
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
@@ -68,7 +77,7 @@ function Details() {
       }
     }
     fetchData();
-  }, [history, id]);
+  }, [history, id, handleRedirect]);
 
   if (error) {
     <h2>{error?.response?.statusText}</h2>;

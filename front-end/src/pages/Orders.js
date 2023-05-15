@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import SaleCard from '../components/SaleCard';
@@ -18,7 +18,16 @@ function Orders() {
     endpoint = 'seller';
   }
 
+  const handleRedirect = useCallback(() => {
+    if (localStorage.getItem('user')) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user.role === 'administrator') history.push('/admin/manage');
+    }
+  }, [history]);
+
   useEffect(() => {
+    handleRedirect();
+
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
@@ -34,7 +43,7 @@ function Orders() {
       }
     }
     fetchData();
-  }, [history, endpoint]);
+  }, [history, endpoint, handleRedirect]);
 
   if (error) {
     <h2>{error?.response?.statusText}</h2>;
