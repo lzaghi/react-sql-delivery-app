@@ -1,4 +1,5 @@
-import { QUANTITY_ZERO, RESET_STATE, SET_PRODUCTS_VALUES } from '../actions';
+import {
+  QUANTITY_ZERO, RESET_CART_STATE, RESET_STATE, SET_PRODUCTS_VALUES } from '../actions';
 
 const INITIAL_STATE = {
   productsValues: {},
@@ -31,6 +32,8 @@ const cart = (state = INITIAL_STATE, action) => {
       },
     };
   case RESET_STATE:
+    return INITIAL_STATE;
+  case RESET_CART_STATE:
     return INITIAL_STATE;
   default: return state;
   }

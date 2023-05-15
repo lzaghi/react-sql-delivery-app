@@ -1,4 +1,5 @@
 export const RESET_STATE = 'RESET_STATE';
+export const RESET_CART_STATE = 'RESET_CART_STATE';
 export const USER_LOGIN = 'USER_LOGIN';
 export const SET_PRODUCTS_VALUES = 'SET_PRODUCTS_VALUES';
 export const QUANTITY_ZERO = 'QUANTITY_ZERO';
@@ -6,6 +7,12 @@ export const QUANTITY_ZERO = 'QUANTITY_ZERO';
 export function resetState() {
   return {
     type: RESET_STATE,
+  };
+}
+
+export function resetCartState() {
+  return {
+    type: RESET_CART_STATE,
   };
 }
 

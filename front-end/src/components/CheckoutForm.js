@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { requestGetWithToken, requestPostWithToken } from '../services/requests';
+import { resetCartState } from '../redux/actions';
 
 function CheckoutForm() {
   const history = useHistory();
@@ -12,6 +13,8 @@ function CheckoutForm() {
     number: '',
   });
   const [selectedSellerId, setSelectedSellerId] = useState('');
+
+  const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart.productsValues);
   const totalCart = Object.values(cart)
@@ -39,6 +42,7 @@ function CheckoutForm() {
     try {
       const newSale = await requestPostWithToken('/sales', body, token);
       history.push(`/customer/orders/${newSale.id}`);
+      dispatch(resetCartState());
     } catch (e) {
       setError(e);
     }
