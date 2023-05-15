@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { requestPost } from '../services/requests';
@@ -28,7 +28,7 @@ function Register() {
     }));
   };
 
-  const register = async () => {
+  const register = useCallback(async () => {
     try {
       const { user, token } = await requestPost(
         '/register',
@@ -42,7 +42,16 @@ function Register() {
     } catch (e) {
       setError(e);
     }
-  };
+  }, [dispatch, history, newUser.name, newUser.email, newUser.password]);
+
+  const handleKeyPress = useCallback(
+    (event) => {
+      if (event.key === 'Enter' && !disabled) {
+        register();
+      }
+    },
+    [disabled, register],
+  );
 
   useEffect(() => {
     const TWELVE = 12;
@@ -59,7 +68,9 @@ function Register() {
     } else {
       setDisabled(true);
     }
-  }, [newUser.name, newUser.email, newUser.password]);
+
+    document.addEventListener('keypress', handleKeyPress);
+  }, [newUser.name, newUser.email, newUser.password, handleKeyPress]);
 
   return (
     <div>
