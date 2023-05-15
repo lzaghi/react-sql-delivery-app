@@ -80,6 +80,8 @@ function Login() {
     }
 
     document.addEventListener('keypress', handleKeyPress);
+
+    return () => {};
   }, [newUser.email, newUser.password, handleKeyPress, handleRedirect]);
 
   return (

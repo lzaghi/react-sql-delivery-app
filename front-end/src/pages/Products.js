@@ -26,11 +26,12 @@ function Products() {
   useEffect(() => {
     handleRedirect();
 
+    let isMounted = true;
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
         const productsList = await requestGetWithToken('/products', token);
-        setProducts(productsList);
+        if (isMounted) setProducts(productsList);
       } catch (e) {
         const UNAUTHORIZED = 401;
         if (e?.response?.status === UNAUTHORIZED) {
@@ -41,6 +42,8 @@ function Products() {
       }
     }
     fetchData();
+
+    return () => { isMounted = false; };
   }, [history, handleRedirect]);
 
   if (error) {
