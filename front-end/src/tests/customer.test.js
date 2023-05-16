@@ -165,6 +165,15 @@ describe('Testing Customer flow', () => {
     });
   })
 
+  it('redirects from /customer/orders/1 to /login if token is invalid', async () => {
+    localStorage.setItem('user', JSON.stringify({ role: 'customer', token: 'invalid'}));
+    const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/orders/1');
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/login');
+    });
+  })
+
   const salesList = [
     {
       "id": 1,

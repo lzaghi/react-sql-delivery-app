@@ -12,6 +12,8 @@ function Admin() {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user.role === 'customer') history.push('/customer/products');
       if (user.role === 'seller') history.push('/seller/orders');
+    } else {
+      history.push('/login');
     }
   }, [history]);
 
