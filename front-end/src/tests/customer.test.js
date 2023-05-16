@@ -230,7 +230,7 @@ describe('Testing Customer flow', () => {
       }
     }
   ]
-}
+  }
 
   it('navigates to /customer/orders and clicks on first order', async () => {
     localStorage.removeItem('user')
