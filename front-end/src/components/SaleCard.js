@@ -3,7 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 
 function SaleCard(sale) {
   const { props:
-    { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } } = sale;
+    { sale:
+      { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } } } = sale;
+  const { props: { index } } = sale;
   const [date, setDate] = useState('');
 
   const history = useHistory();
@@ -38,7 +40,7 @@ function SaleCard(sale) {
   }, [saleDate]);
 
   return (
-    <Link to={ redirectUrl }>
+    <Link to={ redirectUrl } data-testid={ `sale-${index}` }>
       <span
         data-testid={ `${ROUTE}element-order-id-${id}` }
       >

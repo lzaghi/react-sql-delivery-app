@@ -60,10 +60,10 @@ function Orders() {
       { !sales.length
         ? <p>Ainda não há pedidos!</p>
         : (
-          sales.map((sale) => (
+          sales.map((sale, index) => (
             <SaleCard
               key={ sale.id }
-              props={ sale }
+              props={ { sale, index } }
             />
           ))
         )}

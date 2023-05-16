@@ -60,13 +60,16 @@ function Details() {
   useEffect(() => {
     handleRedirect();
 
+    let isMounted = true;
     async function fetchData() {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
         const saleDetails = await requestGetWithToken(`/sales/details/${id}`, token);
-        setSale(saleDetails);
-        setStatus(saleDetails.status);
-        handleDate(saleDetails.saleDate);
+        if (isMounted) {
+          setSale(saleDetails);
+          setStatus(saleDetails.status);
+          handleDate(saleDetails.saleDate);
+        }
       } catch (e) {
         const UNAUTHORIZED = 401;
         if (e?.response?.status === UNAUTHORIZED) {
@@ -77,6 +80,8 @@ function Details() {
       }
     }
     fetchData();
+
+    return () => { isMounted = false; };
   }, [history, id, handleRedirect]);
 
   if (error) {
