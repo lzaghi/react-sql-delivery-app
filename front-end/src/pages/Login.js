@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { requestPost } from '../services/requests';
 import { userLogin } from '../redux/actions';
+import logo from '../images/logo-red.png';
+import '../style/Login.css';
 
 function Login() {
   const dispatch = useDispatch();
@@ -85,28 +87,30 @@ function Login() {
   }, [newUser.email, newUser.password, handleKeyPress, handleRedirect]);
 
   return (
-    <div>
+    <div className="login">
+      <div>
+        <img src={ logo } alt="logo do app" />
+      </div>
       <form>
-        <label htmlFor="email">
-          Email
-          <input
-            data-testid="common_login__input-email"
-            type="email"
-            name="email"
-            value={ newUser.email }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            data-testid="common_login__input-password"
-            type="password"
-            name="password"
-            value={ newUser.password }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
+
+        <input
+          data-testid="common_login__input-email"
+          type="email"
+          name="email"
+          value={ newUser.email }
+          onChange={ (e) => handleChange(e) }
+          placeholder="Email"
+        />
+
+        <input
+          data-testid="common_login__input-password"
+          type="password"
+          name="password"
+          value={ newUser.password }
+          onChange={ (e) => handleChange(e) }
+          placeholder="Senha"
+        />
+
         <button
           data-testid="common_login__button-login"
           type="button"

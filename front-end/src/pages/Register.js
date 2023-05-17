@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { requestPost } from '../services/requests';
 import { userLogin } from '../redux/actions';
+import logo from '../images/logo-red.png';
+import '../style/Register.css';
 
 function Register() {
   const dispatch = useDispatch();
@@ -73,10 +75,13 @@ function Register() {
   }, [newUser.name, newUser.email, newUser.password, handleKeyPress]);
 
   return (
-    <div>
+    <div className="register">
+      <div>
+        <img src={ logo } alt="logo do app" />
+      </div>
       <form>
         <label htmlFor="name">
-          Nome Completo
+          Nome Completo:
           <input
             data-testid="common_register__input-name"
             type="name"
@@ -86,7 +91,7 @@ function Register() {
           />
         </label>
         <label htmlFor="email">
-          Email
+          Email:
           <input
             data-testid="common_register__input-email"
             type="email"
@@ -96,7 +101,7 @@ function Register() {
           />
         </label>
         <label htmlFor="password">
-          Senha
+          Senha:
           <input
             data-testid="common_register__input-password"
             type="password"

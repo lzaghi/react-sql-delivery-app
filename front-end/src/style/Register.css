@@ -1,0 +1,13 @@
+.register {
+  top: 33%;
+}
+
+input {
+  display: block;
+  margin: 5px 0 15px;
+  padding-right: 90px;
+}
+
+label {
+  text-align: left;
+}

@@ -1,0 +1,70 @@
+.header {
+  align-items: center;
+  background-color: gray;
+  color: white;
+  display: flex;
+  height: 60px;
+  margin-bottom: 50px;
+}
+
+.big-part {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  flex-grow: 3;
+  height: 60px;
+}
+
+#produtos,
+#variavel {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  padding: 0 60px;
+  transition: 0.3s;
+}
+
+#produtos:hover,
+#variavel:hover {
+  background-color: gray;
+}
+
+.active {
+  background-color: gray;
+}
+
+.small-part {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-evenly;
+  height: 60px;
+}
+
+#logged-user {
+  font-size: 1.4rem;
+}
+
+#logged-user,
+#logout {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+#logout {
+  background-color: black;
+  transition: 0.5s;
+}
+
+#logout:hover {
+  background-color: var(--red);
+  color: black;
+}
+
+a {
+  color: white;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
