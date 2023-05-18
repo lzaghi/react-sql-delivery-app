@@ -16,8 +16,8 @@ function CheckoutTable() {
   };
 
   return (
-    <div>
-      <table>
+    <div className="checkout-resumo">
+      <table className="checkout-table">
         <thead>
           <tr>
             <th>Item</th>
@@ -40,6 +40,7 @@ function CheckoutTable() {
                     { index + 1}
                   </td>
                   <td
+                    className="descricao"
                     data-testid={ `${ROUTE}-name-${index}` }
                   >
                     { product[1].name }
@@ -68,7 +69,7 @@ function CheckoutTable() {
                       type="button"
                       onClick={ () => removeFromCart(product[0]) }
                     >
-                      Remover
+                      X
                     </button>
                   </td>
                 </tr>
@@ -76,10 +77,10 @@ function CheckoutTable() {
           }
         </tbody>
       </table>
-      <p
-        data-testid="customer_checkout__element-order-total-price"
-      >
-        {`Total: R$ ${totalCart.toFixed(2).replace('.', ',')}`}
+      <p data-testid="customer_checkout__element-order-total-price">
+        Total:
+        {' '}
+        <b>{`R$ ${totalCart.toFixed(2).replace('.', ',')}`}</b>
       </p>
     </div>
   );

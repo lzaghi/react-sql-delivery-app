@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import CheckoutTable from '../components/CheckoutTable';
 import CheckoutForm from '../components/CheckoutForm';
+import '../style/Checkout.css';
 
 function Checkout() {
   const history = useHistory();
@@ -24,10 +25,12 @@ function Checkout() {
   return (
     <div>
       <Header />
-      <h2>Finalizar pedido</h2>
-      <CheckoutTable />
-      <h2>Informações para entrega</h2>
-      <CheckoutForm />
+      <div className="checkout">
+        <h2>Resumo do pedido</h2>
+        <CheckoutTable />
+        <h2>Informações para entrega</h2>
+        <CheckoutForm />
+      </div>
     </div>
   );
 }

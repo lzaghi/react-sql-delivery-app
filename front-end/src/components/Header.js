@@ -41,7 +41,7 @@ function Header() {
           data-testid="customer_products__element-navbar-link-orders"
           to={ redirectUrl }
           id="variavel"
-          className={ pathname.includes('orders') || pathname.includes('manage')
+          className={ pathname === 'customer/orders/' || pathname.includes('manage')
             ? 'active' : '' }
         >
           { navBarText }

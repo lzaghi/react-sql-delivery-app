@@ -74,7 +74,7 @@ function CheckoutForm() {
   }
 
   return (
-    <div>
+    <div className="checkout-form">
       <label htmlFor="seller">
         Vendedor:
         <select
