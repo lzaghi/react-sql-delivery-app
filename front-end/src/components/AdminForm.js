@@ -69,10 +69,12 @@ function AdminForm() {
 
   return (
     <div>
-      <form>
+      <h2>Formulário de Cadastro</h2>
+      <form className="checkout-form admin-form">
         <label htmlFor="name">
-          Nome Completo
+          Nome completo:
           <input
+            className="name-input"
             data-testid="admin_manage__input-name"
             type="name"
             name="name"
@@ -81,7 +83,7 @@ function AdminForm() {
           />
         </label>
         <label htmlFor="email">
-          Email
+          Email:
           <input
             data-testid="admin_manage__input-email"
             type="email"
@@ -91,7 +93,7 @@ function AdminForm() {
           />
         </label>
         <label htmlFor="password">
-          Senha
+          Senha:
           <input
             data-testid="admin_manage__input-password"
             type="password"
@@ -101,7 +103,7 @@ function AdminForm() {
           />
         </label>
         <label htmlFor="role">
-          Tipo
+          Tipo:
           <select
             data-testid="admin_manage__select-role"
             name="role"

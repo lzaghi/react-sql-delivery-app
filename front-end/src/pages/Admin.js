@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import AdminForm from '../components/AdminForm';
 import AdminList from '../components/AdminList';
+import '../style/Admin.css';
 
 function Admin() {
   const history = useHistory();
@@ -24,8 +25,10 @@ function Admin() {
   return (
     <div>
       <Header />
-      <AdminForm />
-      <AdminList />
+      <div className="admin-page">
+        <AdminForm />
+        <AdminList />
+      </div>
     </div>
   );
 }

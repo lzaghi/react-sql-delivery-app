@@ -46,18 +46,20 @@ function AdminList() {
     <h2>{error?.response?.statusText}</h2>;
   }
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Tipo</th>
-          <th>Excluir</th>
-        </tr>
-      </thead>
-      {
-        usersList?.length > 0
+    <div className="admin-list">
+      <h3>Usuários</h3>
+      <table className="checkout-table admin-table">
+        <thead>
+          <tr>
+            <th>Índice</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Tipo</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        {
+          usersList?.length > 0
           && (
             <tbody>
               {
@@ -81,7 +83,7 @@ function AdminList() {
                         type="button"
                         onClick={ () => handleDelete(user.id) }
                       >
-                        Excluir
+                        X
                       </button>
                     </td>
                   </tr>
@@ -89,8 +91,9 @@ function AdminList() {
               }
             </tbody>
           )
-      }
-    </table>
+        }
+      </table>
+    </div>
   );
 }
 
