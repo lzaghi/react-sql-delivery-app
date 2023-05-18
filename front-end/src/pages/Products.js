@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
 import { requestGetWithToken } from '../services/requests';
+import '../style/Products.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -55,29 +56,37 @@ function Products() {
   return (
     <div>
       <Header />
-      { !products?.length
-        ? <p>Carregando...</p>
-        : (
-          products.map((product) => (
-            <ProductCard
-              key={ product.id }
-              props={ product }
-            />
-          ))
-        )}
-      <button
-        data-testid="customer_products__button-cart"
-        type="button"
-        onClick={ () => history.push('/customer/checkout') }
-        disabled={ totalCart === 0 }
-      >
-        Carrinho
-      </button>
-      <span
-        data-testid="customer_products__checkout-bottom-value"
-      >
-        {Number(totalCart).toFixed(2).replace('.', ',')}
-      </span>
+      <div className="products-page">
+        { !products?.length
+          ? <p>Carregando...</p>
+          : (
+            <div className="all-products">
+              {
+                products.map((product) => (
+                  <ProductCard
+                    key={ product.id }
+                    props={ product }
+                  />
+                ))
+              }
+            </div>
+          )}
+        <div className="cart">
+          <p
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            {`Total: R$ ${Number(totalCart).toFixed(2).replace('.', ',')}`}
+          </p>
+          <button
+            data-testid="customer_products__button-cart"
+            type="button"
+            onClick={ () => history.push('/customer/checkout') }
+            disabled={ totalCart === 0 }
+          >
+            Carrinho
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
