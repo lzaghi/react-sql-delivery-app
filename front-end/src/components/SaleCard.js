@@ -40,37 +40,48 @@ function SaleCard(sale) {
   }, [saleDate]);
 
   return (
-    <Link to={ redirectUrl } data-testid={ `sale-${index}` }>
-      <span
-        data-testid={ `${ROUTE}element-order-id-${id}` }
-      >
-        { id }
-      </span>
-      <span
-        data-testid={ `${ROUTE}element-delivery-status-${id}` }
-      >
-        { status }
-      </span>
-      <span
-        data-testid={ `${ROUTE}element-order-date-${id}` }
-      >
-        { date }
-      </span>
-      <span
-        data-testid={ `${ROUTE}element-card-price-${id}` }
-      >
-        { `R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}` }
-      </span>
-      {
-        pathname.includes('seller') && (
-          <span
-            data-testid={ `${ROUTE}element-card-address-${id}` }
+    <div className="order-link">
+      <Link to={ redirectUrl } data-testid={ `sale-${index}` }>
+        <div className="order-top">
+          <p
+            data-testid={ `${ROUTE}element-order-id-${id}` }
           >
-            {`${deliveryAddress}, ${deliveryNumber}`}
-          </span>
-        )
-      }
-    </Link>
+            <b>Pedido: </b>
+            { id }
+          </p>
+          <p
+            data-testid={ `${ROUTE}element-order-date-${id}` }
+          >
+            <b>{ date }</b>
+          </p>
+        </div>
+        <div className="order-bottom">
+          <p
+            data-testid={ `${ROUTE}element-delivery-status-${id}` }
+          >
+            <b>Status: </b>
+            { status }
+          </p>
+          <p
+            data-testid={ `${ROUTE}element-card-price-${id}` }
+          >
+            <b>Total: </b>
+            { `R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}` }
+          </p>
+        </div>
+        {
+          pathname.includes('seller') && (
+            <p
+              className="order-address"
+              data-testid={ `${ROUTE}element-card-address-${id}` }
+            >
+              <b>Endereço: </b>
+              {`${deliveryAddress}, ${deliveryNumber}`}
+            </p>
+          )
+        }
+      </Link>
+    </div>
   );
 }
 

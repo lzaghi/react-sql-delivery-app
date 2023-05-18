@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import SaleCard from '../components/SaleCard';
 import { requestGetWithToken } from '../services/requests';
+import '../style/Orders.css';
 
 function Orders() {
   const history = useHistory();
@@ -57,16 +58,18 @@ function Orders() {
   return (
     <div>
       <Header />
-      { !sales.length
-        ? <p>Ainda não há pedidos!</p>
-        : (
-          sales.map((sale, index) => (
-            <SaleCard
-              key={ sale.id }
-              props={ { sale, index } }
-            />
-          ))
-        )}
+      <div className="orders">
+        { !sales.length
+          ? <p>Ainda não há pedidos!</p>
+          : (
+            sales.map((sale, index) => (
+              <SaleCard
+                key={ sale.id }
+                props={ { sale, index } }
+              />
+            ))
+          )}
+      </div>
     </div>
   );
 }

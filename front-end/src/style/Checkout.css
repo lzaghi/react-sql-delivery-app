@@ -77,8 +77,8 @@ b {
   border-radius: 10px;
 }
 
-select,
-input {
+.checkout-form select,
+.checkout-form input {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -88,15 +88,15 @@ input {
   width: 100%;
 }
 
-select:hover {
+.checkout-form select:hover {
   border-color: #999;
 }
 
-select:focus {
+.checkout-form select:focus {
   border-color: black;
 }
 
-input {
+.checkout-form input {
   border-radius: 8px;
   text-align: left;
 }

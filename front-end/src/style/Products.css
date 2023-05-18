@@ -40,7 +40,7 @@
   width: 170px;
 }
 
-h3 {
+.product-card h3 {
   font-size: 16px;
 }
 
@@ -74,20 +74,20 @@ h3 {
   justify-content: center;
 }
 
-button {
+.product-card button {
   height: 100%;
   margin: 0;
   padding: 0 15px;
 }
-button.plus {
+.product-card button.plus {
   border-radius: 0 10px 10px 0;
 }
 
-button.minus {
+.product-card button.minus {
   border-radius: 10px 0 0 10px;
 }
 
-input {
+.product-card input {
   border: 1px solid lightgray;
   border-left: none;
   border-radius: 0;
@@ -99,14 +99,14 @@ input {
   width: 50px;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+.product-card input[type="number"]::-webkit-inner-spin-button,
+.product-card input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* for firefox */
-/* input[type="number"] {
+/* .product-card input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 } */
