@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { requestGetWithToken, requestPatchWithToken } from '../services/requests';
 import DetailsTable from '../components/DetailsTable';
+import '../style/Details.css';
 
 function Details() {
   const [sale, setSale] = useState({});
@@ -91,61 +92,74 @@ function Details() {
   return (
     <div>
       <Header />
-      {
-        Object.keys(sale).length && (
-          <div>
-            <span
-              data-testid={ `${ROUTE}element-order-details-label-order-id` }
-            >
-              {sale.id}
-            </span>
-            { (pathname.includes('customer')) && (
-              <span
-                data-testid={ `${ROUTE}element-order-details-label-seller-name` }
-              >
-                {sale.seller.name}
-              </span>)}
-            <span
-              data-testid={ `${ROUTE}element-order-details-label-order-date` }
-            >
-              {date}
-            </span>
-            <span
-              data-testid={ `${ROUTE}element-order-details-label-delivery-status-${id}` }
-            >
-              {status}
-            </span>
-            { (pathname.includes('customer')) && (
-              <button
-                data-testid={ `${ROUTE}button-delivery-check` }
-                type="button"
-                disabled={ status !== 'Em Trânsito' }
-                onClick={ () => handleStatusChange('Entregue') }
-              >
-                Marcar como entregue
-              </button>)}
-            { (pathname.includes('seller')) && (
-              <button
-                data-testid={ `${ROUTE}button-preparing-check` }
-                type="button"
-                disabled={ status !== 'Pendente' }
-                onClick={ () => handleStatusChange('Preparando') }
-              >
-                Preparar pedido
-              </button>)}
-            { (pathname.includes('seller')) && (
-              <button
-                data-testid={ `${ROUTE}button-dispatch-check` }
-                type="button"
-                disabled={ status !== 'Preparando' }
-                onClick={ () => handleStatusChange('Em Trânsito') }
-              >
-                Saiu para entrega
-              </button>)}
-          </div>
-        )
-      }
-      <DetailsTable props={ sale } />
+      <div className="details">
+        <h2>Detalhes do pedido</h2>
+        <div className="details-sale">
+          {
+            Object.keys(sale).length && (
+              <div>
+                <p
+                  data-testid={ `${ROUTE}element-order-details-label-order-id` }
+                >
+                  <b>Número do pedido: </b>
+                  {sale.id}
+                </p>
+                { (pathname.includes('customer')) && (
+                  <p
+                    data-testid={ `${ROUTE}element-order-details-label-seller-name` }
+                  >
+                    <b>Vendedor(a): </b>
+                    {sale.seller.name}
+                  </p>)}
+                <p
+                  data-testid={ `${ROUTE}element-order-details-label-order-date` }
+                >
+                  <b>Data: </b>
+                  {date}
+                </p>
+                <div className="details-status">
+                  <p
+                    data-testid={
+                      `${ROUTE}element-order-details-label-delivery-status-${id}`
+                    }
+                  >
+                    <b>Status: </b>
+                    {status}
+                  </p>
+                  { (pathname.includes('customer')) && (
+                    <button
+                      data-testid={ `${ROUTE}button-delivery-check` }
+                      type="button"
+                      disabled={ status !== 'Em Trânsito' }
+                      onClick={ () => handleStatusChange('Entregue') }
+                    >
+                      Marcar como entregue
+                    </button>)}
+                  { (pathname.includes('seller')) && (
+                    <button
+                      data-testid={ `${ROUTE}button-preparing-check` }
+                      type="button"
+                      disabled={ status !== 'Pendente' }
+                      onClick={ () => handleStatusChange('Preparando') }
+                    >
+                      Preparar pedido
+                    </button>)}
+                  { (pathname.includes('seller')) && (
+                    <button
+                      data-testid={ `${ROUTE}button-dispatch-check` }
+                      type="button"
+                      disabled={ status !== 'Preparando' }
+                      onClick={ () => handleStatusChange('Em Trânsito') }
+                    >
+                      Saiu para entrega
+                    </button>)}
+                </div>
+              </div>
+            )
+          }
+        </div>
+        <DetailsTable props={ sale } />
+      </div>
     </div>
   );
 }

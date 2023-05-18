@@ -79,7 +79,6 @@ function CheckoutTable() {
       </table>
       <p data-testid="customer_checkout__element-order-total-price">
         Total:
-        {' '}
         <b>{`R$ ${totalCart.toFixed(2).replace('.', ',')}`}</b>
       </p>
     </div>

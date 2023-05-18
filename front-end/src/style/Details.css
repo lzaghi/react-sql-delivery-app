@@ -1,0 +1,41 @@
+.details {
+  margin-inline: 60px;
+}
+
+.details h2 {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.details-sale {
+  border-left: 1px dashed black;
+  padding-left: 20px;
+}
+
+.details-sale p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.details-sale b {
+  font-size: 15px;
+}
+
+.details-status {
+  display: flex;
+}
+
+.details-status button {
+  border-radius: 5px;
+  margin-left: 20px;
+  padding: 3px 5px;
+}
+
+.details-table {
+  margin-top: 50px;
+}
+
+.details-total {
+  font-size: 18px;
+  margin-top: 20px;
+}

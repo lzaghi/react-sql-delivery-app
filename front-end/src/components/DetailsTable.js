@@ -14,7 +14,7 @@ function DetailsTable(sale) {
   const { props: { products, totalPrice } } = sale;
   return (
     <div>
-      <table>
+      <table className="checkout-table details-table">
         <thead>
           <tr>
             <th>Item</th>
@@ -34,6 +34,7 @@ function DetailsTable(sale) {
                   { index + 1 }
                 </td>
                 <td
+                  className="descricao"
                   data-testid={ `${ROUTE}element-order-table-name-${index}` }
                 >
                   { product.name }
@@ -60,9 +61,11 @@ function DetailsTable(sale) {
         </tbody>
       </table>
       <p
+        className="details-total"
         data-testid={ `${ROUTE}element-order-total-price` }
       >
-        {`Total: R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}`}
+        Total:
+        <b>{`R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}`}</b>
       </p>
     </div>
   );
