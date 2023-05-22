@@ -3,6 +3,7 @@ import { act, screen, waitFor } from "@testing-library/react";
 import App from "../App";
 import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux";
 import userEvent from '@testing-library/user-event';
+import * as api from '../services/requests'
 
 describe('Testing login page', () => {
   it('checks inputs and buttons existence', () => {
@@ -20,6 +21,12 @@ describe('Testing login page', () => {
   })
 
   it('redirects to "/customer/products" when login is done by a customer', async () => {
+    const errorMessage = 'Invalid email';
+    const errorResponse = { response: { data: { message: errorMessage} } };
+    jest.spyOn(api, 'requestPost').mockImplementation(() => {
+      throw errorResponse;
+    })
+    
     const { history } = renderWithRouterAndRedux(<App />);
 
     const email = screen.getByTestId('common_login__input-email')
@@ -33,6 +40,15 @@ describe('Testing login page', () => {
     await waitFor(() => {
       expect(screen.getByText('Invalid email')).toBeInTheDocument();
     });
+
+    jest.clearAllMocks();
+    jest.spyOn(api, 'requestPost').mockImplementation(() => ({
+      user: {name: 'Cliente Zé Birita',
+      email: 'zebirita@email.com',
+      password: '$#zebirita#$',
+      role: 'customer'},
+      token: 'validToken'
+    }))
 
     userEvent.clear(email);
     userEvent.type(email, 'zebirita@email.com');
@@ -60,6 +76,14 @@ describe('Testing login page', () => {
     const password = screen.getByTestId('common_login__input-password')
     const loginButton = screen.getByTestId('common_login__button-login')
 
+    jest.spyOn(api, 'requestPost').mockImplementation(() => ({
+      user: {name: 'Fulana Sobrenome',
+      email: 'fulana@deliveryapp.com',
+      password: 'fulana@123',
+      role: 'seller'},
+      token: 'validToken'
+    }))
+
     userEvent.clear(email);
     userEvent.type(email, 'fulana@deliveryapp.com');
     userEvent.type(password, 'fulana@123');
@@ -85,6 +109,14 @@ describe('Testing login page', () => {
     const email = screen.getByTestId('common_login__input-email')
     const password = screen.getByTestId('common_login__input-password')
     const loginButton = screen.getByTestId('common_login__button-login')
+
+    jest.spyOn(api, 'requestPost').mockImplementation(() => ({
+      user: {name: 'Admin Sobrenome',
+      email: 'adm@deliveryapp.com',
+      password: '--adm2@21!!--',
+      role: 'administrator'},
+      token: 'validToken'
+    }))
 
     userEvent.clear(email);
     userEvent.type(email, 'adm@deliveryapp.com');
