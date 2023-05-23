@@ -1,5 +1,4 @@
-.login,
-.register {
+.login, .register {
   left: 50%;
   margin: auto;
   position: absolute;
@@ -36,7 +35,7 @@ button:disabled {
   background-color: rgb(255, 176, 176);
 }
 
-button:hover:not([disabled]) {
+button:hover:not( [ disabled ] ) {
   cursor: pointer;
   filter: grayscale(0.4);
 }

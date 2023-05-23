@@ -10,11 +10,9 @@
 .admin-form {
   height: 280px;
   width: 500px;
-  /* padding: 0 10px; */
 }
 
-.admin-form button,
-.admin-form input {
+.admin-form button, .admin-form input {
   margin-bottom: 0;
 }
 
@@ -32,8 +30,8 @@
 }
 
 .admin-table td {
-  padding-top: 0;
   padding-bottom: 0;
+  padding-top: 0;
 }
 
 .admin-table button {
