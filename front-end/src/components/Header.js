@@ -32,7 +32,7 @@ function Header() {
             data-testid="customer_products__element-navbar-link-products"
             to="/customer/products"
             id="produtos"
-            className={ pathname.includes('products') ? 'active' : '' }
+            className={ pathname.includes('products') ? 'active produtos' : 'produtos' }
           >
             Produtos
           </Link>
@@ -45,7 +45,7 @@ function Header() {
             pathname === '/customer/orders'
           || pathname === '/seller/orders'
           || pathname.includes('manage')
-              ? 'active' : ''
+              ? 'active variavel' : 'variavel'
           }
         >
           { navBarText }
@@ -55,6 +55,7 @@ function Header() {
         <h3
           data-testid="customer_products__element-navbar-user-full-name"
           id="logged-user"
+          className="logged-user"
         >
           {userName}
         </h3>
@@ -62,6 +63,7 @@ function Header() {
           data-testid="customer_products__element-navbar-link-logout"
           href="/login"
           id="logout"
+          className="logout"
           onClick={ () => {
             localStorage.removeItem('user');
             dispatch(resetState());

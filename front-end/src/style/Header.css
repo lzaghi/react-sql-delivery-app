@@ -1,4 +1,3 @@
-/* stylelint-disable selector-max-specificity */
 .header {
   align-items: center;
   background-color: gray;
@@ -16,7 +15,7 @@
   height: 60px;
 }
 
-#produtos, #variavel {
+.produtos, .variavel {
   align-items: center;
   display: flex;
   height: 100%;
@@ -24,7 +23,7 @@
   transition: 0.3s;
 }
 
-#produtos:hover, #variavel:hover {
+.produtos:hover, .variavel:hover {
   background-color: gray;
 }
 
@@ -39,11 +38,11 @@
   justify-content: space-evenly;
 }
 
-#logged-user {
+.logged-user {
   font-size: 1.4rem;
 }
 
-#logged-user, #logout {
+.logged-user, .logout {
   align-items: center;
   display: flex;
   height: 100%;
@@ -51,12 +50,12 @@
   width: 100%;
 }
 
-#logout {
+.logout {
   background-color: black;
   transition: 0.5s;
 }
 
-#logout:hover {
+.logout:hover {
   background-color: var(--red);
   color: black;
 }
