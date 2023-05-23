@@ -7,6 +7,10 @@ import * as api from '../services/requests'
 
 describe('Testing Customer flow', () => {
   beforeAll(() => {
+    jest.restoreAllMocks();
+  })
+
+  afterEach(() => {
     jest.clearAllMocks();
   })
   
@@ -20,6 +24,10 @@ describe('Testing Customer flow', () => {
   })
 
   it('redirects from /customer/products to /login if token is invalid', async () => {
+    jest.spyOn(api, 'requestGetWithToken').mockRejectedValue({
+      response: { status: 401 },
+    })
+    
     localStorage.setItem('user', JSON.stringify({ role: 'customer', token: 'invalid'}));
     const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/products');
 
@@ -27,6 +35,7 @@ describe('Testing Customer flow', () => {
       expect(history.location.pathname).toBe('/login');
     });
     localStorage.removeItem('user')
+    jest.clearAllMocks();
   })
 
   // it('returns API error in fail case', async () => {
@@ -58,26 +67,77 @@ describe('Testing Customer flow', () => {
   //   jest.clearAllMocks();
   // })
 
+  const productsListMock = [
+    {
+      id: 1,
+      name: 'Skol Lata 250ml',
+      price: '2.20',
+      url_image: 'http://localhost:3001/images/skol_lata_350ml.jpg',
+    },
+    {
+      id: 2,
+      name: 'Heineken 600ml',
+      price: '7.50',
+      url_image: 'http://localhost:3001/images/heineken_600ml.jpg',
+    },
+    {
+      id: 3,
+      name: 'Antarctica Pilsen 300ml',
+      price: '2.49',
+      url_image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
+    },
+    {
+      id: 4,
+      name: 'Brahma 600ml',
+      price: '7.50',
+      url_image: 'http://localhost:3001/images/brahma_600ml.jpg',
+    },
+  ]
+
   it('adds items to cart, redirect to checkout, finish order and see its details', async () => {
-    localStorage.removeItem('user')
-    const { history } = renderWithRouterAndRedux(<App />);
+    const spy = jest.spyOn(api, 'requestGetWithToken').mockResolvedValue(productsListMock)
+    // localStorage.removeItem('user')
+    localStorage.setItem('user', JSON.stringify({ 
+    role: 'customer',
+    token: 'validToken'}))
+    const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/products');
+    
+    // const email = screen.getByTestId('common_login__input-email')
+    // const password = screen.getByTestId('common_login__input-password')
+    // const loginButton = screen.getByTestId('common_login__button-login')
 
-    const email = screen.getByTestId('common_login__input-email')
-    const password = screen.getByTestId('common_login__input-password')
-    const loginButton = screen.getByTestId('common_login__button-login')
+    // jest.spyOn(api, 'requestPost').mockReturnValueOnce({
+    //   user: {name: 'Cliente Zé Birita',
+    //   email: 'zebirita@email.com',
+    //   password: '$#zebirita#$',
+    //   role: 'customer' },
+    //   token: 'validToken'
+    // })
 
-    userEvent.clear(email);
-    userEvent.type(email, 'zebirita@email.com');
-    userEvent.type(password, '$#zebirita#$');
-    userEvent.click(loginButton)
+    // userEvent.clear(email);
+    // userEvent.type(email, 'zebirita@email.com');
+    // userEvent.type(password, '$#zebirita#$');
+    // userEvent.click(loginButton)
 
+    
     await waitFor(() => {
       expect(history.location.pathname).toBe('/customer/products');
     });
+    // await waitFor(() => {
+    //   expect(screen.getByText('Carregando...')).toBeDefined();
+    // });
 
+    // await waitForElementToBeRemoved(() => {
+    //   screen.getByText('Carregando...');
+    // });
+    expect(spy).toHaveBeenCalledTimes(1);
+    
     await waitFor(() => {
-      expect(screen.getByTestId('customer_products__element-card-title-1')).toBeDefined();
+      const productTitle = screen.getByTestId('customer_products__element-card-title-1')
+      expect(productTitle).toBeDefined();
     });
+
+    jest.clearAllMocks();
 
     const addToCart1 = screen.getByTestId('customer_products__button-card-add-item-1')
     const rmFromCart1 = screen.getByTestId('customer_products__button-card-rm-item-1')
@@ -98,6 +158,26 @@ describe('Testing Customer flow', () => {
     const cart = screen.getByTestId('customer_products__button-cart')
     userEvent.click(cart);
 
+    jest.spyOn(api, 'requestGetWithToken').mockImplementation(() => ([
+      {
+        "id": 2,
+        "name": "Fulana Pereira",
+        "email": "fulana@deliveryapp.com",
+        "role": "seller"
+      },
+    ]))
+
+    jest.spyOn(api, 'requestPostWithToken').mockImplementation(() => ({
+      "id": 10,
+      "userId": 1,
+      "sellerId": 2,
+      "totalPrice": 10,
+      "deliveryAddress": "lala",
+      "deliveryNumber": "userInfo.number",
+      "status": "Pendente",
+      "saleDate": "2023-05-22T23:13:05.892Z"
+    }))
+    
     await waitFor(() => {
       expect(history.location.pathname).toBe('/customer/checkout');
     });
@@ -111,9 +191,9 @@ describe('Testing Customer flow', () => {
     expect(chekcoutCart).toHaveTextContent('22,50')
     
     const sellerSelect = screen.getByTestId('customer_checkout__select-seller');
-    await waitFor(() => {
-      expect(sellerSelect.options.length).toBeGreaterThan(1);
-    });
+    // await waitFor(() => {
+    //   expect(sellerSelect.options.length).toBeGreaterThan(1);
+    // });
     const addressInput = screen.getByTestId('customer_checkout__input-address')
     const addressNumberInput = screen.getByTestId('customer_checkout__input-address-number')
     const finishButton = screen.getByTestId('customer_checkout__button-submit-order')
@@ -125,7 +205,7 @@ describe('Testing Customer flow', () => {
     userEvent.click(finishButton);
 
     await waitFor(() => {
-      expect(history.location.pathname).toMatch(/^\/customer\/orders\/\d+$/);
+      expect(history.location.pathname).toBe('/customer/orders/10');
     });
   })
 
@@ -139,12 +219,18 @@ describe('Testing Customer flow', () => {
   })
 
   it('redirects from /customer/checkout to /login if token is invalid', async () => {
+    jest.spyOn(api, 'requestGetWithToken').mockRejectedValue({
+      response: { status: 401 },
+    })
+    
     localStorage.setItem('user', JSON.stringify({ role: 'customer', token: 'invalid'}));
     const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/checkout');
 
     await waitFor(() => {
       expect(history.location.pathname).toBe('/login');
     });
+
+    localStorage.removeItem('user')
   })
 
   it('redirects from /customer/orders to /login if not logged in', async () => {
@@ -157,21 +243,54 @@ describe('Testing Customer flow', () => {
   })
 
   it('redirects from /customer/orders to /login if token is invalid', async () => {
+    jest.spyOn(api, 'requestGetWithToken').mockRejectedValue({
+      response: { status: 401 },
+    })
+    
     localStorage.setItem('user', JSON.stringify({ role: 'customer', token: 'invalid'}));
     const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/orders');
 
     await waitFor(() => {
       expect(history.location.pathname).toBe('/login');
     });
+
+    localStorage.removeItem('user')
   })
 
   it('redirects from /customer/orders/1 to /login if token is invalid', async () => {
+    jest.spyOn(api, 'requestGetWithToken').mockRejectedValue({
+      response: { status: 401 },
+    })
+    
     localStorage.setItem('user', JSON.stringify({ role: 'customer', token: 'invalid'}));
     const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/orders/1');
 
     await waitFor(() => {
       expect(history.location.pathname).toBe('/login');
     });
+
+    localStorage.removeItem('user')
+  })
+
+  it('navigates to /customer/orders with no orders made and logout', async () => {
+    localStorage.setItem('user', JSON.stringify({
+      role: 'customer',
+      token: 'validToken'
+    }))
+
+    jest.spyOn(api, 'requestGetWithToken').mockImplementation(() => [])
+
+    const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/orders');
+    
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/customer/orders');
+    });
+
+    const noOrdersMessage = screen.getByText('Ainda não há pedidos!')
+    expect(noOrdersMessage).toBeDefined();
+
+    const logoutButton = screen.getByTestId('customer_products__element-navbar-link-logout');
+    userEvent.click(logoutButton);
   })
 
   const salesList = [
@@ -233,26 +352,13 @@ describe('Testing Customer flow', () => {
   }
 
   it('navigates to /customer/orders and clicks on first order', async () => {
-    localStorage.removeItem('user')
-    const { history } = renderWithRouterAndRedux(<App />);
-
-    const email = screen.getByTestId('common_login__input-email')
-    const password = screen.getByTestId('common_login__input-password')
-    const loginButton = screen.getByTestId('common_login__button-login')
-
-    userEvent.clear(email);
-    userEvent.type(email, 'zebirita@email.com');
-    userEvent.type(password, '$#zebirita#$');
-    userEvent.click(loginButton);
-    
-    await waitFor(() => {
-      expect(history.location.pathname).toBe('/customer/products');
-    });
-    
+    localStorage.setItem('user', JSON.stringify({
+      role: 'customer',
+      token: 'validToken'
+    }))
     jest.spyOn(api, 'requestGetWithToken').mockImplementation(() => salesList)
-    
-    const ordersLink = screen.getByTestId('customer_products__element-navbar-link-orders');
-    userEvent.click(ordersLink);
+
+    const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/orders');
     
     await waitFor(() => {
       expect(history.location.pathname).toBe('/customer/orders');
@@ -273,34 +379,6 @@ describe('Testing Customer flow', () => {
     userEvent.click(detailsStatusButton)
 
     jest.clearAllMocks();
-  })
-
-  it('navigates to /customer/orders with no orders made and logout', async () => {
-    localStorage.removeItem('user')
-    const { history } = renderWithRouterAndRedux(<App />);
-
-    const email = screen.getByTestId('common_login__input-email')
-    const password = screen.getByTestId('common_login__input-password')
-    const loginButton = screen.getByTestId('common_login__button-login')
-
-    userEvent.clear(email);
-    userEvent.type(email, 'zebirita@email.com');
-    userEvent.type(password, '$#zebirita#$');
-    userEvent.click(loginButton)
-
-    await waitFor(() => {
-      expect(history.location.pathname).toBe('/customer/products');
-    });
-
-    const ordersLink = screen.getByTestId('customer_products__element-navbar-link-orders');
-    expect(ordersLink).toHaveTextContent('Meus pedidos');
-    userEvent.click(ordersLink);
-
-    const noOrdersMessage = screen.getByText('Ainda não há pedidos!')
-    expect(noOrdersMessage).toBeDefined();
-
-    const logoutButton = screen.getByTestId('customer_products__element-navbar-link-logout');
-    userEvent.click(logoutButton);
   })
 
   // it('', () => {

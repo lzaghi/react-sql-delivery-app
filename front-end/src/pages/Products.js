@@ -50,7 +50,7 @@ function Products() {
   }, [history, handleRedirect]);
 
   if (error) {
-    <h2>{error?.response?.statusText}</h2>;
+    return <h2>{error?.response?.statusText}</h2>;
   }
 
   return (

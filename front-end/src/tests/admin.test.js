@@ -16,6 +16,10 @@ describe('Testing Admin flow', () => {
   })
 
   it('redirects from /admin/manage to /login if token is invalid', async () => {
+    jest.spyOn(api, 'requestGetWithToken').mockRejectedValue({
+      response: { status: 401 },
+    })
+    
     localStorage.setItem('user', JSON.stringify({ role: 'customer', token: 'invalid'}));
     const { history } = renderWithRouterAndRedux(<App />, {}, '/admin/manage');
 
@@ -26,17 +30,11 @@ describe('Testing Admin flow', () => {
   })
 
   it('registers a new user and deletes one from the list', async () => {
-    localStorage.removeItem('user')
-    const { history } = renderWithRouterAndRedux(<App />);
-
-    const email = screen.getByTestId('common_login__input-email')
-    const password = screen.getByTestId('common_login__input-password')
-    const loginButton = screen.getByTestId('common_login__button-login')
-
-    userEvent.clear(email);
-    userEvent.type(email, 'adm@deliveryapp.com');
-    userEvent.type(password, '--adm2@21!!--');
-    userEvent.click(loginButton)
+    localStorage.setItem('user', JSON.stringify({
+      role: 'administrator',
+      token: 'validToken'
+    }))
+    const { history } = renderWithRouterAndRedux(<App />, {}, '/admin/manage');
 
     await waitFor(() => {
       expect(history.location.pathname).toBe('/admin/manage');

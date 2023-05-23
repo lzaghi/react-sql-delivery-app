@@ -65,19 +65,14 @@ describe('Testing Seller flow', () => {
   }
 
   it('navigates to /seller/orders and clicks on first order', async () => {
-    localStorage.removeItem('user')
-    const { history } = renderWithRouterAndRedux(<App />);
-
-    const email = screen.getByTestId('common_login__input-email')
-    const password = screen.getByTestId('common_login__input-password')
-    const loginButton = screen.getByTestId('common_login__button-login')
-
-    userEvent.clear(email);
-    userEvent.type(email, 'fulana@deliveryapp.com');
-    userEvent.type(password, 'fulana@123');
-    userEvent.click(loginButton);
-    
+    localStorage.setItem('user', JSON.stringify({
+      role: 'seller',
+      token: 'validToken'
+    }))
     jest.spyOn(api, 'requestGetWithToken').mockImplementation(() => salesList)
+
+    const { history } = renderWithRouterAndRedux(<App />, {}, '/seller/orders');
+    
     await waitFor(() => {
       expect(history.location.pathname).toBe('/seller/orders');
     });
