@@ -9,15 +9,19 @@
 
 .admin-form {
   height: 280px;
-  width: 500px;
+  width: 800px;
 }
 
 .admin-form button, .admin-form input {
   margin-bottom: 0;
 }
 
-.admin-form .name-input {
-  width: 68%;
+.admin-form button {
+  display: block;
+}
+
+.admin-form .name-label {
+  white-space: nowrap;
 }
 
 .admin-list h3 {
@@ -29,12 +33,11 @@
   margin-top: 10px;
 }
 
-.admin-table td {
-  padding-bottom: 0;
-  padding-top: 0;
+.admin-table .table-name, .admin-table .table-email {
+  text-align: left;
 }
 
 .admin-table button {
   margin-bottom: 0;
-  padding: 8px;
+  padding: 5px;
 }

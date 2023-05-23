@@ -68,10 +68,16 @@ function AdminList() {
                     <td data-testid={ `${ROUTE}element-user-table-item-number-${index}` }>
                       { index + 1}
                     </td>
-                    <td data-testid={ `${ROUTE}element-user-table-name-${index}` }>
+                    <td
+                      className="table-name"
+                      data-testid={ `${ROUTE}element-user-table-name-${index}` }
+                    >
                       { user.name }
                     </td>
-                    <td data-testid={ `${ROUTE}element-user-table-email-${index}` }>
+                    <td
+                      className="table-email"
+                      data-testid={ `${ROUTE}element-user-table-email-${index}` }
+                    >
                       { user.email }
                     </td>
                     <td data-testid={ `${ROUTE}element-user-table-role-${index}` }>

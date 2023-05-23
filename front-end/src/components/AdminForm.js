@@ -68,13 +68,11 @@ function AdminForm() {
   }, [newUser.name, newUser.email, newUser.password, newUser.role]);
 
   return (
-    <div>
-      <h2>Formulário de Cadastro</h2>
-      <form className="checkout-form admin-form">
-        <label htmlFor="name">
+    <form className="checkout-form admin-form">
+      <div className="form-left">
+        <label className="name-label" htmlFor="name">
           Nome completo:
           <input
-            className="name-input"
             data-testid="admin_manage__input-name"
             type="name"
             name="name"
@@ -82,6 +80,22 @@ function AdminForm() {
             onChange={ (e) => handleChange(e) }
           />
         </label>
+        <label htmlFor="role">
+          Tipo:
+          <select
+            data-testid="admin_manage__select-role"
+            name="role"
+            id="role"
+            value={ newUser.role }
+            onChange={ (e) => handleChange(e) }
+          >
+            <option value="" disabled hidden>Selecionar</option>
+            <option value="customer">Cliente</option>
+            <option value="seller">Vendedor</option>
+          </select>
+        </label>
+      </div>
+      <div className="form-right">
         <label htmlFor="email">
           Email:
           <input
@@ -102,36 +116,22 @@ function AdminForm() {
             onChange={ (e) => handleChange(e) }
           />
         </label>
-        <label htmlFor="role">
-          Tipo:
-          <select
-            data-testid="admin_manage__select-role"
-            name="role"
-            id="role"
-            value={ newUser.role }
-            onChange={ (e) => handleChange(e) }
-          >
-            <option value="" disabled hidden>Selecionar</option>
-            <option value="customer">Cliente</option>
-            <option value="seller">Vendedor</option>
-          </select>
-        </label>
-        <button
-          data-testid="admin_manage__button-register"
-          type="button"
-          disabled={ disabled }
-          onClick={ () => register() }
-        >
-          Cadastrar
-        </button>
-      </form>
+      </div>
+      <button
+        data-testid="admin_manage__button-register"
+        type="button"
+        disabled={ disabled }
+        onClick={ () => register() }
+      >
+        Cadastrar
+      </button>
       { error && (
         <p
           data-testid="admin_manage__element-invalid-register"
         >
           {error.response.data.message}
         </p>)}
-    </div>
+    </form>
   );
 }
 

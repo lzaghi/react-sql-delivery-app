@@ -39,3 +39,16 @@ button:hover:not( [ disabled ] ) {
   cursor: pointer;
   filter: grayscale(0.4);
 }
+
+.register-button {
+  background-color: white;
+  border: 1px solid white;
+  color: rgb(85, 85, 85);
+  margin-top: 15px;
+}
+
+.register-button:hover {
+  border: 1px solid gray;
+  color: black;
+  filter: none;
+}
