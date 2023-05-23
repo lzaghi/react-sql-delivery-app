@@ -75,7 +75,8 @@ function Products() {
           <p
             data-testid="customer_products__checkout-bottom-value"
           >
-            {`Total: R$ ${Number(totalCart).toFixed(2).replace('.', ',')}`}
+            {`${Number(totalCart).toFixed(2).replace('.', ',')}`}
+            {/* {`Total: R$ ${Number(totalCart).toFixed(2).replace('.', ',')}`} */}
           </p>
           <button
             data-testid="customer_products__button-cart"
