@@ -146,6 +146,7 @@ function Details() {
                     </button>)}
                   { (pathname.includes('seller')) && (
                     <button
+                      className="dispatched-button"
                       data-testid={ `${ROUTE}button-dispatch-check` }
                       type="button"
                       disabled={ status !== 'Preparando' }

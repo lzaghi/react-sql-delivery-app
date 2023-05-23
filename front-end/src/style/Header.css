@@ -7,6 +7,12 @@
   margin-bottom: 50px;
 }
 
+.header .header-logo {
+  background-color: black;
+  height: inherit;
+  padding-inline: 20px;
+}
+
 .big-part {
   align-items: center;
   background-color: black;

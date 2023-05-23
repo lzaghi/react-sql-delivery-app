@@ -26,6 +26,7 @@ function Admin() {
     <div>
       <Header />
       <div className="admin-page">
+        <h2>Formulário de Cadastro</h2>
         <AdminForm />
         <AdminList />
       </div>

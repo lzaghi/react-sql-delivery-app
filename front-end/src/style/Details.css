@@ -22,14 +22,18 @@
 }
 
 .details-status {
+  align-items: baseline;
   display: flex;
 }
 
 .details-status button {
   border-radius: 5px;
-  margin-bottom: 5px;
-  margin-left: 20px;
+  margin: 0 50px;
   padding: 3px 5px;
+}
+
+.details-status .dispatched-button {
+  margin: 0;
 }
 
 .details-table {

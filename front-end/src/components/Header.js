@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { resetState } from '../redux/actions';
+import logo from '../images/logo-white-cut.png';
 import '../style/Header.css';
 
 function Header() {
@@ -26,6 +27,7 @@ function Header() {
 
   return (
     <div className="header">
+      <img src={ logo } alt="logo do app" className="header-logo" />
       <div className="big-part">
         { pathname.includes('customer') && (
           <Link

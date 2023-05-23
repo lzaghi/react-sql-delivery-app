@@ -123,9 +123,10 @@ function Login() {
         <button
           data-testid="common_login__button-register"
           type="button"
+          className="register-button"
           onClick={ () => history.push('/register') }
         >
-          Cadastrar
+          Ainda não tenho uma conta
         </button>
       </form>
       { error !== '' && (
