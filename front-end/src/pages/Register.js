@@ -123,7 +123,7 @@ function Register() {
         <p
           data-testid="common_register__element-invalid_register"
         >
-          {error.response?.data?.message}
+          {error.response?.data?.message || 'Algo deu errado!'}
         </p>)}
     </div>
   );

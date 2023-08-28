@@ -129,7 +129,7 @@ function AdminForm() {
         <p
           data-testid="admin_manage__element-invalid-register"
         >
-          {error.response.data.message}
+          {error.response?.data?.message || 'Algo deu errado!'}
         </p>)}
     </form>
   );

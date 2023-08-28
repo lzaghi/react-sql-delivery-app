@@ -133,7 +133,7 @@ function Login() {
         <p
           data-testid="common_login__element-invalid-email"
         >
-          {error.response.data.message}
+          {error.response?.data?.message || 'Algo deu errado!'}
         </p>)}
     </div>
   );

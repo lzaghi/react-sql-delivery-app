@@ -43,7 +43,7 @@ function AdminList() {
   }, [history, setUsersList]);
 
   if (error) {
-    <h2>{error?.response?.statusText}</h2>;
+    <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
   return (
     <div className="admin-list">
