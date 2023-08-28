@@ -50,7 +50,7 @@ function Products() {
   }, [history, handleRedirect]);
 
   if (error) {
-    return <h2>{error?.response?.statusText}</h2>;
+    return <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
 
   return (

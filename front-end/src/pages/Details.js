@@ -86,7 +86,7 @@ function Details() {
   }, [history, id, handleRedirect]);
 
   if (error) {
-    <h2>{error?.response?.statusText}</h2>;
+    <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
 
   return (
