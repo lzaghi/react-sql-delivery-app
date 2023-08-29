@@ -1,7 +1,8 @@
 const axios = require('axios');
 
 const api = axios.create({
-  baseURL: `http://${process.env.REACT_APP_HOSTNAME || 'localhost'}:${process.env.REACT_APP_API_PORT || '3001'}`,
+  // baseURL: `http://${process.env.REACT_APP_HOSTNAME || 'localhost'}:${process.env.REACT_APP_API_PORT || '3001'}`,
+  baseURL: process.env.PUBLIC_URL ?? 'localhost:3001',
 });
 
 export const requestPost = async (endpoint, body) => {
