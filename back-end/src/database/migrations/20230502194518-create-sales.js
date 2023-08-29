@@ -8,25 +8,25 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       userId: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
-          model: 'users',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        // references: {
+        //   model: 'users',
+        //   key: 'id',
+        // },
+        // onDelete: 'NO ACTION',
+        // onUpdate: 'NO ACTION',
         field: 'user_id',
       },
       sellerId: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
-          model: 'users',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        // references: {
+        //   model: 'users',
+        //   key: 'id',
+        // },
+        // onDelete: 'NO ACTION',
+        // onUpdate: 'NO ACTION',
         field: 'seller_id',
       },
       totalPrice: {

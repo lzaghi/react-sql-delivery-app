@@ -1,20 +1,9 @@
 require('dotenv').config();
 
-// const environment = process.env.NODE_ENV || 'test';
-
-// const suffix = {
-//   prod: '',
-//   production: '',
-//   dev: '-dev',
-//   development: '-dev',
-//   test: '-test',
-// };
-
 const options = {
+  use_env_variable: process.env.USE_ENV_VARIABLE || null,
   host: process.env.MYSQL_HOST || 'localhost',
   port: process.env.MYSQL_PORT || '3306',
-  // database: 
-  //   `${process.env.MYSQL_DB_NAME || 'delivery-app'}${suffix[environment] || suffix.test}`,
   database: process.env.MYSQL_DB_NAME,
   username: process.env.MYSQL_USER || 'root',
   password: process.env.MYSQL_PASSWORD || 'password',
@@ -25,10 +14,11 @@ const options = {
   logging: false,
 };
 
-// console.log(options);
-// console.log(process.env.HOSTNAME);
-// console.log(process.env.MYSQL_HOST);
-// console.log(process.env.MYSQL_DB_NAME);
+if (options.use_env_variable) {
+  options.dialectOptions.ssl = {
+    rejectUnauthorized: false,
+  };
+}
 
 module.exports = {
   development: {
