@@ -1,4 +1,5 @@
 require('dotenv').config();
+const mysql2 = require('mysql2');
 
 // const environment = process.env.NODE_ENV || 'test';
 
@@ -20,7 +21,6 @@ const options = {
   username: process.env.MYSQL_USER || 'root',
   password: process.env.MYSQL_PASSWORD || 'password',
   dialect: 'mysql',
-  dialectModule: require('mysql2'),
   // ssl: true,
   dialectOptions: {
     timezone: 'Z',
@@ -30,6 +30,10 @@ const options = {
   },
   logging: false,
 };
+
+if (options.dialect === 'mysql') {
+  options.dialectModule = mysql2;
+}
 
 // const options = {
 //   use_env_variable: "DATABASE_URL",
