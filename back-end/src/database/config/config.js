@@ -1,5 +1,5 @@
 require('dotenv').config();
-const mysql2 = require('mysql2');
+// const mysql2 = require('mysql2');
 
 // const environment = process.env.NODE_ENV || 'test';
 
@@ -31,9 +31,9 @@ const options = {
   logging: false,
 };
 
-if (options.dialect === 'mysql') {
-  options.dialectModule = mysql2;
-}
+// if (options.dialect === 'mysql') {
+//   options.dialectModule = mysql2;
+// }
 
 // const options = {
 //   use_env_variable: "DATABASE_URL",
