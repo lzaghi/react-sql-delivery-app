@@ -9,7 +9,7 @@ const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
 // require('dotenv').config()
-console.log(config)
+// console.log(config)
 // const sequelize = new Sequelize(process.env.DATABASE_URL)
 let sequelize;
 if (config.use_env_variable) {
@@ -17,7 +17,7 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-console.log(sequelize)
+// console.log(sequelize)
 fs
   .readdirSync(__dirname)
   .filter(file => {
