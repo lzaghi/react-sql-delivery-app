@@ -11,6 +11,7 @@ require('dotenv').config();
 // };
 
 const options = {
+  use_env_variable: process.env.USE_ENV_VARIABLE || null,
   host: process.env.MYSQL_HOST || 'localhost',
   port: process.env.MYSQL_PORT || '3306',
   // database: 
@@ -19,11 +20,26 @@ const options = {
   username: process.env.MYSQL_USER || 'root',
   password: process.env.MYSQL_PASSWORD || 'password',
   dialect: 'mysql',
+  // ssl: true,
   dialectOptions: {
     timezone: 'Z',
+    ssl: {
+      rejectUnauthorized: true,        
+    },
   },
   logging: false,
 };
+
+// const options = {
+//   use_env_variable: "DATABASE_URL",
+//   dialect: "mysql",
+//   ssl: true,
+//   dialectOptions: {
+//       ssl: {
+//           rejectUnauthorized: true,        
+//       }
+//   }
+// }
 
 // console.log(options);
 // console.log(process.env.HOSTNAME);
