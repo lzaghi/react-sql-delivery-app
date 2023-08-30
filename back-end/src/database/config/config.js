@@ -16,6 +16,7 @@ let options = {
 if (process.env.USE_ENV_VARIABLE) {
   options = {
     use_env_variable: process.env.USE_ENV_VARIABLE,
+    dialect: 'mysql',
     dialectOptions: {
       ssl: {
         rejectUnauthorized: false,
