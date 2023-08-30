@@ -8,6 +8,15 @@ const salesRouter = require('./routers/sales.router');
 
 const app = express();
 app.use(express.json());
+
+const corsOptions = {
+  origin: [
+    'https://react-sql-delivery-app-front.vercel.app',
+    'http://localhost:3000',
+  ], // Your front-end URL
+};
+app.use(cors(corsOptions));
+
 app.use(cors());
 
 app.use(express.static('public'));
