@@ -1,7 +1,6 @@
 require('dotenv').config();
 
-const options = {
-  use_env_variable: process.env.USE_ENV_VARIABLE || null,
+let options = {
   host: process.env.MYSQL_HOST || 'localhost',
   port: process.env.MYSQL_PORT || '3306',
   database: process.env.MYSQL_DB_NAME,
@@ -14,9 +13,14 @@ const options = {
   logging: false,
 };
 
-if (options.use_env_variable) {
-  options.dialectOptions.ssl = {
-    rejectUnauthorized: false,
+if (process.env.USE_ENV_VARIABLE) {
+  options = {
+    use_env_variable: process.env.USE_ENV_VARIABLE,
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
   };
 }
 
