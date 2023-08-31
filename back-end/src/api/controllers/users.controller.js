@@ -25,7 +25,7 @@ const login = async (req, res) => {
   if (newHash === user.password) {
     return res.status(200).json({ user: rest, token });
   } 
-  return res.status(401).json({ message: 'Invalid password!' });
+  return res.status(401).json({ message: 'Wrong password!' });
 };
 
 const register = async (req, res) => {
@@ -47,7 +47,11 @@ const register = async (req, res) => {
 const getByRole = async (req, res) => {
   const { role } = req.params;
   const users = await userService.getByRole(role);
-  return res.status(200).json(users);
+  const usersNoPassword = users.map((user) => {
+    const { password: _, ...rest } = user.dataValues;
+    return rest;
+  });
+  return res.status(200).json(usersNoPassword);
 };
 
 const getUsers = async (_req, res) => {

@@ -1,0 +1,1030 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Delivery App API",
+    "description": "API para operações do App de Delivery",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "credenciamento",
+      "description": "Acesso à aplicação"
+    },
+    {
+      "name": "fluxo do cliente",
+      "description": "Operações feitas por clientes"
+    },
+    {
+      "name": "fluxo do vendedor",
+      "description": "Operações feitas por vendedores"
+    },
+    {
+      "name": "fluxo cliente-vendedor",
+      "description": "Operações comuns a clientes e vendedores"
+    },
+    {
+      "name": "fluxo do administrador",
+      "description": "Operações feitas pelo administrador"
+    }
+  ],
+  "paths": {
+    "/register/": {
+      "post": {
+        "tags": [
+          "credenciamento"
+        ],
+        "summary": "Registro de usuário",
+        "description": "Endpoint para cadastro de novo usuário. \nNecessário passar um objeto com email válido, nome de no mínimo 12 caracteres e senha de no mínimo 5, com os quais se realiza o registro.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "Exemplo da Silva"
+                },
+                "email": {
+                  "example": "exemplo@email.com"
+                },
+                "password": {
+                  "example": "123exemplo321"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 9
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Exemplo da Silva"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "exemplo@email.com"
+                  },
+                    "role": {
+                      "type": "string",
+                      "example": "customer"
+                    }
+                  }
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJFbWFpbCI6ImV4ZW1wbG9AZW1haWwuY29tIiwiaWF0IjoxNjkzNDk1ODgyLCJleHAiOjE2OTM2Njg2ODJ9.x-DQ6OSrhrG2wy3NYTF1IvuyBPHxbP1eyqlmVNrqpoQ"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "All fields must be filled"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Invalid name, email or password"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email already registered!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login/": {
+      "post": {
+        "tags": [
+          "credenciamento"
+        ],
+        "summary": "Validação de credenciais",
+        "description": "Endpoint para acesso ao sistema. \nNecessário passar um objeto com email válido e senha de no mínimo 5 caracteres, com os quais se checa a existência do registro.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "zebirita@email.com"
+                },
+                "password": {
+                  "example": "$#zebirita#$"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 3
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Cliente Zé Birita"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "zebirita@email.com"
+                  },
+                    "role": {
+                      "type": "string",
+                      "example": "customer"
+                    }
+                  }
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJFbWFpbCI6InplYmlyaXRhQGVtYWlsLmNvbSIsImlhdCI6MTY5MzQ5MzIwMCwiZXhwIjoxNjkzNjY2MDAwfQ.Bwy9X42LyBR5OpS3lD4D1tdL0oW5-9xAAUzDdbCZ7LI"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Invalid email or password"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email not registered!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/": {
+      "get": {
+        "tags": [
+          "fluxo do cliente"
+        ],
+        "summary": "Consultar produtos",
+        "description": "Endpoint para listar todos os produtos cadastrados. \n Necessário passar por parâmetro um token válido obtido ao logar/registrar no sistema.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Exemplo do array de resposta",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Skol Lata 250ml"
+                  },
+                  "price": {
+                    "type": "string",
+                    "example": "2.20"
+                  },
+                  "urlImage": {
+                    "type": "string",
+                    "example": "https://delivery-app-back-b4w6.onrender.com/images/skol_lata_350ml.jpg"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/": {
+      "post": {
+        "tags": [
+          "fluxo do cliente"
+        ],
+        "summary": "Cadastrar venda",
+        "description": "Endpoint para cadastro de uma nova venda. \nNecessário passar um token válido obtido ao logar no sistema, além de um objeto com id's do usuário e vendedor, valor total da venda, dados para entrega e um objeto de especificações do carrinho.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": 3
+                },
+                "sellerId": {
+                  "example": 2
+                },
+                "totalPrice": {
+                  "example": 21.43
+                },
+                "deliveryAddress": {
+                  "example": "Rua Tal"
+                },
+                "deliveryNumber": {
+                  "example": 123
+                },
+                "cart": {
+                  "type": "object",
+                  "properties": {
+                    "productsValues": {
+                      "type": "object",
+                      "properties": {
+                        "3": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "example": 3
+                            },
+                            "name": {
+                              "example": "Antarctica Pilsen 300ml"
+                            },
+                            "qtty": {
+                              "example": 5
+                            },
+                            "price": {
+                              "example": "2.49"
+                            }
+                          }
+                        },
+                        "6": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "example": 6
+                            },
+                            "name": {
+                              "example": "Skol Beats Senses 313ml"
+                            },
+                            "qtty": {
+                              "example": 2
+                            },
+                            "price": {
+                              "example": "4.49"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": 4
+                },
+                "userId": {
+                  "example": 3
+                },
+                "sellerId": {
+                  "example": 2
+                },
+                "totalPrice": {
+                  "example": 21.43
+                },
+                "deliveryAddress": {
+                  "example": "Rua Tal"
+                },
+                "deliveryNumber": {
+                  "example": 123
+                },
+                "status": {
+                  "example": "Pendente"
+                },
+                "saleDate": {
+                  "example": "2023-08-31T18:03:34.834Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/user": {
+      "get": {
+        "tags": [
+          "fluxo do cliente"
+        ],
+        "summary": "Consultar pedidos do usuário",
+        "description": "Endpoint para listar todos os pedidos de um usuário. \nNecessário passar um token válido obtido ao logar no sistema, através do qual o usuário é identificado e apenas os respectivos pedidos são retornados.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Exemplo do array de resposta",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": 4
+                  },
+                  "userId": {
+                    "example": 3
+                  },
+                  "sellerId": {
+                    "example": 2
+                  },
+                  "totalPrice": {
+                    "example": 21.43
+                  },
+                  "deliveryAddress": {
+                    "example": "Rua Tal"
+                  },
+                  "deliveryNumber": {
+                    "example": 123
+                  },
+                  "status": {
+                    "example": "Pendente"
+                  },
+                  "saleDate": {
+                    "example": "2023-08-31T18:03:34.834Z"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{role}": {
+      "get": {
+        "tags": [
+          "fluxo do cliente"
+        ],
+        "summary": "Consultar vendedores disponíveis",
+        "description": "Endpoint para listar todos os vendedores registrados, para que o cliente selecione um no momento de realizar o pedido. \nNecessário passar um token válido obtido ao logar no sistema, assim como o 'role', no caso 'seller'.",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Exemplo do array de resposta",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Fulana Pereira"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "fulana@deliveryapp.com"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "seller"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/seller": {
+      "get": {
+        "tags": [
+          "fluxo do vendedor"
+        ],
+        "summary": "Consultar vendas do vendedor",
+        "description": "Endpoint para listar todos as vendas de um vendedor. \nNecessário passar um token válido obtido ao logar no sistema, através do qual o vendedor é identificado e apenas os respectivos pedidos são retornados.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": 4
+                  },
+                  "userId": {
+                    "example": 3
+                  },
+                  "sellerId": {
+                    "example": 2
+                  },
+                  "totalPrice": {
+                    "example": 21.43
+                  },
+                  "deliveryAddress": {
+                    "example": "Rua Tal"
+                  },
+                  "deliveryNumber": {
+                    "example": 123
+                  },
+                  "status": {
+                    "example": "Pendente"
+                  },
+                  "saleDate": {
+                    "example": "2023-08-31T18:03:34.834Z"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/details/{id}": {
+      "get": {
+        "tags": [
+          "fluxo cliente-vendedor"
+        ],
+        "summary": "Consultar detalhes de uma venda",
+        "description": "Endpoint para listar todas as informações de uma venda. \nNecessário passar um token válido obtido ao logar no sistema, além do id da venda desejada.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": 1
+                },
+                "userId": {
+                  "example": 3
+                },
+                "sellerId": {
+                  "example": 2
+                },
+                "totalPrice": {
+                  "example": "19.46"
+                },
+                "deliveryAddress": {
+                  "example": "Rua Tal"
+                },
+                "deliveryNumber": {
+                  "example": "123"
+                },
+                "status": {
+                  "example": "Pendente"
+                },
+                "saleDate": {
+                  "example": "2023-08-31T18:03:34.834Z"
+                },
+                "seller": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "example": "Fulana Pereira"
+                    },
+                    "email": {
+                      "example": "fulana@deliveryapp.com"
+                    }
+                  }
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "example": "Skol Beats Senses 313ml"
+                      },
+                      "price": {
+                        "example": "4.49"
+                      },
+                      "saleProduct": {
+                        "type": "object",
+                        "properties": {
+                          "saleId": {
+                            "example": 1
+                          },
+                          "productId": {
+                            "example": 6
+                          },
+                          "quantity": {
+                            "example": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/{id}": {
+      "patch": {
+        "tags": [
+          "fluxo cliente-vendedor"
+        ],
+        "summary": "Atualizar o status de uma venda",
+        "description": "Endpoint para atualização do status de um pedido. \nO status inicial de um pedido é 'Pendente'. Um vendedor pode alterá-lo para 'Preparando' e para 'Em trânsito', e um cliente pode alterá-lo para 'Entregue'. \nNecessário passar um token válido obtido ao logar no sistema, além do id do pedido em questão.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newStatus": {
+                  "example": "Preparando"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content (atualizado com sucesso)"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register/admin": {
+      "post": {
+        "tags": [
+          "fluxo do administrador"
+        ],
+        "summary": "Registrar usuário ou colaborador",
+        "description": "Endpoint para cadastro de novo cliente ou vendedor. \nNecessário passar um token válido obtido ao logar no sistema, além de um objeto com 'role' desejado, email válido, nome de no mínimo 12 caracteres e senha de no mínimo 5, com os quais se realiza o registro",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "Vendedor da Silva"
+                },
+                "email": {
+                  "example": "vendedor@email.com"
+                },
+                "password": {
+                  "example": "vendedorBiritaGo"
+                },
+                "role": {
+                  "example": "seller"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 10
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Vendedor da Silva"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "vendedor@email.com"
+                  },
+                    "role": {
+                      "type": "string",
+                      "example": "seller"
+                    }
+                  }
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VyRW1haWwiOiJ2ZW5kZWRvckBlbWFpbC5jb20iLCJpYXQiOjE2OTM0OTY1ODEsImV4cCI6MTY5MzY2OTM4MX0.JMt9i9mAM4rD98W7br8MDQEG79FB0RhKcOskmV4roIQ"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "All fields must be filled"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided // Invalid name, email or password"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email already registered!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": [
+          "fluxo do administrador"
+        ],
+        "summary": "Consultar clientes e vendedores",
+        "description": "Endpoint para listar todos os usuários do sistema, sejam clientes ou vendedores. \nNecessário passar um token válido obtido ao logar no sistema.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Exemplo do array de resposta",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": 2
+                  },
+                  "name": {
+                    "example": "Fulana Pereira"
+                  },
+                  "email": {
+                    "example": "fulana@deliveryapp.com"
+                  },
+                  "role": {
+                    "example": "seller"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "delete": {
+        "tags": [
+          "fluxo do administrador"
+        ],
+        "summary": "Remover clientes e vendedores",
+        "description": "Endpoint para deletar um usuário do sistema, seja cliente ou vendedor. \nNecessário passar um token válido obtido ao logar no sistema, além do id do usuário em questão.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content (deletado com sucesso)"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
