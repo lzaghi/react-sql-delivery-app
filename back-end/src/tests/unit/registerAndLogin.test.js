@@ -179,7 +179,7 @@ describe('Testing register and login', () => {
         })
 
         expect(chaiHttpResponse.status).to.be.equal(401)
-        expect(chaiHttpResponse.body).to.deep.equal({ message: 'Invalid password!' })
+        expect(chaiHttpResponse.body).to.deep.equal({ message: 'Wrong password!' })
     })
     it('returns status 200 when success', async () => {
       const hashed123456 = 'e10adc3949ba59abbe56e057f20f883e';

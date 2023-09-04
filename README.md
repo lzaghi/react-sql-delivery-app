@@ -7,6 +7,9 @@ Tudo isso com validações e testes pensados para os casos de uso da aplicação
 
 O foco dessa projeto foi praticar a construção de uma aplicação fullstack completa robusta, construindo e integrando front e back-end.
 
+[Experimente!](react-sql-delivery-app-front.vercel.app/)
+
+
 ## Funcionalidades
 - Cadastro e login na plataforma
 - Redirecionamento no aplicativo de acordo com as credenciais de login (cliente, vendedor ou administrador)
@@ -21,11 +24,35 @@ O foco dessa projeto foi praticar a construção de uma aplicação fullstack co
 - Registro de novos vendedores pelo administrador
 - Consulta e remoção de usuários do sistema pelo administrador
 
+## Demonstração
+
+~ em breve! ~
+
 ## Documentação
 
 A documentação completa da API, com todas as operações possíveis, pode ser consultada na [aqui :)](https://delivery-app-back-b4w6.onrender.com/swagger/)
-![](swagger-store.png)
+![](swagger.png)
 
+
+Credenciais de acesso presentes por padrão no banco de dados:
+
+- Cliente
+```json
+  email: zebirita@email.com
+  senha: $#zebirita#$
+```
+
+- Vendedor
+```json
+  email: fulana@deliveryapp.com
+  senha: fulana@123
+```
+
+- Administrador
+```json
+  email: adm@deliveryapp.com
+  senha: --adm2@21!!--
+```
 
 ## Instalação e execução local
 
@@ -44,11 +71,32 @@ Para rodar esta aplicação é necessário ter o Docker e o Docker Compose (v1.2
 
 3. Suba os containeres do front, back e banco de dados
 ```bash
-  docker-compose up -d --build
+  npm run compose:up
 ```
 
 A aplicação já estará rodando! :)</br>
 Acesse ```http://localhost:3000``` para a experiência de usuário. O back-end estará rodando em ```http://localhost:3001```.
+
+4. Para rodar os testes
+- front-end: entre no container do front e execute o comando
+```bash
+  docker exec -it delivery_frontend sh
+  npm run test:coverage
+```
+- back-end: entre no container do back e execute o comando
+```bash
+  docker exec -it delivery_backend sh
+  npm run test:coverage
+```
+
+## Cobertura de testes
+
+### Front-end
+![](test_front.png)
+
+### Back-end
+![](test_back.png)
+
 
 ## Tecnologias utilizadas
 
