@@ -30,7 +30,7 @@ O foco dessa projeto foi praticar a construção de uma aplicação fullstack co
 
 ## Documentação
 
-A documentação completa da API, com todas as operações possíveis, pode ser consultada na [aqui :)](https://delivery-app-back-b4w6.onrender.com/swagger/)
+A documentação completa da API, com todas as operações possíveis, pode ser consultada [aqui :)](https://delivery-app-back-b4w6.onrender.com/swagger/)
 ![](swagger.png)
 
 
