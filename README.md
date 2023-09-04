@@ -37,19 +37,19 @@ A documentação completa da API, com todas as operações possíveis, pode ser 
 Credenciais de acesso presentes por padrão no banco de dados:
 
 - Cliente
-```json
+```bash
   email: zebirita@email.com
   senha: $#zebirita#$
 ```
 
 - Vendedor
-```json
+```bash
   email: fulana@deliveryapp.com
   senha: fulana@123
 ```
 
 - Administrador
-```json
+```bash
   email: adm@deliveryapp.com
   senha: --adm2@21!!--
 ```
@@ -103,10 +103,10 @@ Acesse ```http://localhost:3000``` para a experiência de usuário. O back-end e
 React.js, Node.js, Express.js, MySQL, Docker, JWT, RTL, Mocha, Chai, Sinon, Arquitetura MSC, API RESTful, Swagger
 
 O deploy foi feito nas plataformas PlanetScale (banco de dados), Render (back-end) e Vercel (front-end)
-<!--
+
 ## Qualidade de Código
 
 Análise SonarCloud
 
 ![](sonarcloud.png)
--->
+
