@@ -33,7 +33,7 @@ function CheckoutTable() {
             (Object.entries(cart)
               .filter((product) => product[1].qtty > 0))
               .map((product, index) => (
-                <tr key={ index }>
+                <tr key={ product[1].name }>
                   <td
                     data-testid={ `${ROUTE}-item-number-${index}` }
                   >

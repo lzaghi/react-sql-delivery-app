@@ -53,7 +53,7 @@ function AdminForm() {
     const TWELVE = 12;
     const SIX = 6;
 
-    const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     const nameCheck = newUser.name.length >= TWELVE;
     const emailCheck = emailRegex.test(newUser.email);

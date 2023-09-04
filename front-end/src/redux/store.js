@@ -35,13 +35,6 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// const store = createStore(
-//   rootReducer,
-//   composeWithDevTools(
-//     applyMiddleware(thunk),
-//   ),
-// );
-
 const store = createStore(
   persistedReducer,
   composeWithDevTools(applyMiddleware(thunk)),

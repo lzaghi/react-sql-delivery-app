@@ -27,7 +27,7 @@ function DetailsTable(sale) {
         <tbody>
           {
             products?.map((product, index) => (
-              <tr key={ index }>
+              <tr key={ product.name }>
                 <td
                   data-testid={ `${ROUTE}element-order-table-item-number-${index}` }
                 >

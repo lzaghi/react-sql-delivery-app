@@ -52,7 +52,7 @@ function Orders() {
   }, [history, endpoint, handleRedirect]);
 
   if (error) {
-    <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
+    return <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
 
   return (

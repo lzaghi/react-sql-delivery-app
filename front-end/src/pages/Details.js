@@ -86,7 +86,7 @@ function Details() {
   }, [history, id, handleRedirect]);
 
   if (error) {
-    <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
+    return <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
 
   return (
@@ -96,7 +96,7 @@ function Details() {
         <h2>Detalhes do pedido</h2>
         <div className="details-sale">
           {
-            Object.keys(sale).length && (
+            !!Object.keys(sale).length && (
               <div>
                 <p
                   data-testid={ `${ROUTE}element-order-details-label-order-id` }

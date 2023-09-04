@@ -7,7 +7,6 @@ function AdminList() {
   const ROUTE = 'admin_manage__';
   const history = useHistory();
 
-  // const [users, setUsers] = useState([]);
   const [error, setError] = useState(false);
 
   const { usersList, setUsersList } = useContext(UsersContext);
@@ -43,7 +42,7 @@ function AdminList() {
   }, [history, setUsersList]);
 
   if (error) {
-    <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
+    return <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
   return (
     <div className="admin-list">
@@ -64,7 +63,7 @@ function AdminList() {
             <tbody>
               {
                 usersList.map((user, index) => (
-                  <tr key={ index }>
+                  <tr key={ user.email }>
                     <td data-testid={ `${ROUTE}element-user-table-item-number-${index}` }>
                       { index + 1}
                     </td>

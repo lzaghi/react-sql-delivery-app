@@ -70,7 +70,7 @@ function Login() {
 
     const SIX = 6;
 
-    const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     const emailCheck = emailRegex.test(newUser.email);
     const passCheck = newUser.password.length >= SIX;

@@ -48,7 +48,7 @@ const getByRole = async (req, res) => {
   const { role } = req.params;
   const users = await userService.getByRole(role);
   const usersNoPassword = users.map((user) => {
-    const { password: _, ...rest } = user.dataValues;
+    const { password, ...rest } = user.dataValues;
     return rest;
   });
   return res.status(200).json(usersNoPassword);

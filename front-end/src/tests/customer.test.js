@@ -38,35 +38,6 @@ describe('Testing Customer flow', () => {
     jest.clearAllMocks();
   })
 
-  // it('returns API error in fail case', async () => {
-  //   const errorMessage = 'Something went wrong!';
-  //   const errorResponse = { response: { statusText: errorMessage } };
-  //   jest.spyOn(api, 'requestGetWithToken').mockImplementation(() => {
-  //     throw errorResponse;
-  //   })
-    
-  //   const { history } = renderWithRouterAndRedux(<App />);
-
-  //   const email = screen.getByTestId('common_login__input-email')
-  //   const password = screen.getByTestId('common_login__input-password')
-  //   const loginButton = screen.getByTestId('common_login__button-login')
-
-  //   userEvent.clear(email);
-  //   userEvent.type(email, 'zebirita@email.com');
-  //   userEvent.type(password, '$#zebirita#$');
-  //   userEvent.click(loginButton)
-
-  //   await waitFor(() => {
-  //     expect(history.location.pathname).toBe('/customer/products');
-  //   });
-
-  //   await waitFor(() => {
-  //     expect(screen.getByText('Something went wrong!')).toBeInTheDocument();
-  //   });
-
-  //   jest.clearAllMocks();
-  // })
-
   const productsListMock = [
     {
       id: 1,
@@ -96,40 +67,14 @@ describe('Testing Customer flow', () => {
 
   it('adds items to cart, redirect to checkout, finish order and see its details', async () => {
     const spy = jest.spyOn(api, 'requestGetWithToken').mockResolvedValue(productsListMock)
-    // localStorage.removeItem('user')
     localStorage.setItem('user', JSON.stringify({ 
     role: 'customer',
     token: 'validToken'}))
     const { history } = renderWithRouterAndRedux(<App />, {}, '/customer/products');
     
-    // const email = screen.getByTestId('common_login__input-email')
-    // const password = screen.getByTestId('common_login__input-password')
-    // const loginButton = screen.getByTestId('common_login__button-login')
-
-    // jest.spyOn(api, 'requestPost').mockReturnValueOnce({
-    //   user: {name: 'Cliente Zé Birita',
-    //   email: 'zebirita@email.com',
-    //   password: '$#zebirita#$',
-    //   role: 'customer' },
-    //   token: 'validToken'
-    // })
-
-    // userEvent.clear(email);
-    // userEvent.type(email, 'zebirita@email.com');
-    // userEvent.type(password, '$#zebirita#$');
-    // userEvent.click(loginButton)
-
-    
     await waitFor(() => {
       expect(history.location.pathname).toBe('/customer/products');
     });
-    // await waitFor(() => {
-    //   expect(screen.getByText('Carregando...')).toBeDefined();
-    // });
-
-    // await waitForElementToBeRemoved(() => {
-    //   screen.getByText('Carregando...');
-    // });
     expect(spy).toHaveBeenCalledTimes(1);
     
     await waitFor(() => {
@@ -191,9 +136,7 @@ describe('Testing Customer flow', () => {
     expect(chekcoutCart).toHaveTextContent('22,50')
     
     const sellerSelect = screen.getByTestId('customer_checkout__select-seller');
-    // await waitFor(() => {
-    //   expect(sellerSelect.options.length).toBeGreaterThan(1);
-    // });
+
     const addressInput = screen.getByTestId('customer_checkout__input-address')
     const addressNumberInput = screen.getByTestId('customer_checkout__input-address-number')
     const finishButton = screen.getByTestId('customer_checkout__button-submit-order')
@@ -380,30 +323,4 @@ describe('Testing Customer flow', () => {
 
     jest.clearAllMocks();
   })
-
-  // it('', () => {
-  //   const initialState = {
-  //     cart: {
-  //       productsValues: {
-  //         1: {id:1, name:'Skol Lata 250ml', qtty:0, price:2.20},
-  //         2: {id:2, name:'Heineken 600ml', qtty:3, price:7.50},
-  //         3: {id:3, name:'Antarctica Pilsen 300ml', qtty:3, price:2.49}
-  //       }
-  //     }
-  //   }
-
-  //   const user = {
-  //     email: "zebirita@email.com",
-  //     id: 3,
-  //     name: "Cliente Zé Birita",
-  //     role: "customer",
-  //     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJFbWFpbCI6InplYmlyaXRhQGVtYWlsLmNvbSIsImlhdCI6MTY4NDE4MzYwNSwiZXhwIjoxNjg0MzU2NDA1fQ.i3HDHKWAS9x4sL3ZCMUJXfCfCsZNyDgh4dIjEYEEVDU"
-  //   }
-  //   localStorage.setItem('user', JSON.stringify(user))
-
-  //   const { history } = renderWithRouterAndRedux(<App />, initialState, 'customer/checkout');
-    
-  //   const cart = screen.getByTestId('customer_checkout__element-order-total-price')
-  //   expect(cart).toHaveTextContent('29,97')
-  // })
 })
