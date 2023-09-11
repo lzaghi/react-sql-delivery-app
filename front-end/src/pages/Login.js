@@ -14,6 +14,7 @@ function Login() {
     password: '',
   });
   const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   function handleChange({ target }) {
@@ -30,6 +31,7 @@ function Login() {
   };
 
   const login = useCallback(async () => {
+    setLoading(true);
     try {
       const { user, token } = await requestPost(
         '/login',
@@ -44,6 +46,8 @@ function Login() {
       if (user.role === 'administrator') history.push('/admin/manage');
     } catch (e) {
       setError(e);
+    } finally {
+      setLoading(false);
     }
   }, [dispatch, history, newUser]);
 
@@ -128,6 +132,9 @@ function Login() {
         >
           Ainda não tenho uma conta
         </button>
+        {
+          loading && <p>Carregando...</p>
+        }
       </form>
       { error !== '' && (
         <p

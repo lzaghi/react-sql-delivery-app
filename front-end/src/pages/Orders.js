@@ -11,6 +11,7 @@ function Orders() {
 
   const [sales, setSales] = useState([]);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   let endpoint = '';
   if (pathname.includes('customer')) {
@@ -31,6 +32,7 @@ function Orders() {
   useEffect(() => {
     handleRedirect();
 
+    setLoading(true);
     let isMounted = true;
     async function fetchData() {
       try {
@@ -44,6 +46,8 @@ function Orders() {
           history.push('/login');
         }
         setError(e);
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
@@ -58,18 +62,23 @@ function Orders() {
   return (
     <div>
       <Header />
-      <div className="orders">
-        { !sales.length
-          ? <p>Ainda não há pedidos!</p>
+      {
+        loading
+          ? <p>Carregando...</p>
           : (
-            sales.map((sale, index) => (
-              <SaleCard
-                key={ sale.id }
-                props={ { sale, index } }
-              />
-            ))
-          )}
-      </div>
+            <div className="orders">
+              { !sales.length
+                ? <p>Ainda não há pedidos!</p>
+                : (
+                  sales.map((sale, index) => (
+                    <SaleCard
+                      key={ sale.id }
+                      props={ { sale, index } }
+                    />
+                  ))
+                )}
+            </div>)
+      }
     </div>
   );
 }

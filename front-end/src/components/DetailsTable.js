@@ -65,7 +65,7 @@ function DetailsTable(sale) {
         data-testid={ `${ROUTE}element-order-total-price` }
       >
         Total:
-        <b>{`R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}`}</b>
+        <b>{` R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}`}</b>
       </p>
     </div>
   );

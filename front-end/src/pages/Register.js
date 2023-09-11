@@ -15,6 +15,7 @@ function Register() {
     password: '',
   });
   const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   function handleChange({ target }) {
@@ -31,6 +32,7 @@ function Register() {
   };
 
   const register = useCallback(async () => {
+    setLoading(true);
     try {
       const { user, token } = await requestPost(
         '/register',
@@ -43,6 +45,8 @@ function Register() {
       history.push('/customer/products');
     } catch (e) {
       setError(e);
+    } finally {
+      setLoading(false);
     }
   }, [dispatch, history, newUser.name, newUser.email, newUser.password]);
 
@@ -118,6 +122,9 @@ function Register() {
         >
           Cadastrar
         </button>
+        {
+          loading && <p>Carregando...</p>
+        }
       </form>
       { error && (
         <p
