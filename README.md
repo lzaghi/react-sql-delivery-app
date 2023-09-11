@@ -24,9 +24,6 @@ O foco dessa projeto foi praticar a construção de uma aplicação fullstack co
 - Registro de novos vendedores pelo administrador
 - Consulta e remoção de usuários do sistema pelo administrador
 
-## Demonstração
-
-~ em breve! ~
 
 ## Documentação
 
@@ -53,6 +50,21 @@ Credenciais de acesso presentes por padrão no banco de dados:
   email: adm@deliveryapp.com
   senha: --adm2@21!!--
 ```
+
+## Demonstração
+
+### Fluxo de usuário
+
+![](delivery-user.gif)
+
+### Fluxo de vendedor
+
+![](delivery-seller.gif)
+
+### Fluxo de administrador
+
+![](delivery-admin.gif)
+
 
 ## Instalação e execução local
 
