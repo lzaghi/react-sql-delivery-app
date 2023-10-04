@@ -7,7 +7,7 @@ Tudo isso com validações e testes pensados para os casos de uso da aplicação
 
 O foco dessa projeto foi praticar a construção de uma aplicação fullstack completa robusta, construindo e integrando front e back-end.
 
-[Experimente!](react-sql-delivery-app-front.vercel.app/)
+[Experimente!](https://react-sql-delivery-app-front.vercel.app)
 
 
 ## Funcionalidades
