@@ -27,7 +27,9 @@ app.use(cors());
 app.use(express.static('public'));
 
 app.get('/', (_req, res) => res.status(200).json({ message: 'ok' }));
+const userController = require('./controllers/users.controller');
 
+app.get('/users', userController.getUsers);
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/login', loginRouter);
