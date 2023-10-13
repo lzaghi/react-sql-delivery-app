@@ -4,11 +4,11 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
 
-const loginRouter = require('./routers/login.router');
-const registerRouter = require('./routers/register.router');
-const productsRouter = require('./routers/products.router');
-const usersRouter = require('./routers/users.router');
-const salesRouter = require('./routers/sales.router');
+const loginRouter = require('./routes/login.router');
+const registerRouter = require('./routes/register.router');
+const productsRouter = require('./routes/products.router');
+const usersRouter = require('./routes/users.router');
+const salesRouter = require('./routes/sales.router');
 
 const app = express();
 app.disable('x-powered-by');
