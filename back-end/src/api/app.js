@@ -26,7 +26,7 @@ app.use(cors());
 
 app.use(express.static('public'));
 
-app.get('/', (_req, res) => res.status(200).json({ message: 'ok' }));
+app.get('/nada', (_req, res) => res.status(200).json({ message: 'ok' }));
 app.get('/teste', (_req, res) => res.status(200).json({ message: 'oii' }));
 const userController = require('./controllers/users.controller');
 
