@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+require('dotenv').config();
 
-const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8');
+const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8') || process.env.JWT_SECRET;
 
 const validateAuth = (req, res, next) => {
   const { authorization } = req.headers;

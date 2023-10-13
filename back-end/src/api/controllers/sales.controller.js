@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const salesService = require('../services/sales.service');
+require('dotenv').config();
 
-const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8');
+const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8') || process.env.JWT_SECRET;
 
 const createSale = async (req, res) => {
   const newSale = await salesService.createSale(req.body);
