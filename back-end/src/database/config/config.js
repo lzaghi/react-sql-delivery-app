@@ -1,4 +1,5 @@
 require('dotenv').config();
+const mysql2 = require('mysql2');
 
 let options = {
   host: process.env.MYSQL_HOST || 'localhost',
@@ -16,6 +17,8 @@ let options = {
 if (process.env.USE_ENV_VARIABLE) {
   options = {
     use_env_variable: process.env.USE_ENV_VARIABLE,
+    dialect: 'mysql',
+    dialectModue: mysql2,
     dialectOptions: {
       ssl: {
         rejectUnauthorized: false,
