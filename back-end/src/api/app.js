@@ -22,8 +22,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.use(cors());
-
 app.use(express.static('public'));
 
 app.get('/', (_req, res) => res.status(200).json({ message: 'ok' }));
