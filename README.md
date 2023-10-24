@@ -25,6 +25,37 @@ O foco dessa projeto foi praticar a construção de uma aplicação fullstack co
 - Consulta e remoção de usuários do sistema pelo administrador
 
 
+## Instalação e execução local
+
+Para rodar esta aplicação é necessário ter o Docker e o Docker Compose (v1.29 ou superior) instalados em sua máquina.
+
+1. Clone o repositório e entre no diretório
+```bash
+  git clone git@github.com:lzaghi/react-sql-delivery-app.git
+  cd react-sql-delivery-app
+```
+
+2. A partir da raiz do projeto, acesse /back-end e instale as dependências 
+```bash
+  cd back-end
+  npm install
+```
+
+3. A partir da raiz do projeto, acesse /front-end e instale as dependências 
+```bash
+  cd front-end
+  npm install
+```
+
+4. A partir da raiz do projeto, suba os containeres do front, back e banco de dados
+```bash
+  npm run compose:up
+```
+
+A aplicação já estará rodando! :)</br>
+Acesse ```http://localhost:3000``` para a experiência de usuário. O back-end estará rodando em ```http://localhost:3001```.
+
+
 ## Documentação
 
 <!-- A documentação completa da API, com todas as operações possíveis, pode ser consultada [aqui :)](https://delivery-app-back-b4w6.onrender.com/swagger/), ou localmente em ```http://localhost:3001/swagger/``` após a aplicação estar rodando.
@@ -68,37 +99,9 @@ Credenciais de acesso presentes por padrão no banco de dados:
 ![](delivery-admin.gif)
 
 
-## Instalação e execução local
+## Cobertura de testes
 
-Para rodar esta aplicação é necessário ter o Docker e o Docker Compose (v1.29 ou superior) instalados em sua máquina.
-
-1. Clone o repositório e entre no diretório
-```bash
-  git clone git@github.com:lzaghi/react-sql-delivery-app.git
-  cd react-sql-delivery-app
-```
-
-2. A partir da raiz do projeto, acesse /back-end e instale as dependências 
-```bash
-  cd back-end
-  npm install
-```
-
-3. A partir da raiz do projeto, acesse /front-end e instale as dependências 
-```bash
-  cd front-end
-  npm install
-```
-
-4. A partir da raiz do projeto, suba os containeres do front, back e banco de dados
-```bash
-  npm run compose:up
-```
-
-A aplicação já estará rodando! :)</br>
-Acesse ```http://localhost:3000``` para a experiência de usuário. O back-end estará rodando em ```http://localhost:3001```.
-
-5. Para rodar os testes
+Para rodar os testes
 - front-end: entre no container do front e execute o comando
 ```bash
   docker exec -it delivery_frontend sh
@@ -109,8 +112,6 @@ Acesse ```http://localhost:3000``` para a experiência de usuário. O back-end e
   docker exec -it delivery_backend sh
   npm run test:coverage
 ```
-
-## Cobertura de testes
 
 ### Front-end
 ![](test_front.png)
