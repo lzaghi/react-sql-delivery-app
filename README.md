@@ -76,12 +76,19 @@ Para rodar esta aplicação é necessário ter o Docker e o Docker Compose (v1.2
   cd react-sql-delivery-app
 ```
 
-2. Instale as dependências 
+2. A partir da raiz do projeto, acesse /back-end e instale as dependências 
 ```bash
+  cd back-end
   npm install
 ```
 
-3. Suba os containeres do front, back e banco de dados
+3. A partir da raiz do projeto, acesse /front-end e instale as dependências 
+```bash
+  cd front-end
+  npm install
+```
+
+4. A partir da raiz do projeto, suba os containeres do front, back e banco de dados
 ```bash
   npm run compose:up
 ```
@@ -89,7 +96,7 @@ Para rodar esta aplicação é necessário ter o Docker e o Docker Compose (v1.2
 A aplicação já estará rodando! :)</br>
 Acesse ```http://localhost:3000``` para a experiência de usuário. O back-end estará rodando em ```http://localhost:3001```.
 
-4. Para rodar os testes
+5. Para rodar os testes
 - front-end: entre no container do front e execute o comando
 ```bash
   docker exec -it delivery_frontend sh
