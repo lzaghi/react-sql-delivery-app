@@ -7,7 +7,7 @@ Tudo isso com validações e testes pensados para os casos de uso da aplicação
 
 O foco dessa projeto foi praticar a construção de uma aplicação fullstack completa robusta, construindo e integrando front e back-end.
 
-[Experimente!](https://react-sql-delivery-app-front.vercel.app)
+<!-- [Experimente!](https://react-sql-delivery-app-front.vercel.app) -->
 
 
 ## Funcionalidades
@@ -27,7 +27,9 @@ O foco dessa projeto foi praticar a construção de uma aplicação fullstack co
 
 ## Documentação
 
-A documentação completa da API, com todas as operações possíveis, pode ser consultada [aqui :)](https://delivery-app-back-b4w6.onrender.com/swagger/), ou localmente em ```http://localhost:3001/swagger/``` após a aplicação estar rodando.
+<!-- A documentação completa da API, com todas as operações possíveis, pode ser consultada [aqui :)](https://delivery-app-back-b4w6.onrender.com/swagger/), ou localmente em ```http://localhost:3001/swagger/``` após a aplicação estar rodando.
+![](swagger.png) -->
+A documentação completa da API, com todas as operações possíveis, pode ser consultada localmente em ```http://localhost:3001/swagger/``` após a aplicação estar rodando.
 ![](swagger.png)
 
 
