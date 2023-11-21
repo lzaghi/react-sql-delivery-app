@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { requestPost } from '../services/requests';
 import { userLogin } from '../redux/actions';
 import logo from '../images/logo-red.png';
-import '../style/Register.css';
+// import '../style/Register.css';
+import styles from '../css/Login.module.css';
 
 function Register() {
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ function Register() {
   }, [newUser.name, newUser.email, newUser.password, handleKeyPress]);
 
   return (
-    <div className="register">
+    <div className={ styles.container }>
       <div>
         <img src={ logo } alt="logo do app" />
       </div>
@@ -115,6 +116,7 @@ function Register() {
           />
         </label>
         <button
+          className={ styles.formButton }
           data-testid="common_register__button-register"
           type="button"
           disabled={ disabled }
