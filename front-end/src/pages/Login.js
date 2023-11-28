@@ -6,7 +6,6 @@ import { requestPost } from '../services/requests';
 import { userLogin } from '../redux/actions';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from '../images/logo-red.png';
-// import '../style/Login.css';
 import styles from '../css/Login.module.css';
 import Loading from '../components/Loading';
 
@@ -14,8 +13,8 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [newUser, setNewUser] = useState({
-    email: '',
-    password: '',
+    email: 'zebirita@email.com',
+    password: '$#zebirita#$',
   });
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -108,7 +107,7 @@ function Login() {
           />
 
           <button
-            className={ styles.formButton }
+            className={ styles.loginButton }
             data-testid="common_login__button-login"
             type="submit"
             disabled={ disabled }
@@ -119,7 +118,7 @@ function Login() {
           <button
             data-testid="common_login__button-register"
             type="button"
-            className={ styles.registerButton }
+            className={ styles.noAccountButton }
             onClick={ () => history.push('/register') }
           >
             Ainda não tenho uma conta

@@ -1,9 +1,8 @@
 @use 'position';
+@use 'loading';
 
 .container {
   @include position.centered($direction: column);
-  width: fit-content;
-  border: 1px solid red;
 
   form {
     display: flex;
@@ -18,6 +17,10 @@
     padding: 10px;
     width: auto;
   }
+
+  label {
+    margin: 5px 0;
+  }
 }
 
 %button-shared {
@@ -25,26 +28,39 @@
   font-weight: 700;
   padding: 10px;
   transition: 0.2s;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.formButton {
-  @extend %button-shared;
+%submit-button {
   background-color: var(--red);
   border: none;
   color: white;
-  margin-bottom: 20px;
 
   &:disabled {
     background-color: rgb(255, 176, 176);
   }
 
   &:hover:not([disabled]) {
-    cursor: pointer;
     filter: grayscale(0.3);
   }
 }
 
+.loginButton {
+  @extend %button-shared;
+  @extend %submit-button;
+  margin-bottom: 20px;
+}
+
 .registerButton {
+  @extend %button-shared;
+  @extend %submit-button;
+  margin-top: 20px;
+}
+
+.noAccountButton {
   @extend %button-shared;
   background-color: white;
   border: 1px solid white;
@@ -54,14 +70,9 @@
   &:hover {
     border: 1px solid gray;
     color: black;
-    cursor: pointer;
-    filter: none;
   }
 }
 
 .loginLoading {
-  position: absolute;
-  top: 270px;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include loading.loader($top: 270px);
 }
