@@ -1,6 +1,5 @@
 .container {
   background-color: var(--red);
-  border: none;
 }
 
 .header a.active::before, .header a.active::after {
@@ -13,13 +12,13 @@
 }
 
 .header {
-  align-items: flex-end;
   display: flex;
-  justify-content: space-between;
   margin-inline: auto;
-  height: 60px;
   width: calc(100vw - 40px);
   max-width: 350px;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 60px;
 }
 .header a {
   color: white;

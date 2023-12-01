@@ -1,6 +1,7 @@
+@use 'position';
+
 .container {
   background-color: var(--red);
-  border: none;
 }
 
 %outside-curve {
@@ -13,13 +14,10 @@
 }
 
 .header {
+  @include position.mobile();
   align-items: flex-end;
-  display: flex;
   justify-content: space-between;
-  margin-inline: auto;
   height: 60px;
-  width: calc(100vw - 40px);
-  max-width: 350px;
 
   a {
     color: white;

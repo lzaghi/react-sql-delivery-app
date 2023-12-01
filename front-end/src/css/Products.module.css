@@ -1,0 +1,55 @@
+.loginLoading {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  background-color: white;
+  border-top: 2px solid var(--red);
+  display: flex;
+  align-items: center;
+  height: 85px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+}
+
+.cart {
+  display: flex;
+  margin-inline: auto;
+  width: calc(100vw - 40px);
+  max-width: 350px;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart p, .cart b {
+  font-size: 20px;
+}
+.cart button {
+  background-color: var(--red);
+  border: none;
+  border-radius: 100px;
+  border-top-right-radius: 0;
+  color: white;
+  height: 50px;
+  width: 50px;
+  padding: 3px 0 0 3px;
+  transition: 0.2s;
+}
+.cart button:enabled {
+  cursor: pointer;
+}
+.cart button:enabled:hover {
+  filter: grayscale(0.3);
+}
+.cart button:disabled {
+  opacity: 0.5;
+}
+.cart .icon {
+  font-size: 30px;
+}
+.cart .buttonText {
+  display: none;
+}

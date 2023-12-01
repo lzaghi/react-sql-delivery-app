@@ -28,7 +28,7 @@
   padding: 10px;
   transition: 0.2s;
 }
-.noAccountButton:hover, .registerButton:hover, .loginButton:hover {
+.noAccountButton:enabled, .registerButton:enabled, .loginButton:enabled {
   cursor: pointer;
 }
 

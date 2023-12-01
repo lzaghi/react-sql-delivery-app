@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
 import { requestGetWithToken } from '../services/requests';
+import Loading from '../components/Loading';
 // import '../style/Products.css';
+import styles from '../css/Products.module.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -58,34 +60,44 @@ function Products() {
       <Header />
       <div className="products-page">
         { !products?.length
-          ? <p>Carregando...</p>
+          ? <div className={ styles.loginLoading }><Loading /></div>
           : (
-            <div className="all-products">
-              {
-                products.map((product) => (
-                  <ProductCard
-                    key={ product.id }
-                    props={ product }
-                  />
-                ))
-              }
-            </div>
+            <>
+              <div className="all-products">
+                {
+                  products.map((product) => (
+                    <ProductCard
+                      key={ product.id }
+                      props={ product }
+                    />
+                  ))
+                }
+              </div>
+              <div className={ styles.container }>
+                <div className={ styles.cart }>
+                  <p
+                    data-testid="customer_products__checkout-bottom-value"
+                  >
+                    {'Total: '}
+                    <b>{`R$ ${Number(totalCart).toFixed(2).replace('.', ',')}`}</b>
+                  </p>
+                  <button
+                    data-testid="customer_products__button-cart"
+                    type="button"
+                    onClick={ () => history.push('/customer/checkout') }
+                    disabled={ totalCart === 0 }
+                  >
+                    <span
+                      className={ `${styles.icon} material-icons-outlined` }
+                    >
+                      shopping_cart_checkout
+                    </span>
+                    <span className={ styles.buttonText }>Carrinho</span>
+                  </button>
+                </div>
+              </div>
+            </>
           )}
-        <div className="cart">
-          <p
-            data-testid="customer_products__checkout-bottom-value"
-          >
-            {`Total: R$ ${Number(totalCart).toFixed(2).replace('.', ',')}`}
-          </p>
-          <button
-            data-testid="customer_products__button-cart"
-            type="button"
-            onClick={ () => history.push('/customer/checkout') }
-            disabled={ totalCart === 0 }
-          >
-            Carrinho
-          </button>
-        </div>
       </div>
     </div>
   );
