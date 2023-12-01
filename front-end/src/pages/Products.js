@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
 import { requestGetWithToken } from '../services/requests';
-import '../style/Products.css';
+// import '../style/Products.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
