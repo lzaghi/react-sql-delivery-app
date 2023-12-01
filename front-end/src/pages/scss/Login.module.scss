@@ -1,5 +1,6 @@
 @use 'position';
 @use 'loading';
+@use 'button';
 
 .container {
   @include position.centered($direction: column);
@@ -27,36 +28,17 @@
   border-radius: 100px;
   font-weight: 700;
   padding: 10px;
-  transition: 0.2s;
-
-  &:enabled {
-    cursor: pointer;
-  }
-}
-
-%submit-button {
-  background-color: var(--red);
-  border: none;
-  color: white;
-
-  &:disabled {
-    background-color: rgb(255, 176, 176);
-  }
-
-  &:hover:not([disabled]) {
-    filter: grayscale(0.3);
-  }
 }
 
 .loginButton {
+  @include button.redAndWhite();
   @extend %button-shared;
-  @extend %submit-button;
   margin-bottom: 20px;
 }
 
 .registerButton {
+  @include button.redAndWhite();
   @extend %button-shared;
-  @extend %submit-button;
   margin-top: 20px;
 }
 
@@ -66,6 +48,11 @@
   border: 1px solid white;
   color: rgb(85, 85, 85);
   margin-top: 15px;
+  transition: 0.2s;
+
+  &:enabled {
+    cursor: pointer;
+  }
 
   &:hover {
     border: 1px solid gray;

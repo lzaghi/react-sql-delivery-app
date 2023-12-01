@@ -2,6 +2,9 @@
 
 .container {
   background-color: var(--red);
+  position: fixed;
+  top: 0;
+  width: 100vw;
 }
 
 %outside-curve {
@@ -22,6 +25,7 @@
   a {
     color: white;
     text-decoration: none; 
+    opacity: 1;
     position: relative;
     padding: 0 4px;
     

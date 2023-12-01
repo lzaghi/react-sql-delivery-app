@@ -1,5 +1,8 @@
 .container {
   background-color: var(--red);
+  position: fixed;
+  top: 0;
+  width: 100vw;
 }
 
 .header a.active::before, .header a.active::after {
@@ -23,6 +26,7 @@
 .header a {
   color: white;
   text-decoration: none;
+  opacity: 1;
   position: relative;
   padding: 0 4px;
 }

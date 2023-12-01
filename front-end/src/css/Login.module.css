@@ -26,30 +26,40 @@
   border-radius: 100px;
   font-weight: 700;
   padding: 10px;
-  transition: 0.2s;
-}
-.noAccountButton:enabled, .registerButton:enabled, .loginButton:enabled {
-  cursor: pointer;
-}
-
-.registerButton, .loginButton {
-  background-color: var(--red);
-  border: none;
-  color: white;
-}
-.registerButton:disabled, .loginButton:disabled {
-  background-color: rgb(255, 176, 176);
-}
-.registerButton:hover:not([disabled]), .loginButton:hover:not([disabled]) {
-  filter: grayscale(0.3);
 }
 
 .loginButton {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  transition: 0.2s;
   margin-bottom: 20px;
+}
+.loginButton:enabled {
+  cursor: pointer;
+}
+.loginButton:enabled:hover {
+  filter: grayscale(0.3);
+}
+.loginButton:disabled {
+  background-color: var(--red-opacity);
 }
 
 .registerButton {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  transition: 0.2s;
   margin-top: 20px;
+}
+.registerButton:enabled {
+  cursor: pointer;
+}
+.registerButton:enabled:hover {
+  filter: grayscale(0.3);
+}
+.registerButton:disabled {
+  background-color: var(--red-opacity);
 }
 
 .noAccountButton {
@@ -57,6 +67,10 @@
   border: 1px solid white;
   color: rgb(85, 85, 85);
   margin-top: 15px;
+  transition: 0.2s;
+}
+.noAccountButton:enabled {
+  cursor: pointer;
 }
 .noAccountButton:hover {
   border: 1px solid gray;

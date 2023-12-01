@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProductsValues } from '../redux/actions';
+import styles from '../css/Products.module.css';
 
 function ProductCard(product) {
   const { props: { id, name, price, urlImage } } = product;
@@ -25,10 +26,8 @@ function ProductCard(product) {
   }, [cart, id]);
 
   return (
-    <div
-      className="product-card"
-    >
-      <div className="card-top">
+    <div className={ styles.productCard }>
+      <div className={ styles.cardTop }>
         <h3
           data-testid={ `customer_products__element-card-title-${id}` }
         >
@@ -42,17 +41,17 @@ function ProductCard(product) {
         />
         <h3
           data-testid={ `customer_products__element-card-price-${id}` }
-          className="price"
+          className={ styles.price }
         >
           {`R$ ${price.replace('.', ',')}`}
         </h3>
       </div>
-      <div className="card-bottom">
+      <div className={ styles.cardBottom }>
         <button
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
           disabled={ qtty === 0 || qtty === '' }
-          className="minus"
+          className={ styles.minus }
           onClick={ () => {
             const newQtty = qtty - 1;
             setQtty(newQtty);
@@ -71,7 +70,7 @@ function ProductCard(product) {
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
-          className="plus"
+          className={ styles.plus }
           onClick={ () => {
             const newQtty = qtty + 1;
             setQtty(newQtty);

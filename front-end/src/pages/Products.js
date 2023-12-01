@@ -63,7 +63,7 @@ function Products() {
           ? <div className={ styles.loginLoading }><Loading /></div>
           : (
             <>
-              <div className="all-products">
+              <div className={ styles.productsContainer }>
                 {
                   products.map((product) => (
                     <ProductCard
@@ -73,7 +73,7 @@ function Products() {
                   ))
                 }
               </div>
-              <div className={ styles.container }>
+              <div className={ styles.cartContainer }>
                 <div className={ styles.cart }>
                   <p
                     data-testid="customer_products__checkout-bottom-value"
