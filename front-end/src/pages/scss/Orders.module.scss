@@ -1,0 +1,15 @@
+@use 'position';
+@use 'loading';
+
+.loading {
+  @include loading.loader($top: 150px);
+}
+
+.orders {
+  @include position.mobile();
+  padding-top: 100px;
+
+  .noOrders {
+    font-size: 16px;
+  }
+}

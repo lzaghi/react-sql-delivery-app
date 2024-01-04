@@ -84,7 +84,7 @@ function Login() {
   return (
     <>
       <div className={ styles.container }>
-        <div>
+        <div className={ styles.logo }>
           <img src={ logo } alt="logo do app" />
         </div>
         <form onSubmit={ login }>

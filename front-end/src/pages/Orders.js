@@ -2,8 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import SaleCard from '../components/SaleCard';
+import Loading from '../components/Loading';
 import { requestGetWithToken } from '../services/requests';
-import '../style/Orders.css';
+import styles from '../css/Orders.module.css';
 
 function Orders() {
   const history = useHistory();
@@ -64,11 +65,11 @@ function Orders() {
       <Header />
       {
         loading
-          ? <p>Carregando...</p>
+          ? <div className={ styles.loading }><Loading /></div>
           : (
-            <div className="orders">
+            <div className={ styles.orders }>
               { !sales.length
-                ? <p>Ainda não há pedidos!</p>
+                ? <p className={ styles.noOrders }>Ainda não há pedidos!</p>
                 : (
                   sales.map((sale, index) => (
                     <SaleCard

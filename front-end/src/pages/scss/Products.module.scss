@@ -2,7 +2,7 @@
 @use 'position';
 @use 'button';
 
-.loginLoading {
+.loading {
   @include loading.loader($top: 180px);
 }
 
@@ -48,7 +48,7 @@
   @include position.mobile();
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 100px;
+  padding-top: 100px;
   padding-bottom: 100px;
 }
 

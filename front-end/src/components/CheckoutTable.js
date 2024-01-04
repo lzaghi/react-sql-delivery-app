@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setQttyToZero } from '../redux/actions';
+import styles from '../css/Checkout.module.css';
 
 function CheckoutTable() {
   const ROUTE = 'customer_checkout__element-order-table';
@@ -17,15 +19,15 @@ function CheckoutTable() {
 
   return (
     <div className="checkout-resumo">
-      <table className="checkout-table">
+      <table className={ styles.checkoutTable }>
         <thead>
           <tr>
+            <th className={ styles.countHeader }> </th>
             <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
+            <th>Qtd.</th>
             <th>Valor unitário</th>
-            <th>Sub-total</th>
-            <th>Remover item</th>
+            <th className={ styles.subTotalHeader }>Sub-total</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
@@ -35,12 +37,13 @@ function CheckoutTable() {
               .map((product, index) => (
                 <tr key={ product[1].name }>
                   <td
+                    className={ styles.countData }
                     data-testid={ `${ROUTE}-item-number-${index}` }
                   >
                     { index + 1}
                   </td>
                   <td
-                    className="descricao"
+                    className={ styles.descricaoData }
                     data-testid={ `${ROUTE}-name-${index}` }
                   >
                     { product[1].name }
@@ -69,7 +72,11 @@ function CheckoutTable() {
                       type="button"
                       onClick={ () => removeFromCart(product[0]) }
                     >
-                      X
+                      <span
+                        className="material-icons-outlined"
+                      >
+                        highlight_off
+                      </span>
                     </button>
                   </td>
                 </tr>
@@ -77,10 +84,23 @@ function CheckoutTable() {
           }
         </tbody>
       </table>
-      <p data-testid="customer_checkout__element-order-total-price">
-        Total:
-        <b>{`R$ ${totalCart.toFixed(2).replace('.', ',')}`}</b>
-      </p>
+      <div className={ styles.orderInfo }>
+        <Link to="/customer/products" className={ styles.alterOrder }>
+          <span
+            className="material-icons-outlined"
+          >
+            keyboard_return
+          </span>
+          <span className={ styles.alterText }>Alterar pedido</span>
+        </Link>
+        <p
+          data-testid="customer_checkout__element-order-total-price"
+          className={ styles.checkoutTotal }
+        >
+          Total:
+          <b>{` R$ ${totalCart.toFixed(2).replace('.', ',')}`}</b>
+        </p>
+      </div>
     </div>
   );
 }

@@ -60,7 +60,7 @@ function Products() {
       <Header />
       <div className="products-page">
         { !products?.length
-          ? <div className={ styles.loginLoading }><Loading /></div>
+          ? <div className={ styles.loading }><Loading /></div>
           : (
             <>
               <div className={ styles.productsContainer }>
@@ -84,7 +84,10 @@ function Products() {
                   <button
                     data-testid="customer_products__button-cart"
                     type="button"
-                    onClick={ () => history.push('/customer/checkout') }
+                    onClick={ () => {
+                      history.push('/customer/checkout');
+                      window.scrollTo(0, 0);
+                    } }
                     disabled={ totalCart === 0 }
                   >
                     <span

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { requestGetWithToken, requestPostWithToken } from '../services/requests';
 import { resetCartState } from '../redux/actions';
+import styles from '../css/Checkout.module.css';
 
 function CheckoutForm() {
   const history = useHistory();
@@ -73,8 +74,13 @@ function CheckoutForm() {
     return <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
 
+  if (totalCart === 0) {
+    history.push('/customer/products');
+  }
+
   return (
-    <div className="checkout-form">
+    <div className={ styles.checkoutForm }>
+      <h2>Informações para entrega</h2>
       <label htmlFor="seller">
         Vendedor:
         <select
