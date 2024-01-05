@@ -53,6 +53,7 @@
   color: rgb(85, 85, 85);
   margin-top: 15px;
   transition: 0.2s;
+  position: relative;
 
   &:enabled {
     cursor: pointer;

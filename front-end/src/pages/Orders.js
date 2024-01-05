@@ -12,7 +12,7 @@ function Orders() {
 
   const [sales, setSales] = useState([]);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   let endpoint = '';
   if (pathname.includes('customer')) {
@@ -33,7 +33,6 @@ function Orders() {
   useEffect(() => {
     handleRedirect();
 
-    setLoading(true);
     let isMounted = true;
     async function fetchData() {
       try {

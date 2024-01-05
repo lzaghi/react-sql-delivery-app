@@ -17,7 +17,8 @@ function SaleCard(sale) {
   const handleDate = (dbDate) => {
     const newDate = new Date(dbDate);
 
-    const day = newDate.getDate();
+    let day = newDate.getDate();
+    if (String(day).length === 1) day = `0${day}`;
     let month = newDate.getMonth() + 1; // Months are zero-based, so we add 1
     if (String(month).length === 1) month = `0${month}`;
     const year = newDate.getFullYear();

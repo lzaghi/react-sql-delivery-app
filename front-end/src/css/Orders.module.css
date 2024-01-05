@@ -27,6 +27,7 @@
   border-bottom: 1px solid rgb(238, 238, 238);
   margin: 15px 10px;
   padding: 10px 5px;
+  transition: 0.2s;
   width: 100%;
 }
 .orderLink:hover {
@@ -50,36 +51,33 @@
   margin-top: 15px;
   text-align: right;
 }
-
-.progressContainer .Entregue, .progressContainer .EmTrânsito, .progressContainer .Preparando, .progressContainer .Pendente {
+.orderLink .progressContainer .Entregue, .orderLink .progressContainer .EmTrânsito, .orderLink .progressContainer .Preparando, .orderLink .progressContainer .Pendente {
   height: 10px;
   background-color: gray;
   border-radius: 10px;
   text-align: center;
 }
-
-.progressContainer {
+.orderLink .progressContainer {
   background-color: lightgray;
   border-radius: 10px;
   height: 10px;
   margin-inline: auto;
   width: 50%;
 }
-.progressContainer .Pendente {
+.orderLink .progressContainer .Pendente {
   width: 25%;
 }
-.progressContainer .Preparando {
+.orderLink .progressContainer .Preparando {
   width: 50%;
 }
-.progressContainer .EmTrânsito {
+.orderLink .progressContainer .EmTrânsito {
   width: 75%;
 }
-.progressContainer .Entregue {
+.orderLink .progressContainer .Entregue {
   background-color: #4CAF50;
   width: 100%;
 }
-
-.orderAddress {
+.orderLink .orderAddress {
   margin-bottom: 10px;
   padding-top: 5px;
 }

@@ -25,6 +25,7 @@
   border-bottom: 1px solid rgb(238, 238, 238);
   margin: 15px 10px;
   padding: 10px 5px;
+  transition: 0.2s;
   width: 100%;
 
   &:hover {
@@ -52,49 +53,45 @@
     margin-top: 15px;
     text-align: right;
   }
-}
 
-
-
-%progressBar {
-  height: 10px;
-  background-color: gray;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.progressContainer {
-  background-color: lightgray;
-  border-radius: 10px;
-  height: 10px;
-  margin-inline: auto;
-  width: 50%;
-
-  .Pendente {
-    @extend %progressBar;
-    width: 25%;
-  }
-
-  .Preparando {
-    @extend %progressBar;
-    width: 50%;
-  }
-
-  .EmTrânsito {
-    @extend %progressBar;
-    width: 75%;
-  }
-
-  .Entregue {
-    @extend %progressBar;
-    background-color: #4CAF50;
-    width: 100%;
-  }
-}
-
-.orderAddress {
-  // border-top: 1px dashed gray;
-  margin-bottom: 10px;
-  padding-top: 5px;
-  // padding: 8px 4px;
+    %progressBar {
+      height: 10px;
+      background-color: gray;
+      border-radius: 10px;
+      text-align: center;
+    }
+  
+    .progressContainer {
+      background-color: lightgray;
+      border-radius: 10px;
+      height: 10px;
+      margin-inline: auto;
+      width: 50%;
+  
+      .Pendente {
+        @extend %progressBar;
+        width: 25%;
+      }
+  
+      .Preparando {
+        @extend %progressBar;
+        width: 50%;
+      }
+  
+      .EmTrânsito {
+        @extend %progressBar;
+        width: 75%;
+      }
+  
+      .Entregue {
+        @extend %progressBar;
+        background-color: #4CAF50;
+        width: 100%;
+      }
+    }
+  
+    .orderAddress {
+      margin-bottom: 10px;
+      padding-top: 5px;
+    }
 }
