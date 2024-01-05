@@ -71,7 +71,7 @@ function Orders() {
               { !sales.length
                 ? <p className={ styles.noOrders }>Ainda não há pedidos!</p>
                 : (
-                  sales.map((sale, index) => (
+                  [...sales].reverse().map((sale, index) => (
                     <SaleCard
                       key={ sale.id }
                       props={ { sale, index } }

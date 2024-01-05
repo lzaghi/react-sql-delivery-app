@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .loading {
   position: absolute;
   top: 150px;
@@ -10,8 +11,75 @@
   margin-inline: auto;
   width: calc(100vw - 40px);
   max-width: 350px;
-  padding-top: 100px;
+  padding: 100px 0 40px;
+  flex-wrap: wrap;
 }
 .orders .noOrders {
   font-size: 16px;
+}
+.orders a {
+  text-decoration: none;
+  color: black;
+}
+
+.orderLink {
+  border-top: 2px solid gray;
+  border-bottom: 1px solid rgb(238, 238, 238);
+  margin: 15px 10px;
+  padding: 10px 5px;
+  width: 100%;
+}
+.orderLink:hover {
+  background-color: rgb(238, 238, 238);
+}
+.orderLink p, .orderLink b, .orderLink span {
+  font-size: 16px;
+}
+.orderLink .orderTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.orderLink .status {
+  margin: 5px 0;
+  text-align: center;
+}
+.orderLink .details {
+  font-size: 13px;
+  margin-top: 15px;
+  text-align: right;
+}
+
+.progressContainer .Entregue, .progressContainer .EmTrânsito, .progressContainer .Preparando, .progressContainer .Pendente {
+  height: 10px;
+  background-color: gray;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.progressContainer {
+  background-color: lightgray;
+  border-radius: 10px;
+  height: 10px;
+  margin-inline: auto;
+  width: 50%;
+}
+.progressContainer .Pendente {
+  width: 25%;
+}
+.progressContainer .Preparando {
+  width: 50%;
+}
+.progressContainer .EmTrânsito {
+  width: 75%;
+}
+.progressContainer .Entregue {
+  background-color: #4CAF50;
+  width: 100%;
+}
+
+.orderAddress {
+  margin-bottom: 10px;
+  padding-top: 5px;
 }

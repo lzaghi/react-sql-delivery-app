@@ -30,7 +30,8 @@ function CheckoutForm() {
 
   const user = useSelector((state) => state.user);
 
-  const handleNewSale = async () => {
+  const handleNewSale = async (event) => {
+    event.preventDefault();
     const body = {
       userId: user.id,
       sellerId: selectedSellerId,
@@ -79,7 +80,7 @@ function CheckoutForm() {
   }
 
   return (
-    <div className={ styles.checkoutForm }>
+    <form className={ styles.checkoutForm } onSubmit={ (e) => handleNewSale(e) }>
       <h2>Informações para entrega</h2>
       <label htmlFor="seller">
         Vendedor:
@@ -122,16 +123,15 @@ function CheckoutForm() {
       </label>
       <button
         data-testid="customer_checkout__button-submit-order"
-        type="button"
+        type="submit"
         disabled={
           totalCart === 0
           || userInfo.address === '' || userInfo.number === '' || selectedSellerId === ''
         }
-        onClick={ () => handleNewSale() }
       >
         Finalizar compra
       </button>
-    </div>
+    </form>
   );
 }
 

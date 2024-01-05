@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import styles from '../css/Orders.module.css';
 
 function SaleCard(sale) {
   const { props:
@@ -10,6 +11,8 @@ function SaleCard(sale) {
 
   const history = useHistory();
   const { location: { pathname } } = history;
+
+  const FOUR = 4;
 
   const handleDate = (dbDate) => {
     const newDate = new Date(dbDate);
@@ -40,14 +43,14 @@ function SaleCard(sale) {
   }, [saleDate]);
 
   return (
-    <div className="order-link">
+    <div className={ styles.orderLink }>
       <Link to={ redirectUrl } data-testid={ `sale-${index}` }>
-        <div className="order-top">
+        <div className={ styles.orderTop }>
           <p
             data-testid={ `${ROUTE}element-order-id-${id}` }
           >
-            <b>Pedido: </b>
-            { id }
+            <span>Nº do pedido: </span>
+            <b>{ String(id).padStart(FOUR, '0') }</b>
           </p>
           <p
             data-testid={ `${ROUTE}element-order-date-${id}` }
@@ -55,24 +58,15 @@ function SaleCard(sale) {
             <b>{ date }</b>
           </p>
         </div>
-        <div className="order-bottom">
-          <p
-            data-testid={ `${ROUTE}element-delivery-status-${id}` }
-          >
-            <b>Status: </b>
-            { status }
-          </p>
-          <p
-            data-testid={ `${ROUTE}element-card-price-${id}` }
-          >
-            <b>Total: </b>
-            { `R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}` }
-          </p>
-        </div>
+        <p
+          data-testid={ `${ROUTE}element-card-price-${id}` }
+        >
+          <b>{ `R$ ${Number(totalPrice).toFixed(2).replace('.', ',')}` }</b>
+        </p>
         {
           pathname.includes('seller') && (
             <p
-              className="order-address"
+              className={ styles.orderAddress }
               data-testid={ `${ROUTE}element-card-address-${id}` }
             >
               <b>Endereço: </b>
@@ -80,6 +74,17 @@ function SaleCard(sale) {
             </p>
           )
         }
+        <p
+          data-testid={ `${ROUTE}element-delivery-status-${id}` }
+          className={ styles.status }
+        >
+          <b>Status: </b>
+          { status }
+        </p>
+        <div className={ styles.progressContainer }>
+          <div className={ styles[status.replace(' ', '')] } />
+        </div>
+        <p className={ styles.details }>Clique para mais detalhes</p>
       </Link>
     </div>
   );
