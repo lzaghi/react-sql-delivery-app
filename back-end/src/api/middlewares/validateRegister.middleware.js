@@ -4,7 +4,7 @@ const validateRegisterBody = (req, res, next) => {
     return res.status(400).send({ message: 'All fields must be filled' });
   }
 
-  if (name.length < 12) {
+  if (name.length < 8) {
     return res.status(401).send({ message: 'Invalid name' });
   }
   next();
