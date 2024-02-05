@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { requestGetWithToken, requestPostWithToken } from '../services/requests';
 import UsersContext from '../context/UsersContext';
+import styles from '../css/Admin.module.css';
 
 function AdminForm() {
   const [newUser, setNewUser] = useState({
@@ -50,12 +51,12 @@ function AdminForm() {
   };
 
   useEffect(() => {
-    const TWELVE = 12;
+    const EIGHT = 8;
     const SIX = 6;
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    const nameCheck = newUser.name.length >= TWELVE;
+    const nameCheck = newUser.name.length >= EIGHT;
     const emailCheck = emailRegex.test(newUser.email);
     const passCheck = newUser.password.length >= SIX;
     const roleCheck = newUser.role !== '';
@@ -68,9 +69,9 @@ function AdminForm() {
   }, [newUser.name, newUser.email, newUser.password, newUser.role]);
 
   return (
-    <form className="checkout-form admin-form">
+    <form className={ styles.adminForm }>
       <div className="form-left">
-        <label className="name-label" htmlFor="name">
+        <label className={ styles.nameLabel } htmlFor="name">
           Nome completo:
           <input
             data-testid="admin_manage__input-name"

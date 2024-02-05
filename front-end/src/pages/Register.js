@@ -53,12 +53,12 @@ function Register() {
   };
 
   useEffect(() => {
-    const TWELVE = 12;
+    const EIGHT = 8;
     const SIX = 6;
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    const nameCheck = newUser.name.length >= TWELVE;
+    const nameCheck = newUser.name.length >= EIGHT;
     const emailCheck = emailRegex.test(newUser.email);
     const passCheck = newUser.password.length >= SIX;
 
