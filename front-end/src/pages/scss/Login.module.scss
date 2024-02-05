@@ -1,0 +1,70 @@
+@use 'position';
+@use 'loading';
+@use 'button';
+
+.container {
+  @include position.centered($direction: column);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  input {
+    border: 1px solid gray;
+    border-radius: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: auto;
+  }
+
+  label {
+    margin: 5px 0;
+  }
+
+  img {
+    margin-bottom: 20px;
+  }
+}
+
+%button-shared {
+  border-radius: 100px;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.loginButton {
+  @include button.redAndWhite();
+  @extend %button-shared;
+  margin-bottom: 20px;
+}
+
+.registerButton {
+  @include button.redAndWhite();
+  @extend %button-shared;
+  margin-top: 20px;
+}
+
+.noAccountButton {
+  @extend %button-shared;
+  background-color: white;
+  border: 1px solid white;
+  color: rgb(85, 85, 85);
+  margin-top: 15px;
+  transition: 0.2s;
+  position: relative;
+
+  &:enabled {
+    cursor: pointer;
+  }
+
+  &:hover {
+    border: 1px solid gray;
+    color: black;
+  }
+}
+
+.loginLoading {
+  @include loading.loader($top: 270px);
+}

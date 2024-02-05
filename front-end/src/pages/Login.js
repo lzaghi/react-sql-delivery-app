@@ -1,21 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import { requestPost } from '../services/requests';
 import { userLogin } from '../redux/actions';
+import 'react-toastify/dist/ReactToastify.css';
 import logo from '../images/logo-red.png';
-import '../style/Login.css';
+import styles from '../css/Login.module.css';
+import Loading from '../components/Loading';
 
 function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [newUser, setNewUser] = useState({
-    email: '',
-    password: '',
+    email: 'zebirita@email.com',
+    password: '$#zebirita#$',
   });
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   function handleChange({ target }) {
     setNewUser({
@@ -30,7 +32,8 @@ function Login() {
     }));
   };
 
-  const login = useCallback(async () => {
+  const login = async (event) => {
+    event.preventDefault();
     setLoading(true);
     try {
       const { user, token } = await requestPost(
@@ -45,20 +48,10 @@ function Login() {
       if (user.role === 'seller') history.push('/seller/orders');
       if (user.role === 'administrator') history.push('/admin/manage');
     } catch (e) {
-      setError(e);
-    } finally {
       setLoading(false);
+      toast.error(e.response?.data?.message || 'Internal error');
     }
-  }, [dispatch, history, newUser]);
-
-  const handleKeyPress = useCallback(
-    (event) => {
-      if (event.key === 'Enter' && !disabled) {
-        login();
-      }
-    },
-    [disabled, login],
-  );
+  };
 
   const handleRedirect = useCallback(() => {
     if (localStorage.getItem('user')) {
@@ -85,64 +78,58 @@ function Login() {
       setDisabled(true);
     }
 
-    document.addEventListener('keypress', handleKeyPress);
-
     return () => {};
-  }, [newUser.email, newUser.password, handleKeyPress, handleRedirect]);
+  }, [newUser.email, newUser.password, handleRedirect]);
 
   return (
-    <div className="login">
-      <div>
-        <img src={ logo } alt="logo do app" />
+    <>
+      <div className={ styles.container }>
+        <div className={ styles.logo }>
+          <img src={ logo } alt="logo do app" />
+        </div>
+        <form onSubmit={ login }>
+          <input
+            data-testid="common_login__input-email"
+            type="email"
+            name="email"
+            value={ newUser.email }
+            onChange={ (e) => handleChange(e) }
+            placeholder="Email"
+          />
+
+          <input
+            data-testid="common_login__input-password"
+            type="password"
+            name="password"
+            value={ newUser.password }
+            onChange={ (e) => handleChange(e) }
+            placeholder="Senha"
+          />
+
+          <button
+            className={ styles.loginButton }
+            data-testid="common_login__button-login"
+            type="submit"
+            disabled={ disabled }
+            id="login"
+          >
+            Login
+          </button>
+          <button
+            data-testid="common_login__button-register"
+            type="button"
+            className={ styles.noAccountButton }
+            onClick={ () => history.push('/register') }
+          >
+            Ainda não tenho uma conta
+          </button>
+          {
+            loading && <div className={ styles.loginLoading }><Loading /></div>
+          }
+        </form>
       </div>
-      <form>
-
-        <input
-          data-testid="common_login__input-email"
-          type="email"
-          name="email"
-          value={ newUser.email }
-          onChange={ (e) => handleChange(e) }
-          placeholder="Email"
-        />
-
-        <input
-          data-testid="common_login__input-password"
-          type="password"
-          name="password"
-          value={ newUser.password }
-          onChange={ (e) => handleChange(e) }
-          placeholder="Senha"
-        />
-
-        <button
-          data-testid="common_login__button-login"
-          type="button"
-          disabled={ disabled }
-          onClick={ () => login() }
-          id="login"
-        >
-          Login
-        </button>
-        <button
-          data-testid="common_login__button-register"
-          type="button"
-          className="register-button"
-          onClick={ () => history.push('/register') }
-        >
-          Ainda não tenho uma conta
-        </button>
-        {
-          loading && <p>Carregando...</p>
-        }
-      </form>
-      { error !== '' && (
-        <p
-          data-testid="common_login__element-invalid-email"
-        >
-          {error.response?.data?.message || 'Algo deu errado!'}
-        </p>)}
-    </div>
+      <ToastContainer />
+    </>
   );
 }
 

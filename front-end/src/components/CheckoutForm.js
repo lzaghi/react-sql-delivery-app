@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { requestGetWithToken, requestPostWithToken } from '../services/requests';
 import { resetCartState } from '../redux/actions';
+import styles from '../css/Checkout.module.css';
 
 function CheckoutForm() {
   const history = useHistory();
@@ -29,7 +30,8 @@ function CheckoutForm() {
 
   const user = useSelector((state) => state.user);
 
-  const handleNewSale = async () => {
+  const handleNewSale = async (event) => {
+    event.preventDefault();
     const body = {
       userId: user.id,
       sellerId: selectedSellerId,
@@ -73,8 +75,13 @@ function CheckoutForm() {
     return <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
 
+  if (totalCart === 0) {
+    history.push('/customer/products');
+  }
+
   return (
-    <div className="checkout-form">
+    <form className={ styles.checkoutForm } onSubmit={ (e) => handleNewSale(e) }>
+      <h2>Informações para entrega</h2>
       <label htmlFor="seller">
         Vendedor:
         <select
@@ -116,16 +123,15 @@ function CheckoutForm() {
       </label>
       <button
         data-testid="customer_checkout__button-submit-order"
-        type="button"
+        type="submit"
         disabled={
           totalCart === 0
           || userInfo.address === '' || userInfo.number === '' || selectedSellerId === ''
         }
-        onClick={ () => handleNewSale() }
       >
         Finalizar compra
       </button>
-    </div>
+    </form>
   );
 }
 

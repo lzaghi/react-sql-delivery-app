@@ -1,0 +1,119 @@
+@use 'position';
+@use 'button';
+
+.container {
+  @include position.mobile();
+  flex-direction: column;
+  padding: 100px 0 40px;
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+%input-style {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+  margin: 4px 0 0 5px;
+  padding: 4px;
+  width: 100%;
+}
+
+.adminForm {
+  border-bottom: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding: 20px 0 30px;
+
+  label {
+    align-items: center;
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  input {
+    @extend %input-style;
+    padding: 4px 8px;
+    text-align: left;
+  }
+
+  select {
+    @extend %input-style;
+
+    :hover {
+      border-color: #999;
+    }
+
+    :focus {
+      border-color: black;
+    }
+  }
+
+  button {
+    @include button.redAndWhite();
+    align-self: center;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+    height: 30px;
+    width: 150px;
+  }
+
+  .nameLabel {
+    white-space: nowrap;
+  }
+}
+
+%shared-cell {
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
+}
+
+.adminTable {
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  .tableName {
+    overflow-wrap: break-word;
+    max-width: 75px
+  }
+
+  .tableEmail {
+    max-width: 150px;
+  }
+
+  th {
+    @extend %shared-cell;
+    background-color: #f0f0f0;
+    padding: 6px 3px;
+  }
+
+  td {
+    @extend %shared-cell;
+    padding: 10px 5px;
+    word-wrap: break-word;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    color: gray;
+    display: flex;
+    height: fit-content;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+}

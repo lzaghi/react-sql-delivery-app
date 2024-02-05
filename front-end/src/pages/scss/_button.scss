@@ -1,0 +1,18 @@
+@mixin redAndWhite() {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  transition: 0.2s;
+
+  &:enabled {
+      cursor: pointer;
+  
+  &:hover {
+      filter: grayscale(0.3);
+    }
+  }
+
+  &:disabled {
+    background-color: var(--red-opacity)
+  }
+}

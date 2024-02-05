@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestDeleteWithToken, requestGetWithToken } from '../services/requests';
 import UsersContext from '../context/UsersContext';
+import styles from '../css/Admin.module.css';
 
 function AdminList() {
   const ROUTE = 'admin_manage__';
@@ -45,16 +46,16 @@ function AdminList() {
     return <h2>{error.response?.statusText || 'Algo deu errado!'}</h2>;
   }
   return (
-    <div className="admin-list">
-      <h3>Usuários</h3>
-      <table className="checkout-table admin-table">
+    <div>
+      <h2>Lista de usuários</h2>
+      <table className={ styles.adminTable }>
         <thead>
           <tr>
-            <th>Índice</th>
+            <th> </th>
             <th>Nome</th>
             <th>Email</th>
             <th>Tipo</th>
-            <th>Excluir</th>
+            <th> </th>
           </tr>
         </thead>
         {
@@ -68,16 +69,18 @@ function AdminList() {
                       { index + 1}
                     </td>
                     <td
-                      className="table-name"
+                      className={ styles.tableName }
                       data-testid={ `${ROUTE}element-user-table-name-${index}` }
                     >
                       { user.name }
                     </td>
                     <td
-                      className="table-email"
+                      className={ styles.tableEmail }
                       data-testid={ `${ROUTE}element-user-table-email-${index}` }
                     >
-                      { user.email }
+                      { user.email.split('@')[0] }
+                      <br />
+                      {`@${user.email.split('@')[1]}`}
                     </td>
                     <td data-testid={ `${ROUTE}element-user-table-role-${index}` }>
                       { user.role === 'customer' ? 'Cliente' : 'Vendedor' }
@@ -88,7 +91,11 @@ function AdminList() {
                         type="button"
                         onClick={ () => handleDelete(user.id) }
                       >
-                        X
+                        <span
+                          className="material-icons-outlined"
+                        >
+                          highlight_off
+                        </span>
                       </button>
                     </td>
                   </tr>

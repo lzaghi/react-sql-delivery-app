@@ -1,10 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import { requestPost } from '../services/requests';
 import { userLogin } from '../redux/actions';
 import logo from '../images/logo-red.png';
-import '../style/Register.css';
+import 'react-toastify/dist/ReactToastify.css';
+import styles from '../css/Login.module.css';
+import Loading from '../components/Loading';
 
 function Register() {
   const dispatch = useDispatch();
@@ -16,7 +19,6 @@ function Register() {
   });
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   function handleChange({ target }) {
     setNewUser({
@@ -31,7 +33,8 @@ function Register() {
     }));
   };
 
-  const register = useCallback(async () => {
+  const register = async (event) => {
+    event.preventDefault();
     setLoading(true);
     try {
       const { user, token } = await requestPost(
@@ -44,28 +47,18 @@ function Register() {
 
       history.push('/customer/products');
     } catch (e) {
-      setError(e);
-    } finally {
       setLoading(false);
+      toast.error(e.response?.data?.message || 'Internal error');
     }
-  }, [dispatch, history, newUser.name, newUser.email, newUser.password]);
-
-  const handleKeyPress = useCallback(
-    (event) => {
-      if (event.key === 'Enter' && !disabled) {
-        register();
-      }
-    },
-    [disabled, register],
-  );
+  };
 
   useEffect(() => {
-    const TWELVE = 12;
+    const EIGHT = 8;
     const SIX = 6;
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    const nameCheck = newUser.name.length >= TWELVE;
+    const nameCheck = newUser.name.length >= EIGHT;
     const emailCheck = emailRegex.test(newUser.email);
     const passCheck = newUser.password.length >= SIX;
 
@@ -74,65 +67,63 @@ function Register() {
     } else {
       setDisabled(true);
     }
-
-    document.addEventListener('keypress', handleKeyPress);
-  }, [newUser.name, newUser.email, newUser.password, handleKeyPress]);
+  }, [newUser.name, newUser.email, newUser.password]);
 
   return (
-    <div className="register">
-      <div>
-        <img src={ logo } alt="logo do app" />
-      </div>
-      <form>
-        <label htmlFor="name">
-          Nome Completo:
+    <>
+      <div className={ styles.container }>
+        <div>
+          <img src={ logo } alt="logo do app" />
+        </div>
+        <form onSubmit={ register }>
+          <label htmlFor="username">
+            Nome completo
+          </label>
           <input
+            id="username"
             data-testid="common_register__input-name"
-            type="name"
+            type="text"
             name="name"
             value={ newUser.name }
             onChange={ (e) => handleChange(e) }
           />
-        </label>
-        <label htmlFor="email">
-          Email:
+          <label htmlFor="email">
+            Email
+          </label>
           <input
+            id="email"
             data-testid="common_register__input-email"
             type="email"
             name="email"
             value={ newUser.email }
             onChange={ (e) => handleChange(e) }
           />
-        </label>
-        <label htmlFor="password">
-          Senha:
+          <label htmlFor="password">
+            Senha
+          </label>
           <input
+            id="password"
             data-testid="common_register__input-password"
             type="password"
             name="password"
             value={ newUser.password }
             onChange={ (e) => handleChange(e) }
           />
-        </label>
-        <button
-          data-testid="common_register__button-register"
-          type="button"
-          disabled={ disabled }
-          onClick={ () => register() }
-        >
-          Cadastrar
-        </button>
-        {
-          loading && <p>Carregando...</p>
-        }
-      </form>
-      { error && (
-        <p
-          data-testid="common_register__element-invalid_register"
-        >
-          {error.response?.data?.message || 'Algo deu errado!'}
-        </p>)}
-    </div>
+          <button
+            className={ styles.registerButton }
+            data-testid="common_register__button-register"
+            type="submit"
+            disabled={ disabled }
+          >
+            Cadastrar
+          </button>
+          {
+            loading && <div className={ styles.loginLoading }><Loading /></div>
+          }
+        </form>
+      </div>
+      <ToastContainer />
+    </>
   );
 }
 

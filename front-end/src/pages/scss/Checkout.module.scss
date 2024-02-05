@@ -1,0 +1,160 @@
+@use 'position';
+@use 'button';
+
+.container {
+  @include position.mobile();
+  padding-top: 100px;
+  flex-direction: column;
+}
+
+.resumo {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+%shared-cell {
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
+}
+
+.checkoutTable {
+  border-collapse: collapse;
+
+  .countHeader, .countData {
+    display: none;
+  }
+
+  .descricaoData {
+    text-align: left;
+  }
+
+  .subTotalHeader {
+    min-width: 80px;
+  }
+
+  th {
+    @extend %shared-cell;
+    background-color: #f0f0f0;
+    padding: 3px 3px;
+  }
+
+  td {
+    @extend %shared-cell;
+    padding: 10px 5px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    color: gray;
+    display: flex;
+    height: fit-content;
+    
+    :hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.orderInfo {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0 60px;
+
+  .alterOrder {
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 20px;
+    color: black;
+    display: flex;
+    font-size: 14px;
+    padding: 0 11px 0 7px;
+    text-decoration: none;
+    width: fit-content;
+
+    .alterText {
+      margin-left: 6px;
+    }
+  }
+
+  .checkoutTotal {
+    font-size: 18px;
+
+    b {
+      font-size: 20px;
+    }
+  }
+}
+
+%input-style {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+  margin: 5px;
+  padding: 4px;
+  width: 100%;
+}
+
+.checkoutForm {
+  border: 1px solid gray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding: 20px 10px;
+
+  label {
+    align-items: center;
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  input {
+    @extend %input-style;
+    padding: 4px 8px;
+    text-align: left;
+  }
+
+  select {
+    @extend %input-style;
+
+    :hover {
+      border-color: #999;
+    }
+
+    :focus {
+      border-color: black;
+    }
+  }
+
+  button {
+    @include button.redAndWhite();
+    align-self: center;
+    border-radius: 10px;
+    font-weight: bold;
+    height: 30px;
+    width: 200px;
+  }
+}
+
+.checkoutForm [ type='number']::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.checkoutForm [ type='number']::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+
+
+

@@ -1,0 +1,83 @@
+@charset "UTF-8";
+.loading {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orders {
+  display: flex;
+  margin-inline: auto;
+  width: calc(100vw - 40px);
+  max-width: 350px;
+  padding: 100px 0 40px;
+  flex-wrap: wrap;
+}
+.orders .noOrders {
+  font-size: 16px;
+}
+.orders a {
+  text-decoration: none;
+  color: black;
+}
+
+.orderLink {
+  border-top: 2px solid gray;
+  border-bottom: 1px solid rgb(238, 238, 238);
+  margin: 15px 10px;
+  padding: 10px 5px;
+  transition: 0.2s;
+  width: 100%;
+}
+.orderLink:hover {
+  background-color: rgb(238, 238, 238);
+}
+.orderLink p, .orderLink b, .orderLink span {
+  font-size: 16px;
+}
+.orderLink .orderTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.orderLink .status {
+  margin: 5px 0;
+  text-align: center;
+}
+.orderLink .details {
+  font-size: 13px;
+  margin-top: 15px;
+  text-align: right;
+}
+.orderLink .progressContainer .Entregue, .orderLink .progressContainer .EmTrânsito, .orderLink .progressContainer .Preparando, .orderLink .progressContainer .Pendente {
+  height: 10px;
+  background-color: gray;
+  border-radius: 10px;
+  text-align: center;
+}
+.orderLink .progressContainer {
+  background-color: lightgray;
+  border-radius: 10px;
+  height: 10px;
+  margin-inline: auto;
+  width: 50%;
+}
+.orderLink .progressContainer .Pendente {
+  width: 25%;
+}
+.orderLink .progressContainer .Preparando {
+  width: 50%;
+}
+.orderLink .progressContainer .EmTrânsito {
+  width: 75%;
+}
+.orderLink .progressContainer .Entregue {
+  background-color: #4CAF50;
+  width: 100%;
+}
+.orderLink .orderAddress {
+  margin-bottom: 10px;
+  padding-top: 5px;
+}

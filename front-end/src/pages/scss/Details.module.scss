@@ -1,0 +1,131 @@
+@use 'position';
+@use 'button';
+@use 'loading';
+
+.loading {
+  @include loading.loader($top: 250px);
+}
+
+.details {
+  @include position.mobile();
+  flex-direction: column;
+  padding: 100px 0 40px 0;
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+
+  p, b {
+    font-size: 16px;
+  }
+}
+
+.detailsSale {
+  border-left: 1px dashed black;
+  padding-left: 20px;
+
+  p {
+    margin-bottom: 8px;
+  }
+}
+
+%shared-cell {
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
+}
+
+.detailsTable {
+  border-collapse: collapse;
+  margin-top: 40px;
+
+  .numberHeader {
+    min-width: 30px;
+  }
+
+  .descricaoData {
+    text-align: left;
+  }
+
+  .subTotalHeader {
+    min-width: 80px;
+  }
+
+  th {
+    @extend %shared-cell;
+    background-color: #f0f0f0;
+    padding: 3px 1px;
+  }
+
+  td {
+    @extend %shared-cell;
+    padding: 8px 5px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+}
+
+.detailsTotal {
+  margin-top: 30px;
+  text-align: right;
+}
+
+.detailsStatus {
+  border-top: 2px solid gray;
+  margin-top: 40px;
+  padding-top: 20px;
+  text-align: center;
+
+  %progressBar {
+    height: 10px;
+    background-color: gray;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .progressContainer {
+    background-color: lightgray;
+    border-radius: 10px;
+    height: 10px;
+    margin: 10px auto;
+    width: 50%;
+
+    .Pendente {
+      @extend %progressBar;
+      width: 25%;
+    }
+
+    .Preparando {
+      @extend %progressBar;
+      width: 50%;
+    }
+
+    .EmTrânsito {
+      @extend %progressBar;
+      width: 75%;
+    }
+
+    .Entregue {
+      @extend %progressBar;
+      background-color: #4CAF50;
+      width: 100%;
+    }
+  }
+
+  button {
+    @include button.redAndWhite();
+    border-radius: 5px;
+    font-weight: 700;
+    margin-top: 10px;
+    padding: 5px 7px;
+  }
+
+  .sellerButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

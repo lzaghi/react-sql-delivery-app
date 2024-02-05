@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import CheckoutTable from '../components/CheckoutTable';
 import CheckoutForm from '../components/CheckoutForm';
-import '../style/Checkout.css';
+import styles from '../css/Checkout.module.css';
 
 function Checkout() {
   const history = useHistory();
@@ -25,10 +25,9 @@ function Checkout() {
   return (
     <div>
       <Header />
-      <div className="checkout">
-        <h2>Resumo do pedido</h2>
+      <div className={ styles.container }>
+        <h2 className={ styles.resumo }>Resumo do pedido</h2>
         <CheckoutTable />
-        <h2>Informações para entrega</h2>
         <CheckoutForm />
       </div>
     </div>

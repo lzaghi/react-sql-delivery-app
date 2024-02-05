@@ -1,0 +1,151 @@
+.loading {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cartContainer {
+  background-color: white;
+  border-top: 2px solid var(--red);
+  display: flex;
+  align-items: center;
+  height: 85px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+}
+
+.cart {
+  display: flex;
+  margin-inline: auto;
+  width: calc(100vw - 40px);
+  max-width: 350px;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart p, .cart b {
+  font-size: 20px;
+}
+.cart button {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  transition: 0.2s;
+  border-radius: 100px;
+  border-top-right-radius: 0;
+  height: 50px;
+  width: 50px;
+  padding: 3px 0 0 3px;
+}
+.cart button:enabled {
+  cursor: pointer;
+}
+.cart button:enabled:hover {
+  filter: grayscale(0.3);
+}
+.cart button:disabled {
+  background-color: var(--red-opacity);
+}
+.cart .icon {
+  font-size: 30px;
+}
+.cart .buttonText {
+  display: none;
+}
+
+.productsContainer {
+  display: flex;
+  margin-inline: auto;
+  width: calc(100vw - 40px);
+  max-width: 350px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.productCard {
+  border-radius: 10px;
+  box-shadow: 0 0 15px -1px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 230px;
+  justify-content: space-between;
+  margin: 10px 7.5px 10px 7.5px;
+  padding: 12px 0;
+  text-align: center;
+  width: 160px;
+}
+.productCard .cardTop {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 170px;
+  justify-content: space-between;
+}
+.productCard .cardTop h3 {
+  font-size: 16px;
+  margin-inline: 10px;
+}
+.productCard .cardTop img {
+  margin: 5px 0;
+  width: min-content;
+}
+.productCard .cardTop .price {
+  border-bottom: 1px dashed gray;
+  display: block;
+  padding: 0 30px 2px;
+}
+.productCard .cardBottom {
+  align-items: center;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+}
+.productCard .cardBottom input {
+  border: 1px solid lightgray;
+  border-left: none;
+  border-radius: 0;
+  border-right: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+}
+.productCard .cardBottom .minus, .productCard .cardBottom .plus {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  transition: 0.2s;
+  font-size: 16px;
+  font-weight: 700;
+  height: 100%;
+  margin: 0;
+  padding: 0 15px;
+}
+.productCard .cardBottom .minus:enabled, .productCard .cardBottom .plus:enabled {
+  cursor: pointer;
+}
+.productCard .cardBottom .minus:enabled:hover, .productCard .cardBottom .plus:enabled:hover {
+  filter: grayscale(0.3);
+}
+.productCard .cardBottom .minus:disabled, .productCard .cardBottom .plus:disabled {
+  background-color: var(--red-opacity);
+}
+.productCard .cardBottom .plus {
+  border-radius: 0 10px 10px 0;
+}
+.productCard .cardBottom .minus {
+  border-radius: 10px 0 0 10px;
+}
+.productCard .cardBottom [type=number]::-webkit-inner-spin-button,
+.productCard .cardBottom [type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.productCard .cardBottom input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

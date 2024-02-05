@@ -1,0 +1,123 @@
+@charset "UTF-8";
+.loading {
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.details {
+  display: flex;
+  margin-inline: auto;
+  width: calc(100vw - 40px);
+  max-width: 350px;
+  flex-direction: column;
+  padding: 100px 0 40px 0;
+}
+.details h2 {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+.details p, .details b {
+  font-size: 16px;
+}
+
+.detailsSale {
+  border-left: 1px dashed black;
+  padding-left: 20px;
+}
+.detailsSale p {
+  margin-bottom: 8px;
+}
+
+.detailsTable td, .detailsTable th {
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
+}
+
+.detailsTable {
+  border-collapse: collapse;
+  margin-top: 40px;
+}
+.detailsTable .numberHeader {
+  min-width: 30px;
+}
+.detailsTable .descricaoData {
+  text-align: left;
+}
+.detailsTable .subTotalHeader {
+  min-width: 80px;
+}
+.detailsTable th {
+  background-color: #f0f0f0;
+  padding: 3px 1px;
+}
+.detailsTable td {
+  padding: 8px 5px;
+}
+.detailsTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.detailsTotal {
+  margin-top: 30px;
+  text-align: right;
+}
+
+.detailsStatus {
+  border-top: 2px solid gray;
+  margin-top: 40px;
+  padding-top: 20px;
+  text-align: center;
+}
+.detailsStatus .progressContainer .Entregue, .detailsStatus .progressContainer .EmTrânsito, .detailsStatus .progressContainer .Preparando, .detailsStatus .progressContainer .Pendente {
+  height: 10px;
+  background-color: gray;
+  border-radius: 10px;
+  text-align: center;
+}
+.detailsStatus .progressContainer {
+  background-color: lightgray;
+  border-radius: 10px;
+  height: 10px;
+  margin: 10px auto;
+  width: 50%;
+}
+.detailsStatus .progressContainer .Pendente {
+  width: 25%;
+}
+.detailsStatus .progressContainer .Preparando {
+  width: 50%;
+}
+.detailsStatus .progressContainer .EmTrânsito {
+  width: 75%;
+}
+.detailsStatus .progressContainer .Entregue {
+  background-color: #4CAF50;
+  width: 100%;
+}
+.detailsStatus button {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  transition: 0.2s;
+  border-radius: 5px;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 5px 7px;
+}
+.detailsStatus button:enabled {
+  cursor: pointer;
+}
+.detailsStatus button:enabled:hover {
+  filter: grayscale(0.3);
+}
+.detailsStatus button:disabled {
+  background-color: var(--red-opacity);
+}
+.detailsStatus .sellerButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

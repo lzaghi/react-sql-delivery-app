@@ -1,0 +1,110 @@
+.container {
+  display: flex;
+  margin-inline: auto;
+  width: calc(100vw - 40px);
+  max-width: 350px;
+  flex-direction: column;
+  padding: 100px 0 40px;
+}
+.container h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.adminForm select, .adminForm input {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+  margin: 4px 0 0 5px;
+  padding: 4px;
+  width: 100%;
+}
+
+.adminForm {
+  border-bottom: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding: 20px 0 30px;
+}
+.adminForm label {
+  align-items: center;
+  display: flex;
+  margin-bottom: 15px;
+}
+.adminForm input {
+  padding: 4px 8px;
+  text-align: left;
+}
+.adminForm select :hover {
+  border-color: #999;
+}
+.adminForm select :focus {
+  border-color: black;
+}
+.adminForm button {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  transition: 0.2s;
+  align-self: center;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-top: 10px;
+  height: 30px;
+  width: 150px;
+}
+.adminForm button:enabled {
+  cursor: pointer;
+}
+.adminForm button:enabled:hover {
+  filter: grayscale(0.3);
+}
+.adminForm button:disabled {
+  background-color: var(--red-opacity);
+}
+.adminForm .nameLabel {
+  white-space: nowrap;
+}
+
+.adminTable td, .adminTable th {
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
+}
+
+.adminTable {
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.adminTable .tableName {
+  overflow-wrap: break-word;
+  max-width: 75px;
+}
+.adminTable .tableEmail {
+  max-width: 150px;
+}
+.adminTable th {
+  background-color: #f0f0f0;
+  padding: 6px 3px;
+}
+.adminTable td {
+  padding: 10px 5px;
+  word-wrap: break-word;
+}
+.adminTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.adminTable button {
+  background-color: transparent;
+  border: none;
+  color: gray;
+  display: flex;
+  height: fit-content;
+}
+.adminTable button :hover {
+  cursor: pointer;
+}

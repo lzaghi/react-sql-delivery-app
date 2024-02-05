@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import styles from '../css/Details.module.css';
 
 function DetailsTable(sale) {
   const history = useHistory();
@@ -14,14 +15,14 @@ function DetailsTable(sale) {
   const { props: { products, totalPrice } } = sale;
   return (
     <div>
-      <table className="checkout-table details-table">
+      <table className={ styles.detailsTable }>
         <thead>
           <tr>
+            <th className={ styles.numberHeader }> </th>
             <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
+            <th>Qtd.</th>
             <th>Valor unitário</th>
-            <th>Sub-total</th>
+            <th className={ styles.subTotalHeader }>Sub-total</th>
           </tr>
         </thead>
         <tbody>
@@ -34,7 +35,7 @@ function DetailsTable(sale) {
                   { index + 1 }
                 </td>
                 <td
-                  className="descricao"
+                  className={ styles.descricaoData }
                   data-testid={ `${ROUTE}element-order-table-name-${index}` }
                 >
                   { product.name }
@@ -61,7 +62,7 @@ function DetailsTable(sale) {
         </tbody>
       </table>
       <p
-        className="details-total"
+        className={ styles.detailsTotal }
         data-testid={ `${ROUTE}element-order-total-price` }
       >
         Total:
