@@ -89,21 +89,21 @@ Credenciais de acesso presentes por padrão no banco de dados:
 <details open>
 <summary style="font-weight: bold;">Fluxo de usuário</summary>
 
-<img src="user.gif" alt="Fluxo de usuário" style="max-width: 200px; height: auto;">
+<img src="user.gif" alt="Fluxo de usuário" style="width: 200px; height: auto;">
 
 </details>
 
 <details open>
 <summary style="font-weight: bold;">Fluxo de vendedor</summary>
 
-<img src="seller.gif" alt="Fluxo de Vendedor" style="max-width: 200px; height: auto;">
+<img src="seller.gif" alt="Fluxo de Vendedor" style="width: 200px; height: auto;">
 
 </details>
 
 <details open>
 <summary style="font-weight: bold;">Fluxo de administrador</summary>
 
-<img src="admin.gif" alt="Fluxo de Administrador" style="max-width: 200px; height: auto;">
+<img src="admin.gif" alt="Fluxo de Administrador" style="width: 200px; height: auto;">
 
 </details>
 
