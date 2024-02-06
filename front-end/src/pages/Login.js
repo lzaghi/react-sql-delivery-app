@@ -13,8 +13,8 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [newUser, setNewUser] = useState({
-    email: 'zebirita@email.com',
-    password: '$#zebirita#$',
+    email: '',
+    password: '',
   });
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);

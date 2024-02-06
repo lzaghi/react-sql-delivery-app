@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import SaleCard from '../components/SaleCard';
 import Loading from '../components/Loading';
@@ -9,6 +10,7 @@ import styles from '../css/Orders.module.css';
 function Orders() {
   const history = useHistory();
   const { location: { pathname } } = history;
+  const userName = useSelector((state) => state.user.name);
 
   const [sales, setSales] = useState([]);
   const [error, setError] = useState(false);
@@ -67,6 +69,11 @@ function Orders() {
           ? <div className={ styles.loading }><Loading /></div>
           : (
             <div className={ styles.orders }>
+              {
+                endpoint === 'seller' && (
+                  <h2 className={ styles.title }>{`Vendas de ${userName}`}</h2>
+                )
+              }
               { !sales.length
                 ? <p className={ styles.noOrders }>Ainda não há pedidos!</p>
                 : (
