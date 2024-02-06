@@ -86,18 +86,26 @@ Credenciais de acesso presentes por padrão no banco de dados:
 
 ## Demonstração
 
-### Fluxo de usuário
+<details>
+<summary style="font-weight: bold;">Fluxo de usuário</summary>
 
-![](delivery-user.gif)
+![](user.gif)
 
-### Fluxo de vendedor
+</details>
 
-![](delivery-seller.gif)
+<details>
+<summary style="font-weight: bold;">Fluxo de vendedor</summary>
 
-### Fluxo de administrador
+![](seller.gif)
 
-![](delivery-admin.gif)
+</details>
 
+<details>
+<summary style="font-weight: bold;">Fluxo de administrador</summary>
+
+![](admin.gif)
+
+</details>
 
 ## Cobertura de testes
 
